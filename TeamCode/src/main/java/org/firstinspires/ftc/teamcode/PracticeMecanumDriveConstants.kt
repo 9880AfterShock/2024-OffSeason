@@ -1,26 +1,12 @@
-/*
-    Copyright (c) 2022 Atomic Robotics (https://atomicrobotics3805.org)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see https://www.gnu.org/licenses/.
-*/
 package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.dashboard.config.Config
 import com.acmerobotics.roadrunner.control.PIDCoefficients
-import org.atomicrobotics3805.cflib.driving.DriverControlled
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.PIDFCoefficients
+import org.atomicrobotics3805.cflib.driving.DriverControlled
 import org.atomicrobotics3805.cflib.driving.MecanumDriveConstants
+import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.roadrunner.AxisDirection
 import org.atomicrobotics3805.cflib.trajectories.toRadians
 
@@ -33,6 +19,7 @@ import org.atomicrobotics3805.cflib.trajectories.toRadians
  * during the 2021-22 Freight Frenzy season.
  */
 @Suppress("ObjectPropertyName")
+@Config
 object PracticeMecanumDriveConstants : MecanumDriveConstants {
 
     // These are motor constants that should be listed online for your motors.
@@ -75,7 +62,7 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _GEAR_RATIO = 1.0 // output (wheel) speed / input (motor) speed
     @JvmField
-    var _TRACK_WIDTH = 17.0 // in, the distance between center of left and right drive wheels
+    var _TRACK_WIDTH = 18.0 // in, the distance between center of left and right drive wheels
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -199,22 +186,14 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
         get() = _DRIFT_MULTIPLIER
     override val DRIFT_TURN_MULTIPLIER: Double
         get() = _DRIFT_TURN_MULTIPLIER
-    override val LEFT_FRONT_DIRECTION: DcMotorSimple.Direction
-        get() = _LEFT_FRONT_DIRECTION
-    override val LEFT_BACK_DIRECTION: DcMotorSimple.Direction
-        get() = _LEFT_BACK_DIRECTION
-    override val RIGHT_FRONT_DIRECTION: DcMotorSimple.Direction
-        get() = _RIGHT_FRONT_DIRECTION
-    override val RIGHT_BACK_DIRECTION: DcMotorSimple.Direction
-        get() = _RIGHT_BACK_DIRECTION
-    override val LEFT_FRONT_NAME: String
-        get() = _LEFT_FRONT_NAME
-    override val LEFT_BACK_NAME: String
-        get() = _LEFT_BACK_NAME
-    override val RIGHT_FRONT_NAME: String
-        get() = _RIGHT_FRONT_NAME
-    override val RIGHT_BACK_NAME: String
-        get() = _RIGHT_BACK_NAME
+    override val LEFT_BACK_MOTOR: MotorEx
+        get() = MotorEx({ _LEFT_BACK_NAME }, MotorEx.MotorType.GOBILDA_YELLOWJACKET, _direction = _LEFT_BACK_DIRECTION)
+    override val RIGHT_BACK_MOTOR: MotorEx
+        get() = MotorEx({ _RIGHT_BACK_NAME }, MotorEx.MotorType.GOBILDA_YELLOWJACKET, _direction = _RIGHT_BACK_DIRECTION)
+    override val LEFT_FRONT_MOTOR: MotorEx
+        get() = MotorEx({ _LEFT_FRONT_NAME }, MotorEx.MotorType.GOBILDA_YELLOWJACKET, _direction = _LEFT_FRONT_DIRECTION)
+    override val RIGHT_FRONT_MOTOR: MotorEx
+        get() = MotorEx({ _RIGHT_FRONT_NAME }, MotorEx.MotorType.GOBILDA_YELLOWJACKET, _direction = _RIGHT_FRONT_DIRECTION)
     override val RIGHT_DRIFT_MULTIPLIER: Double
         get() = _RIGHT_DRIFT_MODIFIER
     override val POV: DriverControlled.POV
