@@ -17,6 +17,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
+import com.noahbres.meepmeep.MeepMeep
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
@@ -30,10 +31,15 @@ fun main() {
             PracticeMecanumDriveConstants,
             TwoWheelOdometryLocalizer(PracticeOdometryConstants)
         ) { Pose2d() },
-        18.0,
-        18.0,
-        { sequential { } },
+        15.7,
+        17.5,
+        {
+            sequential {
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle)
+
+
+            } },
         Constants.Color.BLUE
     ))
-    MeepMeepVisualizer.run(PracticeTrajectoryFactory)
+    MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
 }
