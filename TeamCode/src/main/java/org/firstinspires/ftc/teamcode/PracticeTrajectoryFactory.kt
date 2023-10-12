@@ -34,6 +34,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     var myPose = Pose2d()
     var mySecondPose = Pose2d()
     var myThirdPose = Pose2d()
+    var myFourthPose = Pose2d()
     /**
      * Initializes the robot's start positions and trajectories. This is where the trajectories are
      * actually created.
@@ -42,13 +43,15 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     override fun initialize() {
         super.initialize()
         // start positions
-myPose = Pose2d(-20.0,-20.0.switchColor, 0.0)
+myPose = Pose2d(-35.0,-58.0.switchColor, 0.0)
         mySecondPose = Pose2d(55.0,53.0.switchColor,50.0.toRadians)
         myThirdPose = Pose2d(-45.0,35.0.switchColor,50.0.toRadians)
+        myFourthPose = Pose2d(0.0,0.0.switchColor,180.0.toRadians)
         // trajectories
     startToMiddle = drive.trajectoryBuilder(myPose, 45.0.toRadians)
         .splineToSplineHeading(mySecondPose, (180.0.toRadians))
         .splineToSplineHeading(myThirdPose, (200.0.toRadians))
+        .splineToSplineHeading(myFourthPose,0.0.toRadians)
         .build()
     }
 }
