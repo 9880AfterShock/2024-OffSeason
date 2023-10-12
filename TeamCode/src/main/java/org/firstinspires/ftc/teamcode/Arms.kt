@@ -23,7 +23,7 @@ import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
-
+import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 
 
 /**
@@ -39,23 +39,26 @@ import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object Arms : Subsystem {
 
+    var SPEED = 1.0
+
     val StartExtend: Command
         get() = parallel {
-            //tbd
+            +PowerMotor(LeftSlide, SPEED)
+            +PowerMotor(RightSlide, SPEED)
     }
-    val StopExtend: Command
-        get() = parallel {
-            //tbd
-        }
     val StartRetract: Command
         get() = parallel {
-            //tbd
+            +PowerMotor(LeftSlide, -SPEED)
+            +PowerMotor(RightSlide, -SPEED)
         }
-    val StopRetract: Command
+    val Stop: Command
         get() = parallel {
-            //tbd
+            +PowerMotor(LeftSlide, 0.0)
+            +PowerMotor(RightSlide, 0.0)
         }
 
+lateinit var LeftSlide: MotorEx
+lateinit var RightSlide: MotorEx
 
 
 }
