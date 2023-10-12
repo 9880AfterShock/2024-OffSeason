@@ -27,11 +27,13 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
  * TeleOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
+
 @TeleOp(name = "9880 2024 aftershock")
+
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(100.0, "Woohoo!")},
+    mainRoutine = { TelemetryCommand(100.0, ":D")},
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
