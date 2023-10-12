@@ -24,19 +24,7 @@ import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 
-var SPEED = 0.5
-var UP = 60
-var FARUP = 120
-var DOWN = 0
-var GearRatioMotor = 19.2
-var GearRatioArm = 5
-var encoderTicks = 28
-//19.2:1 IS MOTOR RATIO
-//20:100 IS GEAR RATIO (1:5 doi)
-//1:360 ROUNDS:DEGREES RATIO
-//DANG THAT'S A LOT OF RATIOS
-//x is input y is output
-//    [(19.2x)5]/360=y
+
 
 /**
  * This class is an example of a lift controlled by a single motor. Unlike the Intake example object, it can use
@@ -46,35 +34,28 @@ var encoderTicks = 28
  * To use this class, copy it into the proper package and change the first eight constants (COUNTS_PER_INCH is fine as
  * is).
  */
-//THIS IS THE 2 ARMED THING THAT LIFTS UP THE CLAW
+//THESE ARE THE SLIDES THAT PUSH THE CLAW
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
-object Lift : Subsystem {
+object Arms : Subsystem {
 
-    val Up: Command
+    val StartExtend: Command
         get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
+            //tbd
+    }
+    val StopExtend: Command
+        get() = parallel {
+            //tbd
         }
-    val Down: Command
+    val StartRetract: Command
         get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
+            //tbd
         }
-    val FarUp: Command
+    val StopRetract: Command
         get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
+            //tbd
         }
 
-
-lateinit var LeftArm: MotorEx
-//claw this way (from driver view) CLAW HERE
-lateinit var RightArm: MotorEx
 
 
 }
-
-
-
-//SAM WAS HERE :D

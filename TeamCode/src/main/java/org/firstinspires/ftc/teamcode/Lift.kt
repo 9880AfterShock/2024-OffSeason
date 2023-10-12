@@ -17,21 +17,26 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
-import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
-import com.qualcomm.robotcore.hardware.DcMotorSimple
-import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.parallel
-import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
-import kotlin.math.PI
 
 var SPEED = 0.5
-var UP = 0
+var UP = 60
+var FARUP = 120
 var DOWN = 0
+var GearRatioMotor = 19.2
+var GearRatioArm = 5
+var encoderTicks = 28
+//19.2:1 IS MOTOR RATIO
+//20:100 IS GEAR RATIO (1:5 doi)
+//1:360 ROUNDS:DEGREES RATIO
+//DANG THAT'S A LOT OF RATIOS
+//x is input y is output
+//    [(19.2x)5]/360=y
 
 /**
  * This class is an example of a lift controlled by a single motor. Unlike the Intake example object, it can use
@@ -41,22 +46,35 @@ var DOWN = 0
  * To use this class, copy it into the proper package and change the first eight constants (COUNTS_PER_INCH is fine as
  * is).
  */
+//THIS IS THE 2 ARMED THING THAT LIFTS UP THE CLAW
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
-object Claw : Subsystem {
+object Lift : Subsystem {
 
     val Up: Command
         get() = parallel {
-            +MotorToPosition(MotorEx(), UP, SPEED)
+            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
+            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
         }
     val Down: Command
         get() = parallel {
-            +MotorToPosition(MotorEx(), DOWN, SPEED)
+            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
+            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
+        }
+    val FarUp: Command
+        get() = parallel {
+            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
+            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
         }
 
 
-
-
+lateinit var LeftArm: MotorEx
+//claw this way (from driver view) CLAW HERE
+lateinit var RightArm: MotorEx
 
 
 }
+
+
+
+//SAM WAS HERE :D

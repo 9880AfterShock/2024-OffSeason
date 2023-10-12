@@ -21,6 +21,7 @@ import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.GamepadEx
 import org.atomicrobotics3805.cflib.controls.Controls
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
@@ -37,6 +38,14 @@ object PracticeControls : Controls() {
      * Registers commands on the gamepads.
      */
     override fun registerCommands() {
-CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
+        CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
+        gamepad1.dpadUp.pressedCommand = {Arms.StartExtend}
+        gamepad1.dpadUp.releasedCommand = {Arms.StopExtend}
+        gamepad1.dpadDown.pressedCommand = {Arms.StartRetract}
+        gamepad1.dpadDown.releasedCommand = {Arms.StopRetract}
+        gamepad1.a.pressedCommand = { TelemetryCommand(100.0, "*insert claw noises here*") }
+        gamepad1.b.pressedCommand = {Lift.Down}
+        gamepad1.x.pressedCommand = {Lift.Up}
+        gamepad1.y.pressedCommand = {Lift.FarUp}
     }
 }
