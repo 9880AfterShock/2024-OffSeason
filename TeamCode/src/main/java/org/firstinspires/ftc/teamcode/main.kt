@@ -31,8 +31,7 @@ fun main() {
             PracticeMecanumDriveConstants,
             TwoWheelOdometryLocalizer(PracticeOdometryConstants)
         ) { Pose2d() },
-        15.7,
-        17.5,
+        15.0, 17.033333333,
         {
             sequential {
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle)
