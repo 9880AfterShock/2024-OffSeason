@@ -69,7 +69,6 @@ object Lift : Subsystem {
 
 
 lateinit var LeftArm: MotorEx
-//claw this way (from driver view) CLAW HERE
 lateinit var RightArm: MotorEx
 
 
