@@ -43,7 +43,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     override fun initialize() {
         super.initialize()
         // start positions
-myPose = Pose2d(-35.0,-58.0.switchColor, 0.0)
+myPose = Pose2d(-35.0,-58.0.switchColor, 45.0)
         mySecondPose = Pose2d(55.0,53.0.switchColor,50.0.toRadians)
         myThirdPose = Pose2d(-45.0,35.0.switchColor,50.0.toRadians)
         myFourthPose = Pose2d(0.0,0.0.switchColor,180.0.toRadians)

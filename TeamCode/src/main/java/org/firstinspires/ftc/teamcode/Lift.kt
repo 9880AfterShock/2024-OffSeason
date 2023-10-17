@@ -58,15 +58,26 @@ object Lift : Subsystem {
 
     val Up: Command
         get() =
-            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
+            MotorToPosition(
+                ArmMotor,
+                (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(),
+                SPEED
+            )
     val Down: Command
         get() =
-            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
+            MotorToPosition(
+                ArmMotor,
+                (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(),
+                SPEED
+            )
 
     val FarUp: Command
         get() =
-            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
-
+            MotorToPosition(
+                ArmMotor,
+                (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(),
+                SPEED
+            )
 
 
     val ArmMotor: MotorEx = MotorExGroup(
@@ -74,13 +85,12 @@ object Lift : Subsystem {
         MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightArm)
     )
 
+
     override fun initialize() {
         ArmMotor.initialize()
     }
 
-
 }
-
 
 
 //SAM WAS HERE :D

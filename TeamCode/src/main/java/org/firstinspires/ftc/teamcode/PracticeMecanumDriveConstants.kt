@@ -76,7 +76,7 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _MAX_VEL = 55.0
     @JvmField
-    var _MAX_ACCEL = 30.0 // expirement to find
+    var _MAX_ACCEL = 55.0 // expirement to find
     @JvmField
     var _MAX_ANG_VEL = 30.0.toRadians //max vel over track width
     @JvmField
