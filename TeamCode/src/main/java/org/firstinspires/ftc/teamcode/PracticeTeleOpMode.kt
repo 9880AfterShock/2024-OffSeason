@@ -33,7 +33,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(100.0, ":D")},
+    mainRoutine = { TelemetryCommand(100.0, "=D")},
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)

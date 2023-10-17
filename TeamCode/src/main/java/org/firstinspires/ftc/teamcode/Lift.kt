@@ -17,26 +17,14 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
-import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.hardware.MotorEx
-import org.atomicrobotics3805.cflib.hardware.MotorExGroup
-import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
-var NAME_1 = "LeftArm"
-var NAME_2 = "RightArm"
-var LeftArm = DcMotorSimple.Direction.FORWARD
-var RightArm = DcMotorSimple.Direction.REVERSE
-var SPEED = 0.5
-var UP = 60
-var FARUP = 120
-var DOWN = 0
-var GearRatioMotor = 19.2
-var GearRatioArm = 5
-var encoderTicks = 28
 //19.2:1 IS MOTOR RATIO
 //20:100 IS GEAR RATIO (1:5 doi)
 //1:360 ROUNDS:DEGREES RATIO
@@ -56,6 +44,17 @@ var encoderTicks = 28
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object Lift : Subsystem {
 
+    var NAME_1 = "LeftArm"
+    var NAME_2 = "RightArm"
+    var LeftArm = DcMotorSimple.Direction.FORWARD
+    var RightArm = DcMotorSimple.Direction.REVERSE
+    var SPEED = 0.5
+    var UP = 60
+    var FARUP = 120
+    var DOWN = 0
+    var GearRatioMotor = 19.2
+    var GearRatioArm = 5
+    var encoderTicks = 28
     val Up: Command
         get() =
             MotorToPosition(
@@ -80,14 +79,16 @@ object Lift : Subsystem {
             )
 
 
-    val ArmMotor: MotorEx = MotorExGroup(
+    val ArmMotor: MotorEx = CustomMotorExGroup(
         MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, LeftArm),
         MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightArm)
     )
 
 
     override fun initialize() {
+        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Adam's hunch was wrong"))
         ArmMotor.initialize()
+        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Arm Motor", { ArmMotor.motor.toString() }))
     }
 
 }
