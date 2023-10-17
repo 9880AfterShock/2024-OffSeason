@@ -18,12 +18,18 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotorEx
+import com.qualcomm.robotcore.hardware.DcMotorSimple
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.MotorEx
+import org.atomicrobotics3805.cflib.hardware.MotorExGroup
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 
+var NAME_1 = "LeftArm"
+var NAME_2 = "RightArm"
+var LeftArm = DcMotorSimple.Direction.FORWARD
+var RightArm = DcMotorSimple.Direction.REVERSE
 var SPEED = 0.5
 var UP = 60
 var FARUP = 120
@@ -34,7 +40,6 @@ var encoderTicks = 28
 //19.2:1 IS MOTOR RATIO
 //20:100 IS GEAR RATIO (1:5 doi)
 //1:360 ROUNDS:DEGREES RATIO
-//DANG THAT'S A LOT OF RATIOS
 //x is input y is output
 //    [(19.2x)5]/360=y
 
@@ -52,25 +57,26 @@ var encoderTicks = 28
 object Lift : Subsystem {
 
     val Up: Command
-        get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
-        }
+        get() =
+            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(), SPEED)
     val Down: Command
-        get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
-        }
+        get() =
+            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(), SPEED)
+
     val FarUp: Command
-        get() = parallel {
-            +MotorToPosition(LeftArm, (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
-            +MotorToPosition(RightArm, -(encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
-        }
+        get() =
+            MotorToPosition(ArmMotor, (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(), SPEED)
 
 
-lateinit var LeftArm: MotorEx
-//claw this way (from driver view) CLAW HERE
-lateinit var RightArm: MotorEx
+
+    val ArmMotor: MotorEx = MotorExGroup(
+        MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, LeftArm),
+        MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightArm)
+    )
+
+    override fun initialize() {
+        ArmMotor.initialize()
+    }
 
 
 }
