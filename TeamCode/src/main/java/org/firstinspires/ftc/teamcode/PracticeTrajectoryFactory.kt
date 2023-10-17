@@ -44,14 +44,14 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
         super.initialize()
         // start positions
 myPose = Pose2d(-35.0,-58.0.switchColor, 45.0)
-        mySecondPose = Pose2d(55.0,53.0.switchColor,50.0.toRadians)
-        myThirdPose = Pose2d(-45.0,35.0.switchColor,50.0.toRadians)
-        myFourthPose = Pose2d(0.0,0.0.switchColor,180.0.toRadians)
+        mySecondPose = Pose2d(-32.0,-33.0.switchColor,90.0.toRadians)
+        myThirdPose = Pose2d(40.0,-45.0.switchColor,90.0.toRadians)
+        myFourthPose = Pose2d(38.0,0.0.switchColor,180.0.toRadians)
         // trajectories
-    startToMiddle = drive.trajectoryBuilder(myPose, 45.0.toRadians)
-        .splineToSplineHeading(mySecondPose, (180.0.toRadians))
-        .splineToSplineHeading(myThirdPose, (200.0.toRadians))
-        .splineToSplineHeading(myFourthPose,0.0.toRadians)
+    startToMiddle = drive.trajectoryBuilder(myPose, 90.0.toRadians)
+        .splineToSplineHeading(mySecondPose, (0.0.toRadians))
+        .splineToSplineHeading(myThirdPose, (350.0.toRadians))
+        .splineToSplineHeading(myFourthPose,90.0.toRadians)
         .build()
     }
 }
