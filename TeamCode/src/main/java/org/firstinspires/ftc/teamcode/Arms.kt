@@ -17,7 +17,10 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
+import com.qualcomm.robotcore.hardware.DcMotorSimple
+import com.qualcomm.robotcore.util.RobotLog
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.parallel
@@ -35,32 +38,61 @@ import org.atomicrobotics3805.cflib.subsystems.PowerMotor
  * is).
  */
 //THESE ARE THE SLIDES THAT PUSH THE CLAW
-var min = 0
+var min = 0.0
 var max = 8.7
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object Arms : Subsystem {
 
+    var NAME_1 = "LeftSlide"
+    var NAME_2 = "RightSlide"
+    var LeftSlide = DcMotorSimple.Direction.FORWARD
+    var RightSlide = DcMotorSimple.Direction.REVERSE
     var SPEED = 1.0
-
     val StartExtend: Command
-        get() = parallel {
-            +PowerMotor(LeftSlide, SPEED)
-            +PowerMotor(RightSlide, SPEED)
-    }
+        get() =
+            ControlledPowerMotor(ArmMotor, SPEED, (28 * 19.2 * max).toInt())
+
     val StartRetract: Command
-        get() = parallel {
-            +PowerMotor(LeftSlide, -SPEED)
-            +PowerMotor(RightSlide, -SPEED)
-        }
+        get() =
+            ControlledPowerMotor(ArmMotor, -SPEED, (28 * 19.2 * min).toInt())
+
     val Stop: Command
-        get() = parallel {
-            +PowerMotor(LeftSlide, 0.0)
-            +PowerMotor(RightSlide, 0.0)
+        get() =
+            PowerMotor(ArmMotor, 0.0)
+
+
+    val ArmMotor: MotorEx = CustomMotorExGroup(
+        MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, LeftSlide),
+        MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightSlide)
+    )
+
+//copy of power motor for slides cap
+    class ControlledPowerMotor(
+        private val motor: MotorEx,
+        private val power: Double,
+        private val stopPosition: Int,
+        private val mode: DcMotor.RunMode? = null,
+        override val requirements: List<Subsystem> = arrayListOf(),
+        override val interruptible: Boolean = true,
+        private val logData: Boolean = false
+    ) : Command() {
+    override val _isDone: Boolean
+        get() = (motor.currentPosition > stopPosition && power > 0) ||
+                (motor.currentPosition < stopPosition && power < 0)
+        override fun start() {
+            if (mode != null) {
+                motor.mode = mode
+            }
+            motor.power = power
+            if(logData) {
+                RobotLog.i("PowerMotor", power)
+            }
         }
 
-lateinit var LeftSlide: MotorEx
-lateinit var RightSlide: MotorEx
-
-
+    override fun end(interrupted: Boolean) {
+        motor.power = 0.0
+    }
+    }
+    //end of port
 }
