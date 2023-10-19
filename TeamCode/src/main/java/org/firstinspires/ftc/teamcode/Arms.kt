@@ -35,6 +35,8 @@ import org.atomicrobotics3805.cflib.subsystems.PowerMotor
  * is).
  */
 //THESE ARE THE SLIDES THAT PUSH THE CLAW
+var min = 0
+var max = 10
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object Arms : Subsystem {
