@@ -67,6 +67,10 @@ object Arms : Subsystem {
         MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightSlide)
     )
 
+    override fun initialize() {
+        ArmMotor.initialize()
+    }
+
 //copy of power motor for slides cap
     class ControlledPowerMotor(
         private val motor: MotorEx,

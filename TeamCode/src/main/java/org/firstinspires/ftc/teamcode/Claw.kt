@@ -38,7 +38,6 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  */
 //THIS IS THE CLAW
 
-var NAME = "Claw" //tbd
 var OPEN_POSITION = 0.2 //tbd, prob 45° -ish
 var CLOSE_POSITION = 0.0 //tbd, prob 0
 var TIME = 1.0 //tbd
