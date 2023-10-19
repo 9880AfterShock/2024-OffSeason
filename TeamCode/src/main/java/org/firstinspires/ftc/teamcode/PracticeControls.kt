@@ -43,7 +43,7 @@ object PracticeControls : Controls() {
         gamepad1.dpadUp.releasedCommand = {Arms.Stop}
         gamepad1.dpadDown.pressedCommand = {Arms.StartRetract}
         gamepad1.dpadDown.releasedCommand = {Arms.Stop}
-        gamepad1.a.pressedCommand = { TelemetryCommand(100.0, "*insert claw noises here*") }
+        gamepad1.a.pressedCommand = {}
         gamepad1.b.pressedCommand = {Lift.Down}
         gamepad1.x.pressedCommand = {Lift.Up}
         gamepad1.y.pressedCommand = {Lift.FarUp}
