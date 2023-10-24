@@ -51,11 +51,13 @@ object Arms : Subsystem {
     var SPEED = 1.0
     val StartExtend: Command
         get() =
-            ControlledPowerMotor(ArmMotor, SPEED, (28 * 19.2 * max).toInt())
+            //ControlledPowerMotor(ArmMotor, SPEED, (28 * 19.2 * max).toInt())
+            PowerMotor(ArmMotor, SPEED)
 
     val StartRetract: Command
         get() =
-            ControlledPowerMotor(ArmMotor, -SPEED, (28 * 19.2 * min).toInt())
+            //ControlledPowerMotor(ArmMotor, -SPEED, (28 * 19.2 * min).toInt())
+            PowerMotor(ArmMotor, -SPEED)
 
     val Stop: Command
         get() =
