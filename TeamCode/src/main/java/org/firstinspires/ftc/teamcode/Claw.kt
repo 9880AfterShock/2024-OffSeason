@@ -26,6 +26,7 @@ import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
+import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
@@ -53,11 +54,12 @@ object Claw : Subsystem {
     val Switch: Command
         get() = parallel {
             if (ClawState == "Closed") {
-                Open
-                ClawState = "Open"
+                +Open
+                +CustomCommand(_start={ClawState = "Open"})
             }else{
-                Close
-                ClawState = "Closed"}
+                +Close
+                +CustomCommand(_start={ClawState = "Closed"})
+            }
         }
 
     val Open: Command
