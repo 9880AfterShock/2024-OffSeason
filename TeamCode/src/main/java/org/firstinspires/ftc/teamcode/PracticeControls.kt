@@ -39,13 +39,14 @@ object PracticeControls : Controls() {
      */
     override fun registerCommands() {
         CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
-        gamepad1.dpadUp.pressedCommand = {Arms.StartExtend}
-        gamepad1.dpadUp.releasedCommand = {Arms.Stop}
-        gamepad1.dpadDown.pressedCommand = {Arms.StartRetract}
-        gamepad1.dpadDown.releasedCommand = {Arms.Stop}
+        gamepad2.dpadUp.pressedCommand = {Arms.StartExtend}
+        gamepad2.dpadUp.releasedCommand = {Arms.Stop}
+        gamepad2.dpadDown.pressedCommand = {Arms.StartRetract}
+        gamepad2.dpadDown.releasedCommand = {Arms.Stop}
         gamepad1.a.pressedCommand = {Claw.Switch}
-        gamepad1.b.pressedCommand = {Lift.Down}
-        gamepad1.x.pressedCommand = {Lift.Up}
-        gamepad1.y.pressedCommand = {Lift.FarUp}
+        gamepad2.b.pressedCommand = {Lift.Down}
+        gamepad2.x.pressedCommand = {Lift.Up}
+        gamepad2.y.pressedCommand = {Lift.FarUp}
+        gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
     }
 }
