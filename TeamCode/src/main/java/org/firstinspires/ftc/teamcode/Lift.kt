@@ -21,8 +21,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.hardware.MotorEx
+import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
+import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 //19.2:1 IS MOTOR RATIO
@@ -52,7 +54,7 @@ object Lift : Subsystem {
     var UP = 60
     var FARUP = 120
     var DOWN = 0
-    var GearRatioMotor = 19.2
+    var GearRatioMotor = 50.9
     var GearRatioArm = 5
     var encoderTicks = 28
     val Up: Command
@@ -63,13 +65,15 @@ object Lift : Subsystem {
                 SPEED
             )
     val Down: Command
-        get() =
-            MotorToPosition(
+        get() = sequential {
+            +MotorToPosition(
                 ArmMotor,
                 (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(),
                 SPEED
-            )
 
+            )
+            +PowerMotor(ArmMotor, 0.0)
+        }
     val FarUp: Command
         get() =
             MotorToPosition(

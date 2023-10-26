@@ -10,11 +10,14 @@ import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.atomicrobotics3805.cflib.subsystems.DisplayRobot
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
 import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
 
 /**
+ * 192.168.43.1:8080/dash
+ *
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal
  * teleop routine and make sure the robot's estimated pose matches the robot's actual pose (slight
  * errors are not out of the ordinary, especially with sudden drive motions). The goal of this
@@ -34,6 +37,7 @@ class LocalizationTest : LinearOpMode() {
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         waitForStart()
         CommandScheduler.scheduleCommand(drive.driverControlled(gamepad1))
+        CommandScheduler.scheduleCommand(DisplayRobot())
         CommandScheduler.scheduleCommand(TelemetryCommand(1000.0, "Position") { drive.poseEstimate.toString() })
         CommandScheduler.scheduleCommand(TelemetryCommand(1000.0, "Velocity") { drive.poseVelocity.toString() })
         while (!isStopRequested) {
