@@ -36,7 +36,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 //THIS IS THE CLAW
 
 private var TIME = 1.0 //tbd
-var TriggerState = "Open"
+var TriggerState = "Closed"
 val triggerServo = ServoEx("Trigger")
 
 
@@ -46,19 +46,19 @@ val triggerServo = ServoEx("Trigger")
 object Trigger : Subsystem {
 
     @JvmField
-    var TriggeredPOSITION = 0.4 //tbd, prob 90° -ish
+    var TriggeredPOSITION = 0.06 //tbd, prob 90° -ish
     @JvmField
-    var LoadedPOSITION = 0.0 //tbd, prob 0 or 1
+    var LoadedPOSITION = 0.01 //tbd, prob 0 or 1
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Closed") {
                 +Open
                 +CustomCommand(_start={TriggerState = "Open"})
-                +TelemetryCommand(10.0, ClawState)
+                +TelemetryCommand(10.0, "Trigger is",TriggerState)
             }else{
                 +Close
                 +CustomCommand(_start={TriggerState = "Closed"})
-                +TelemetryCommand(10.0, TriggerState)
+                +TelemetryCommand(10.0, "Trigger is",TriggerState)
             }
         }
 
