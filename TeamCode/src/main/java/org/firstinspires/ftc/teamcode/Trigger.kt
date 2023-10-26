@@ -17,15 +17,11 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
-import com.qualcomm.robotcore.hardware.DcMotorEx
 import org.atomicrobotics3805.cflib.Command
-import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
-import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import org.atomicrobotics3805.cflib.subsystems.MoveServo
-import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
@@ -40,39 +36,39 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 //THIS IS THE CLAW
 
 private var TIME = 1.0 //tbd
-var ClawState = "Open"
-val clawServo = ServoEx("Claw")
+var TriggerState = "Open"
+val triggerServo = ServoEx("Trigger")
 
 
 
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
-object Claw : Subsystem {
+object Trigger : Subsystem {
 
     @JvmField
-    var OPEN_POSITION = 0.4 //tbd, prob 45° -ish
+    var TriggeredPOSITION = 0.4 //tbd, prob 90° -ish
     @JvmField
-    var CLOSE_POSITION = 0.0 //tbd, prob 0
+    var LoadedPOSITION = 0.0 //tbd, prob 0 or 1
     val Switch: Command
         get() = parallel {
-            if (ClawState == "Closed") {
+            if (TriggerState == "Closed") {
                 +Open
-                +CustomCommand(_start={ClawState = "Open"})
+                +CustomCommand(_start={TriggerState = "Open"})
                 +TelemetryCommand(10.0, ClawState)
             }else{
                 +Close
-                +CustomCommand(_start={ClawState = "Closed"})
-                +TelemetryCommand(10.0, ClawState)
+                +CustomCommand(_start={TriggerState = "Closed"})
+                +TelemetryCommand(10.0, TriggerState)
             }
         }
 
     val Open: Command
-        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
+        get() = MoveServo(triggerServo, TriggeredPOSITION, TIME)
     val Close: Command
-        get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
+        get() = MoveServo(triggerServo, LoadedPOSITION, TIME)
 
     override fun initialize() {
-        clawServo.initialize()
+        triggerServo.initialize()
     }
 
 
