@@ -56,11 +56,11 @@ object Lift : Subsystem {
 
     var NAME_1 = "LeftArm"
     var NAME_2 = "RightArm"
-    var LeftArm = DcMotorSimple.Direction.FORWARD
-    var RightArm = DcMotorSimple.Direction.REVERSE
+    var LeftArm = DcMotorSimple.Direction.REVERSE
+    var RightArm = DcMotorSimple.Direction.FORWARD
     var SPEED = 1.0
-    var UP = 60
-    var FARUP = 120
+    var UP = -60
+    var FARUP = -120
     var DOWN = 0
     var GearRatioMotor = 50.9
     var GearRatioArm = 5
