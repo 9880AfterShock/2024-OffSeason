@@ -98,11 +98,9 @@ object Lift : Subsystem {
 
 
     override fun initialize() {
-        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Oscar was the best"))
         ArmMotor.initialize()
         ArmMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
         ArmMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
-        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Arm Motor", { ArmMotor.motor.toString() }))
     }
     @Suppress("MemberVisibilityCanBePrivate")
     open class MotorToPosition(
