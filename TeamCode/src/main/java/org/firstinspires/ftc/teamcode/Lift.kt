@@ -29,6 +29,7 @@ import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
+import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.abs
 import kotlin.math.min
@@ -56,39 +57,43 @@ object Lift : Subsystem {
 
     var NAME_1 = "LeftArm"
     var NAME_2 = "RightArm"
-    var LeftArm = DcMotorSimple.Direction.REVERSE
-    var RightArm = DcMotorSimple.Direction.FORWARD
+    var LeftArm = DcMotorSimple.Direction.FORWARD
+    var RightArm = DcMotorSimple.Direction.REVERSE
     var SPEED = 1.0
-    var UP = -60
-    var FARUP = -120
-    var DOWN = 0
+    var UP = 60.0
+    var FARUP = 120.0
+    var DOWN = 0.0
     var GearRatioMotor = 50.9
     var GearRatioArm = 5
     var encoderTicks = 28
+
+    var TargetAngle = 0.0
     val Up: Command
         get() =
-            MotorToPosition(
-                ArmMotor,
-                (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
-                SPEED
-            )
+            CustomCommand(_start={TargetAngle = UP})
+            //MotorToPosition(
+            //    ArmMotor,
+            //    (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
+            //    SPEED
+            //)
     val Down: Command
         get() = sequential {
-            +MotorToPosition(
-                ArmMotor,
-                (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt(),
-                SPEED
-
-            )
-            +PowerMotor(ArmMotor, 0.0)
+            CustomCommand(_start={TargetAngle = DOWN})
+          //  +MotorToPosition(
+          //      ArmMotor,
+           //     (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt(),
+            //    SPEED
+         //   )
+            //+PowerMotor(ArmMotor, 0.0)
         }
     val FarUp: Command
         get() =
-            MotorToPosition(
-                ArmMotor,
-                (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
-                SPEED
-            )
+            CustomCommand(_start={TargetAngle = FARUP})
+           // MotorToPosition(
+              //  ArmMotor,
+              //  (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
+              //  SPEED
+           // )
 
 
     val ArmMotor: MotorEx = CustomMotorExGroup(
@@ -122,7 +127,7 @@ object Lift : Subsystem {
         protected var error: Int = 0
         protected var direction: Double = 0.0
         override val _isDone: Boolean
-            get() = abs(error) < minError
+            get() = false //abs(error) < minError
 
 
 
@@ -156,7 +161,8 @@ object Lift : Subsystem {
          * Stops the motor
          */
         override fun end(interrupted: Boolean) {
-            motor.power = 0.0
+            motor.targetPosition = motor.currentPosition
+            motor.power = SPEED
         }
 
         /**
