@@ -30,7 +30,7 @@ import org.atomicrobotics3805.cflib.sequential
  */
 
 @Autonomous(name = "9880 Autonomous OpMode red 2")
-class PracticeAutonomousOpMode2 : AutonomousOpMode(
+class AutonomousOpModeRed2 : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
     { sequential {
