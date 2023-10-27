@@ -28,7 +28,6 @@ import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
-import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.abs
@@ -67,33 +66,57 @@ object Lift : Subsystem {
     var GearRatioArm = 5
     var encoderTicks = 28
 
-    var TargetAngle = 0.0
-    val Up: Command
+    var ChangeAmount = 0.0
+    @JvmField
+    var UpAmount = 1.0
+    @JvmField //DownAmount is -UpAmount
+    var DownAmount = -1.0
+
+    var targetPosition = 0
+
+//    val Up: Command
+//        get() =
+//            CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
+//            //MotorToPosition(
+//            //    ArmMotor,
+//            //    (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
+//            //    SPEED
+//            //)
+//    val Down: Command
+//        get() = sequential {
+//            +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt()})
+//          //  +MotorToPosition(
+//          //      ArmMotor,
+//           //     (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt(),
+//            //    SPEED
+//         //   )
+//            //+PowerMotor(ArmMotor, 0.0)
+//        }
+//    val FarUp: Command
+//        get() =
+//            CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt()})
+//           // MotorToPosition(
+//              //  ArmMotor,
+//              //  (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
+//              //  SPEED
+//           // )
+
+
+   val StartUp: Command
+       get() =
+           CustomCommand(_start={ ChangeAmount =
+               (encoderTicks * GearRatioMotor * UpAmount * GearRatioArm / 360.0) })
+
+    val StartDown: Command
         get() =
-            CustomCommand(_start={TargetAngle = UP})
-            //MotorToPosition(
-            //    ArmMotor,
-            //    (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
-            //    SPEED
-            //)
-    val Down: Command
-        get() = sequential {
-            CustomCommand(_start={TargetAngle = DOWN})
-          //  +MotorToPosition(
-          //      ArmMotor,
-           //     (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt(),
-            //    SPEED
-         //   )
-            //+PowerMotor(ArmMotor, 0.0)
-        }
-    val FarUp: Command
+            CustomCommand(_start={ ChangeAmount =
+                (encoderTicks * GearRatioMotor * DownAmount * GearRatioArm / 360.0) })
+    val StopMove: Command
         get() =
-            CustomCommand(_start={TargetAngle = FARUP})
-           // MotorToPosition(
-              //  ArmMotor,
-              //  (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
-              //  SPEED
-           // )
+            CustomCommand(_start={ ChangeAmount = 0.0 })
+
+
+
 
 
     val ArmMotor: MotorEx = CustomMotorExGroup(
@@ -106,15 +129,15 @@ object Lift : Subsystem {
         ArmMotor.initialize()
         ArmMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
         ArmMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
+       // CommandScheduler.scheduleCommand(MotorToPosition(ArmMotor, SPEED))
     }
     @Suppress("MemberVisibilityCanBePrivate")
     open class MotorToPosition(
         protected val motor: MotorEx,
-        protected val targetPosition: Int,
         protected var speed: Double,
         override val requirements: List<Subsystem> = arrayListOf(),
         override val interruptible: Boolean = true,
-        protected val minError: Int = 15,
+        protected val minError: Int = 70,
         protected val kP: Double = 0.005,
         protected val logData: Boolean = false
     ) : Command() {
@@ -145,9 +168,11 @@ object Lift : Subsystem {
          * Updates the error and direction, then calculates and sets the motor power
          */
         override fun execute() {
+            targetPosition += ChangeAmount.toInt()
             error = targetPosition + motor.currentPosition
             direction = sign(error.toDouble())
-            val power = kP * abs(error) * speed * direction
+            var power = kP * abs(error) * speed * direction
+            if (targetPosition == 0 && abs(error) < minError) power = 0.0
             motor.power = Range.clip(power, -min(speed, 1.0), min(speed, 1.0))
             TelemetryController.telemetry.addData("error:", error)
             cancelIfStalled()
@@ -161,8 +186,8 @@ object Lift : Subsystem {
          * Stops the motor
          */
         override fun end(interrupted: Boolean) {
-            motor.targetPosition = motor.currentPosition
-            motor.power = SPEED
+            //motor.targetPosition = motor.currentPosition
+            motor.power = 0.0
         }
 
         /**
@@ -181,7 +206,7 @@ object Lift : Subsystem {
                         CommandScheduler.scheduleCommand(
                             TelemetryCommand(3.0, "Motor " + motor.name + " Stalled!")
                         )
-                        isDone = true
+                        //isDone = true
                     }
                 }
                 saveTimes.add(timer.seconds())
