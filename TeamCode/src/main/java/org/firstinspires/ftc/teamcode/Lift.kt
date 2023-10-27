@@ -17,15 +17,23 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
+import com.qualcomm.robotcore.util.ElapsedTime
+import com.qualcomm.robotcore.util.Range
+import com.qualcomm.robotcore.util.RobotLog
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.CommandScheduler
+import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
-import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.math.roundToInt
+import kotlin.math.sign
 
 //19.2:1 IS MOTOR RATIO
 //20:100 IS GEAR RATIO (1:5 doi)
@@ -50,7 +58,7 @@ object Lift : Subsystem {
     var NAME_2 = "RightArm"
     var LeftArm = DcMotorSimple.Direction.FORWARD
     var RightArm = DcMotorSimple.Direction.REVERSE
-    var SPEED = 0.5
+    var SPEED = 1.0
     var UP = 60
     var FARUP = 120
     var DOWN = 0
@@ -61,14 +69,14 @@ object Lift : Subsystem {
         get() =
             MotorToPosition(
                 ArmMotor,
-                (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360).toInt(),
+                (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
                 SPEED
             )
     val Down: Command
         get() = sequential {
             +MotorToPosition(
                 ArmMotor,
-                (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360).toInt(),
+                (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt(),
                 SPEED
 
             )
@@ -78,7 +86,7 @@ object Lift : Subsystem {
         get() =
             MotorToPosition(
                 ArmMotor,
-                (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360).toInt(),
+                (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
                 SPEED
             )
 
@@ -90,11 +98,94 @@ object Lift : Subsystem {
 
 
     override fun initialize() {
-        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Adam's hunch was wrong"))
+        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Oscar was the best"))
         ArmMotor.initialize()
+        ArmMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        ArmMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
         CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Arm Motor", { ArmMotor.motor.toString() }))
     }
+    @Suppress("MemberVisibilityCanBePrivate")
+    open class MotorToPosition(
+        protected val motor: MotorEx,
+        protected val targetPosition: Int,
+        protected var speed: Double,
+        override val requirements: List<Subsystem> = arrayListOf(),
+        override val interruptible: Boolean = true,
+        protected val minError: Int = 15,
+        protected val kP: Double = 0.005,
+        protected val logData: Boolean = false
+    ) : Command() {
 
+        protected val timer = ElapsedTime()
+        protected val positions: MutableList<Int> = mutableListOf()
+        protected val savesPerSecond = 10.0
+        protected var saveTimes: MutableList<Double> = mutableListOf()
+        protected val minimumChangeForStall = 20.0
+        protected var error: Int = 0
+        protected var direction: Double = 0.0
+        override val _isDone: Boolean
+            get() = abs(error) < minError
+
+
+
+        /**
+         * Sets the motor's mode to RUN_USING_ENCODER, sets the error to the difference between the target and current
+         * positions, and sets the direction to the sign of the error
+         */
+        override fun start() {
+            motor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+            error = targetPosition + motor.currentPosition
+            direction = sign(error.toDouble())
+        }
+
+        /**
+         * Updates the error and direction, then calculates and sets the motor power
+         */
+        override fun execute() {
+            error = targetPosition + motor.currentPosition
+            direction = sign(error.toDouble())
+            val power = kP * abs(error) * speed * direction
+            motor.power = Range.clip(power, -min(speed, 1.0), min(speed, 1.0))
+            TelemetryController.telemetry.addData("error:", error)
+            cancelIfStalled()
+            if(logData) {
+                val data = "Power: " + Range.clip(power, -min(speed, 1.0), min(speed, 1.0)) + ", direction: " + direction + ", error: " + error
+                RobotLog.i("MotorToPosition %s", data)
+            }
+        }
+
+        /**
+         * Stops the motor
+         */
+        override fun end(interrupted: Boolean) {
+            motor.power = 0.0
+        }
+
+        /**
+         * Starts by determining whether a stall check has been performed in the past 1 / savesPerSecond seconds. If not,
+         * It then compares the speed from the previous check to the current speed. If there's a change of at least
+         * minimumChangeForStall times, then the motor is stalled. It sends out a telemetry message and cancels the command.
+         */
+        fun cancelIfStalled() {
+            val lastTime = if (saveTimes.size == 0) 0.0 else saveTimes.last()
+            val roundedLastTime = (lastTime * savesPerSecond).roundToInt() / savesPerSecond
+            if (timer.seconds() - roundedLastTime < 1 / savesPerSecond) {
+                if (positions.size > 1) {
+                    val lastSpeed = abs(positions[positions.size - 2] - positions[positions.size - 1])
+                    val currentSpeed = abs(positions[positions.size - 1] - motor.currentPosition)
+                    if (currentSpeed == 0 || lastSpeed / currentSpeed >= minimumChangeForStall) {
+                        CommandScheduler.scheduleCommand(
+                            TelemetryCommand(3.0, "Motor " + motor.name + " Stalled!")
+                        )
+                        isDone = true
+                    }
+                }
+                saveTimes.add(timer.seconds())
+                positions.add(motor.currentPosition)
+            }
+
+        }
+    }
 }
 
 

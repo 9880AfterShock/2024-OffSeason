@@ -45,7 +45,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
         // start positions
 myPose = Pose2d(-35.0,-58.0.switchColor, 0.0)
         mySecondPose = Pose2d(0.0,-59.0.switchColor,0.0.toRadians)
-        myThirdPose = Pose2d(50.0,-33.0.switchColor,70.0.toRadians)
+        myThirdPose = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
         // trajectories
     startToMiddle = drive.trajectoryBuilder(myPose, 0.0.toRadians)
         .splineToSplineHeading(mySecondPose, (0.0.toRadians))
