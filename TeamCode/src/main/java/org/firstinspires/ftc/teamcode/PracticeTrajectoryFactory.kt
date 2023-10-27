@@ -31,25 +31,36 @@ import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
  */
 object PracticeTrajectoryFactory : TrajectoryFactory() {
 
-    var myPose = Pose2d()
-    var mySecondPose = Pose2d()
-    var myThirdPose = Pose2d()
-    var myFourthPose = Pose2d()
+    var redPose1 = Pose2d()
+    var redSecondPose1 = Pose2d()
+    var redThirdPose1 = Pose2d()
+    var redFourthPose1 = Pose2d()
+
+    var redPose2 = Pose2d()
+    var redSecondPose2 = Pose2d()
+    var redThirdPose2 = Pose2d()
+
     /**
      * Initializes the robot's start positions and trajectories. This is where the trajectories are
      * actually created.
      */
-    lateinit var startToMiddle : ParallelTrajectory
+    lateinit var startToMiddleRed1 : ParallelTrajectory
+    lateinit var startToMiddleRed2 : ParallelTrajectory
     override fun initialize() {
         super.initialize()
         // start positions
-myPose = Pose2d(-35.0,-58.0.switchColor, 0.0)
-        mySecondPose = Pose2d(0.0,-59.0.switchColor,0.0.toRadians)
-        myThirdPose = Pose2d(50.0,-33.0.switchColor,70.0.toRadians)
+redPose1 = Pose2d(-35.0,-58.0.switchColor, 0.0)
+        redSecondPose1 = Pose2d(0.0,-59.0.switchColor,0.0.toRadians)
+        redThirdPose1 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
+redPose2 = Pose2d(10.0,-58.0.switchColor, 0.0)
+        redSecondPose2 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
         // trajectories
-    startToMiddle = drive.trajectoryBuilder(myPose, 0.0.toRadians)
-        .splineToSplineHeading(mySecondPose, (0.0.toRadians))
-        .splineToSplineHeading(myThirdPose, (0.0.toRadians))
+    startToMiddleRed1 = drive.trajectoryBuilder(redPose1, 0.0.toRadians)
+        .splineToSplineHeading(redSecondPose1, (0.0.toRadians))
+        .splineToSplineHeading(redThirdPose1, (0.0.toRadians))
+        .build()
+    startToMiddleRed2 = drive.trajectoryBuilder(redPose2, 0.0.toRadians)
+        .splineToSplineHeading(redSecondPose2, (0.0.toRadians))
         .build()
     }
 }

@@ -107,9 +107,9 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * I=0 and D=0 are reasonable starting points.
      */
     @JvmField
-    var _TRANSLATIONAL_PID = PIDCoefficients(8.0, 0.0, 0.0)
+    var _TRANSLATIONAL_PID = PIDCoefficients(0.0, 0.0, 0.0) //set kp to 8 when competing
     @JvmField
-    var _HEADING_PID = PIDCoefficients(8.0, 0.0, 0.0)
+    var _HEADING_PID = PIDCoefficients(0.0, 0.0, 0.0) //set kp to 8 when competing
 
     // used during TeleOp to make precise movements
     @JvmField

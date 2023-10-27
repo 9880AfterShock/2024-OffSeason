@@ -18,7 +18,6 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
-import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
@@ -30,12 +29,16 @@ import org.atomicrobotics3805.cflib.sequential
  * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
 
-@Autonomous(name = "9880 Autonomous OpMode")
+@Autonomous(name = "9880 Autonomous OpMode red 1")
 class PracticeAutonomousOpMode : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
     { sequential {
-        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle)
+        +Trigger.Switch
+        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed1)
+        +Trigger.Switch
+        +Claw.Open
+
     } },
     null,
     MecanumDrive(

@@ -17,28 +17,32 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
-import com.noahbres.meepmeep.MeepMeep
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
+import org.atomicrobotics3805.cflib.opmodes.AutonomousOpMode
 import org.atomicrobotics3805.cflib.sequential
-import org.atomicrobotics3805.cflib.visualization.MeepMeepRobot
-import org.atomicrobotics3805.cflib.visualization.MeepMeepVisualizer
 
-fun main() {
-    MeepMeepVisualizer.addRobot(MeepMeepRobot(
-        MecanumDrive(
-            PracticeMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(PracticeOdometryConstants)
-        ) { Pose2d() },
-        15.0, 17.033333333,
-        {
-            sequential {
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
+/**
+ * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
+ * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
+ */
 
+@Autonomous(name = "9880 Autonomous OpMode red 2")
+class PracticeAutonomousOpMode2 : AutonomousOpMode(
+    Constants.Color.BLUE,
+    PracticeTrajectoryFactory,
+    { sequential {
+        +Trigger.Switch
+        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
+        +Trigger.Switch
+        +Claw.Open
 
-            } },
-        Constants.Color.BLUE
-    ))
-    MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
-}
+    } },
+    null,
+    MecanumDrive(
+        PracticeMecanumDriveConstants,
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
+    ) { Pose2d() }
+)
