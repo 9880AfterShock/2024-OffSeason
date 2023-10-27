@@ -29,13 +29,13 @@ import org.atomicrobotics3805.cflib.sequential
  * the AutonomousOpMode parent class, so all you have to do is pass in the constructor parameters.
  */
 
-@Autonomous(name = "9880 Autonomous OpMode")
+@Autonomous(name = "9880 Autonomous OpMode red 1")
 class PracticeAutonomousOpMode : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
     { sequential {
         +Trigger.Switch
-        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle)
+        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed1)
         +Trigger.Switch
         +Claw.Open
 

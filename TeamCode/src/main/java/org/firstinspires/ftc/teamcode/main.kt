@@ -34,7 +34,7 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
 
 
             } },
