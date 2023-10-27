@@ -86,9 +86,7 @@ object Lift : Subsystem {
 
 
     override fun initialize() {
-        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Adam's hunch was wrong"))
         ArmMotor.initialize()
-        CommandScheduler.scheduleCommand(TelemetryCommand(Double.MAX_VALUE, "Arm Motor", { ArmMotor.motor.toString() }))
     }
 
 }
