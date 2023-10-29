@@ -34,7 +34,7 @@ class AutonomousOpModeRed1 : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
     { sequential {
-        +Trigger.Switch
+        +Trigger.Close
         +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed1)
         +Trigger.Switch
         +Claw.Open
@@ -44,5 +44,6 @@ class AutonomousOpModeRed1 : AutonomousOpMode(
     MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
-    ) { Pose2d() }
+    ) { PracticeTrajectoryFactory.redPose1 },
+    Claw, Trigger
 )

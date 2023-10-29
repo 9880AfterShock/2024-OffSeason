@@ -44,9 +44,11 @@ object PracticeControls : Controls() {
         gamepad2.dpadDown.pressedCommand = {Arms.StartRetract}
         gamepad2.dpadDown.releasedCommand = {Arms.Stop}
         gamepad1.a.pressedCommand = {Claw.Switch}
-        gamepad2.b.pressedCommand = {Lift.Down}
-        gamepad2.x.pressedCommand = {Lift.Up}
-        gamepad2.y.pressedCommand = {Lift.FarUp}
+        gamepad2.a.pressedCommand = {Claw.Switch}
+       // gamepad2.b.pressedCommand = {Lift.Down}
+       // gamepad2.x.pressedCommand = {Lift.Up}
+       // gamepad2.y.pressedCommand = {Lift.FarUp}
         gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
+        gamepad1.leftTrigger.pressedCommand = {drive.switchSpeed()}
     }
 }

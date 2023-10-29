@@ -19,7 +19,6 @@ import org.atomicrobotics3805.cflib.trajectories.toRadians
  * during the 2021-22 Freight Frenzy season.
  */
 @Suppress("ObjectPropertyName")
-@Config
 object PracticeMecanumDriveConstants : MecanumDriveConstants {
 
     // These are motor constants that should be listed online for your motors.
@@ -47,11 +46,11 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * feedback, which adjusts motor movements mid-trajectory)
      */
     @JvmField
-    var _kV = 0.013
+    var _kV = 0.0175
     @JvmField
-    var _kA = 0.0025
+    var _kA = 0.002
     @JvmField
-    var _kStatic = 0.01
+    var _kStatic = 0.0
 
     /*
      * These constants are tied to your robot's hardware. You should be able to find them just by
@@ -107,9 +106,9 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * I=0 and D=0 are reasonable starting points.
      */
     @JvmField
-    var _TRANSLATIONAL_PID = PIDCoefficients(0.0, 0.0, 0.0) //set kp to 8 when competing
+    var _TRANSLATIONAL_PID = PIDCoefficients(8.0, 0.0, 0.0) //set kp to 8 when competing
     @JvmField
-    var _HEADING_PID = PIDCoefficients(0.0, 0.0, 0.0) //set kp to 8 when competing
+    var _HEADING_PID = PIDCoefficients(8.0, 0.0, 0.0) //set kp to 8 when competing
 
     // used during TeleOp to make precise movements
     @JvmField

@@ -15,8 +15,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.atomicrobotics3805.cflib.*
 import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 import kotlin.math.PI
 @Autonomous
 @Config
@@ -26,8 +26,8 @@ class OdometryWheelTuner : AutonomousOpMode(
     { TuneWheels() },
     null,
     MecanumDrive(
-        TuningMecanumDriveConstants,
-        TwoWheelOdometryLocalizer(TuningOdometryConstants)
+        PracticeMecanumDriveConstants,
+        TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     )
 ) {
     class TuneWheels: Command() {
@@ -65,9 +65,9 @@ class OdometryWheelTuner : AutonomousOpMode(
                     val perpendicularX = -distanceTraveled[1] / amountTurned
                     // sets the constants and displays them on the telemetry
                     ((drive.localizer as TwoWheelOdometryLocalizer).
-                    constants as TuningOdometryConstants)._PARALLEL_Y = parallelY
+                    constants as PracticeOdometryConstants)._PARALLEL_Y = parallelY
                     ((drive.localizer as TwoWheelOdometryLocalizer).
-                    constants as TuningOdometryConstants)._PERPENDICULAR_X = perpendicularX
+                    constants as PracticeOdometryConstants)._PERPENDICULAR_X = perpendicularX
                     CommandScheduler.scheduleCommand(TelemetryCommand(9999.0, "Parallel Y", parallelY.toString()))
                     CommandScheduler.scheduleCommand(TelemetryCommand(9999.0, "Perpendicular X", perpendicularX.toString()))
                     // marks the command as finished

@@ -11,8 +11,8 @@ import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.trajectories.ParallelTrajectory
 import org.atomicrobotics3805.cflib.trajectories.toRadians
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 
 /*
  * Op mode for preliminary tuning of the follower PID coefficients (located in the drive base
@@ -48,8 +48,8 @@ class FollowerPIDTuner : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         Constants.drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants)
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants)
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         waitForStart()

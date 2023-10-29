@@ -46,9 +46,9 @@ val triggerServo = ServoEx("Trigger")
 object Trigger : Subsystem {
 
     @JvmField
-    var TriggeredPOSITION = 0.06 //tbd, prob 90° -ish
+    var TriggeredPOSITION = 0.115 //tbd, prob 90° -ish
     @JvmField
-    var LoadedPOSITION = 0.01 //tbd, prob 0 or 1
+    var LoadedPOSITION = 0.065 //tbd, prob 0 or 1
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Closed") {

@@ -14,8 +14,8 @@ import org.atomicrobotics3805.cflib.trajectories.toRadians
 import org.atomicrobotics3805.cflib.utilCommands.Delay
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 
 /*
  * This is an example of a more complex path to really test the tuning.
@@ -26,8 +26,8 @@ class SplineTest : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants),
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants),
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(drive, TelemetryController)
         val forwardTrajectory: ParallelTrajectory = drive.trajectoryBuilder(Pose2d())

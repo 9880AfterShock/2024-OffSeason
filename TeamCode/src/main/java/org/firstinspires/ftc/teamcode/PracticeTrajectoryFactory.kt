@@ -51,26 +51,30 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
      */
     lateinit var startToMiddleRed1 : ParallelTrajectory
     lateinit var startToMiddleRed2 : ParallelTrajectory
-    lateinit var startToMiddleBlue1 : ParallelTrajectory
+    //lateinit var startToMiddleBlue1 : ParallelTrajectory
     override fun initialize() {
         super.initialize()
         // start positions
 redPose1 = Pose2d(-35.0,-58.0.switchColor, 0.0)
-        redSecondPose1 = Pose2d(0.0,-59.0.switchColor,0.0.toRadians)
-        redThirdPose1 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
+        redSecondPose1 = Pose2d(45.0,-60.0.switchColor,0.0.toRadians)
+      //  redThirdPose1 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
+     // redFourthPose1 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
 redPose2 = Pose2d(10.0,-58.0.switchColor, 0.0)
-        redSecondPose2 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
-//bluePose1 = Pose2d(-35.0,+58.0.switchColor, 0.0)
-       // blueSecondPose1 = Pose2d(0.0,59.0.switchColor,0.0.toRadians)
-       // blueThirdPose1 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
-
+        redSecondPose2 = Pose2d(45.0,-60.0.switchColor,0.0.toRadians)
+        //redThirdPose2 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
+/*bluePose1 = Pose2d(-35.0,+58.0.switchColor, 0.0)
+        blueSecondPose1 = Pose2d(0.0,59.0.switchColor,0.0.toRadians)
+        blueThirdPose1 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
+*/
         // trajectories
     startToMiddleRed1 = drive.trajectoryBuilder(redPose1, 0.0.toRadians)
         .splineToSplineHeading(redSecondPose1, (0.0.toRadians))
-        .splineToSplineHeading(redThirdPose1, (0.0.toRadians))
+       // .splineToSplineHeading(redThirdPose1, (0.0.toRadians))
+        //.splineToSplineHeading(redFourthPose1, (0.0.toRadians))
         .build()
     startToMiddleRed2 = drive.trajectoryBuilder(redPose2, 0.0.toRadians)
         .splineToSplineHeading(redSecondPose2, (0.0.toRadians))
+       // .splineToSplineHeading(redThirdPose2, (0.0.toRadians))
         .build()
   //  startToMiddleBlue1 = drive.trajectoryBuilder(bluePose1,0.0.toRadians)
     //    .splineToSplineHeading(blueSecondPose1,0.0.toRadians)

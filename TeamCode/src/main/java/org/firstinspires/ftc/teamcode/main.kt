@@ -35,7 +35,7 @@ fun main() {
         {
             sequential {
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
+               // +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
                 //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleBlue1)
                 //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleBlue2)
 
