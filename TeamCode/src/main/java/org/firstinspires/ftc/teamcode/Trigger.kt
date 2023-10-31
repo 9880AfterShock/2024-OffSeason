@@ -52,9 +52,11 @@ object Trigger : Subsystem {
 
     @JvmField
     var TriggeredPOSITION = 0.6 //tbd, prob 90° -ish down
+    @JvmField
     var TriggeredPOSITION2 = 0.4 // inverse of 1
     @JvmField
     var LoadedPOSITION = 0.1 //tbd, prob 0 or 1 up
+    @JvmField
     var LoadedPOSITION2 = 0.9 // inverse of 1
     @JvmField
     var TestingPosition = 0.5
