@@ -17,14 +17,18 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.util.ElapsedTime
 import org.apache.commons.math3.analysis.function.Power
 import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
-import org.atomicrobotics3805.cflib.subsystems.MoveServo
+//import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
+import kotlin.math.abs
+import kotlin.math.sign
 
 /**
  * This class is an example of a lift controlled by a single motor. Unlike the Intake example object, it can use
@@ -52,6 +56,8 @@ object Trigger : Subsystem {
     @JvmField
     var LoadedPOSITION = 0.1 //tbd, prob 0 or 1 up
     var LoadedPOSITION2 = 0.9 // inverse of 1
+    @JvmField
+    var TestingPosition = 0.5
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Closed") {
@@ -79,11 +85,57 @@ object Trigger : Subsystem {
             +MoveServo(triggerServo, LoadedPOSITION, TIME)
             +MoveServo(triggerServo2, LoadedPOSITION2, TIME)
         }
+
+    val ResetServos: Command
+        get() = parallel {
+            +MoveServo(triggerServo, TestingPosition, TIME)
+            +MoveServo(triggerServo, TestingPosition, TIME)
+        }
+
     override fun initialize() {
         triggerServo.initialize()
         triggerServo2.initialize()
     }
 
+    class MoveServo(private val servo: ServoEx,
+                    private val position: Double,
+                    private val maxTime: Double,
+                    override val requirements: List<Subsystem> = arrayListOf(),
+                    override val interruptible: Boolean = true) : Command() {
+
+        private var curPosition = 0.0
+        private var servoSpeed = 0.5 // full rotations / sec
+        private var lastTime = 0.0
+        private val timer = ElapsedTime()
+        override val _isDone: Boolean
+            get() = curPosition == position
+        /**
+         * Calculates the difference in position, moves the servo, and resets the timer
+         */
+        override fun start() {
+            curPosition = servo.position
+            servo.position = position
+            lastTime = 0.0
+            timer.reset()
+        }
+
+        override fun execute() {
+            val error = position - curPosition
+            val direction = sign(error)
+            val deltaTime = timer.seconds() - lastTime
+            val servoAmountChanged = deltaTime * servoSpeed
+            if (abs(error) < servoAmountChanged) {
+                curPosition = position
+            }
+            else {
+                curPosition += servoAmountChanged * direction
+            }
+            servo.position = curPosition
+            lastTime = timer.seconds()
+            TelemetryController.telemetry.addData("Cur Position", curPosition)
+            TelemetryController.telemetry.addData("Changed Position", servoAmountChanged)
+        }
+    }
 
 
 }

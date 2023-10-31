@@ -59,6 +59,6 @@ object PracticeControls : Controls() {
         gamepad2.y.pressedCommand = {Trigger.Switch}
         gamepad1.leftTrigger.pressedCommand = {drive.switchSpeed()}
         gamepad2.b.pressedCommand = {PushbotPlate.Switch}
-
+        gamepad2.x.pressedCommand = {Trigger.ResetServos}
     }
 }
