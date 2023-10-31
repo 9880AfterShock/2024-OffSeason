@@ -50,5 +50,6 @@ object PracticeControls : Controls() {
        // gamepad2.y.pressedCommand = {Lift.FarUp}
         gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
         gamepad1.leftTrigger.pressedCommand = {drive.switchSpeed()}
+        gamepad2.rightBumper.pressedCommand = {PushbotPlate.Switch}
     }
 }
