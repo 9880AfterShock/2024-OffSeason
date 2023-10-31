@@ -34,7 +34,7 @@ class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
     initRoutine = { TelemetryCommand(100.0, Lift.ChangeAmount.toString()) },
-    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
+//    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)

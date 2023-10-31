@@ -59,7 +59,7 @@ object Lift : Subsystem {
     var NAME_2 = "RightArm"
     var LeftArm = DcMotorSimple.Direction.FORWARD
     var RightArm = DcMotorSimple.Direction.REVERSE
-    var SPEED = 1.0
+    var SPEED = 0.2
 //    var UP = 60.0
 //    var FARUP = 120.0
 //    var DOWN = 0.0
@@ -67,7 +67,7 @@ object Lift : Subsystem {
     var GearRatioArm = 5
     var encoderTicks = 28
 //    @JvmField
-//    var ChangeAmount = 0.0
+    var ChangeAmount = 0.0 //unused but needed for clarity in code =]
 //    @JvmField
 //    var UpAmount = 0.1
 //    @JvmField //DownAmount is -UpAmount
