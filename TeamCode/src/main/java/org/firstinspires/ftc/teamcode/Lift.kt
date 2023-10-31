@@ -27,6 +27,7 @@ import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
@@ -59,20 +60,20 @@ object Lift : Subsystem {
     var LeftArm = DcMotorSimple.Direction.FORWARD
     var RightArm = DcMotorSimple.Direction.REVERSE
     var SPEED = 1.0
-    var UP = 60.0
-    var FARUP = 120.0
-    var DOWN = 0.0
+//    var UP = 60.0
+//    var FARUP = 120.0
+//    var DOWN = 0.0
     var GearRatioMotor = 50.9
     var GearRatioArm = 5
     var encoderTicks = 28
+//    @JvmField
+//    var ChangeAmount = 0.0
+//    @JvmField
+//    var UpAmount = 0.1
+//    @JvmField //DownAmount is -UpAmount
+//    var DownAmount = -0.1
 
-    var ChangeAmount = 0.0
-    @JvmField
-    var UpAmount = 0.1
-    @JvmField //DownAmount is -UpAmount
-    var DownAmount = -0.1
-
-    var targetPosition = 0
+    var targetPosition = 0 //unused but needed for clarity in code =]
 
 //    val Up: Command
 //        get() =
@@ -104,24 +105,22 @@ object Lift : Subsystem {
 
    val StartUp: Command
        get() =
-           CustomCommand(_start={ ChangeAmount =
-               (encoderTicks * GearRatioMotor * UpAmount * GearRatioArm / 360.0) })
+           PowerMotor(ArmMotor, SPEED)
 
     val StartDown: Command
         get() =
-            CustomCommand(_start={ ChangeAmount =
-                (encoderTicks * GearRatioMotor * DownAmount * GearRatioArm / 360.0) })
+            PowerMotor(ArmMotor, -SPEED)
     val StopMove: Command
         get() =
-            CustomCommand(_start={ ChangeAmount = 0.0 })
+            PowerMotor(Arms.ArmMotor, 0.0)
 
 
 
 
 
     val ArmMotor: MotorEx = CustomMotorExGroup(
-        MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, LeftArm),
-        MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 19.2, RightArm)
+        MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 50.9, LeftArm),
+        MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 50.9, RightArm)
     )
 
 
@@ -168,7 +167,7 @@ object Lift : Subsystem {
          * Updates the error and direction, then calculates and sets the motor power
          */
         override fun execute() {
-            targetPosition += ChangeAmount.toInt()
+            //targetPosition += ChangeAmount.toInt()
             error = targetPosition + motor.currentPosition
             direction = sign(error.toDouble())
             var power = kP * abs(error) * speed * direction
