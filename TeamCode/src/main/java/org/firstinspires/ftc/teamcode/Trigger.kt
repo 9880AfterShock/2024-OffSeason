@@ -17,6 +17,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import org.apache.commons.math3.analysis.function.Power
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
@@ -38,7 +39,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 private var TIME = 1.0 //tbd
 var TriggerState = "Closed"
 val triggerServo = ServoEx("Trigger")
-
+val triggerServo2 = ServoEx("Trigger2")
 
 
 @Config
@@ -46,9 +47,11 @@ val triggerServo = ServoEx("Trigger")
 object Trigger : Subsystem {
 
     @JvmField
-    var TriggeredPOSITION = 0.06 //tbd, prob 90° -ish
+    var TriggeredPOSITION = 0.6 //tbd, prob 90° -ish down
+    var TriggeredPOSITION2 = 0.4 // inverse of 1
     @JvmField
-    var LoadedPOSITION = 0.01 //tbd, prob 0 or 1
+    var LoadedPOSITION = 0.1 //tbd, prob 0 or 1 up
+    var LoadedPOSITION2 = 0.9 // inverse of 1
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Closed") {
@@ -63,12 +66,22 @@ object Trigger : Subsystem {
         }
 
     val Open: Command
-        get() = MoveServo(triggerServo, TriggeredPOSITION, TIME)
-    val Close: Command
-        get() = MoveServo(triggerServo, LoadedPOSITION, TIME)
+        get() = parallel {
+            +MoveServo(triggerServo, TriggeredPOSITION, TIME)
+            +MoveServo(triggerServo2, TriggeredPOSITION2, TIME)
 
+
+
+        }
+
+    val Close: Command
+        get() = parallel {
+            +MoveServo(triggerServo, LoadedPOSITION, TIME)
+            +MoveServo(triggerServo2, LoadedPOSITION2, TIME)
+        }
     override fun initialize() {
         triggerServo.initialize()
+        triggerServo2.initialize()
     }
 
 

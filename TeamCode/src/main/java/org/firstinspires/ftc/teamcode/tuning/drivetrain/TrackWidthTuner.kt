@@ -15,8 +15,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.util.MovingStatistics
 import org.firstinspires.ftc.robotcore.internal.system.Misc
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 import kotlin.math.sqrt
 
 /*
@@ -35,8 +35,8 @@ class TrackWidthTuner : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants),
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants),
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         // FINISHED: if you haven't already, set the localizer to something that doesn't depend on
@@ -63,7 +63,7 @@ class TrackWidthTuner : LinearOpMode() {
                 CommandScheduler.run()
             }
             val trackWidth: Double =
-                TuningMecanumDriveConstants.TRACK_WIDTH * Math.toRadians(ANGLE) / headingAccumulator
+                PracticeMecanumDriveConstants.TRACK_WIDTH * Math.toRadians(ANGLE) / headingAccumulator
             trackWidthStats.add(trackWidth)
             sleep(DELAY.toLong())
         }

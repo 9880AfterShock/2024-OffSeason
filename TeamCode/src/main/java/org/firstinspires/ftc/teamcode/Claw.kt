@@ -40,7 +40,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 //THIS IS THE CLAW
 
 private var TIME = 1.0 //tbd
-var ClawState = "Open"
+var ClawState = "Closed"
 val clawServo = ServoEx("Claw")
 
 
@@ -50,9 +50,9 @@ val clawServo = ServoEx("Claw")
 object Claw : Subsystem {
 
     @JvmField
-    var OPEN_POSITION = 0.4 //tbd, prob 45° -ish
+    var CLOSE_POSITION = 0.75 //tbd, prob 45° -ish
     @JvmField
-    var CLOSE_POSITION = 0.0 //tbd, prob 0
+    var OPEN_POSITION = 0.5 //tbd, prob 0
     val Switch: Command
         get() = parallel {
             if (ClawState == "Closed") {
@@ -67,9 +67,9 @@ object Claw : Subsystem {
         }
 
     val Open: Command
-        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
-    val Close: Command
         get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
+    val Close: Command
+        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
 
     override fun initialize() {
         clawServo.initialize()

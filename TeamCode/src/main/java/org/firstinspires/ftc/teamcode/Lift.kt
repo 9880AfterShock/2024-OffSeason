@@ -68,9 +68,9 @@ object Lift : Subsystem {
 
     var ChangeAmount = 0.0
     @JvmField
-    var UpAmount = 1.0
+    var UpAmount = 0.1
     @JvmField //DownAmount is -UpAmount
-    var DownAmount = -1.0
+    var DownAmount = -0.1
 
     var targetPosition = 0
 

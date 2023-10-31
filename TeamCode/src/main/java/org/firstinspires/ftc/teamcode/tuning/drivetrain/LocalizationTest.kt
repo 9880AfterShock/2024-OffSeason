@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.atomicrobotics3805.cflib.subsystems.DisplayRobot
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 
 /**
  * 192.168.43.1:8080/dash
@@ -31,8 +31,8 @@ class LocalizationTest : LinearOpMode() {
     override fun runOpMode() {
         opMode = this
         drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants),
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants),
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         waitForStart()

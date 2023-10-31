@@ -33,7 +33,8 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    mainRoutine = { TelemetryCommand(100.0, "arm encoder: ") { Lift.ArmMotor.currentPosition.toString() } },
+    initRoutine = { TelemetryCommand(100.0, Lift.ChangeAmount.toString()) },
+    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)

@@ -16,7 +16,6 @@ package org.firstinspires.ftc.teamcode
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryConstants
 
 @Suppress("PropertyName")
-
 object PracticeOdometryConstants : TwoWheelOdometryConstants {
     @JvmField
     var _PARALLEL_X = -6.25 // in; forward offset of the parallel wheel
@@ -49,9 +48,9 @@ object PracticeOdometryConstants : TwoWheelOdometryConstants {
     var _PERPENDICULAR_Y = -1.375 // in; left offset of the perpendicular wheel
  */
     @JvmField
-    var _PARALLEL_NAME = "LB" // 0
+    var _PARALLEL_NAME = "RB" // 0
     @JvmField
-    var _PERPENDICULAR_NAME = "LF" // 1
+    var _PERPENDICULAR_NAME = "LB" // 1
     @JvmField
     var _TICKS_PER_REV = 2400.0 // Way better encoders
     @JvmField

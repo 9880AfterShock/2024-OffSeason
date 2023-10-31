@@ -16,8 +16,8 @@ import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DcMotor
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 
 /*
  * This routine is designed to tune the PID coefficients used by the REV Expansion Hubs for closed-
@@ -53,8 +53,8 @@ class DriveVelocityPIDTuner : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants)
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants)
         )
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         var mode = Mode.TUNING_MODE

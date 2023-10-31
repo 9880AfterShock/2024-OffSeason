@@ -9,8 +9,8 @@ import org.atomicrobotics3805.cflib.trajectories.ParallelTrajectory
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 
 /*
  * This is a simple routine to test translational drive capabilities.
@@ -22,8 +22,8 @@ class StrafeTest : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         Constants.drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants),
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants),
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(Constants.drive, TelemetryController)
         val trajectory: ParallelTrajectory = Constants.drive.trajectoryBuilder(Pose2d())

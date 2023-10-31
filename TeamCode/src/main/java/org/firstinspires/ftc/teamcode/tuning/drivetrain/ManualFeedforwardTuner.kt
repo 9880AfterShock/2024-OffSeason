@@ -17,8 +17,8 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.util.RobotLog
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningMecanumDriveConstants
-import org.firstinspires.ftc.teamcode.tuning.constants.TuningOdometryConstants
+import org.firstinspires.ftc.teamcode.PracticeMecanumDriveConstants
+import org.firstinspires.ftc.teamcode.PracticeOdometryConstants
 import java.util.*
 
 /*
@@ -51,8 +51,8 @@ class ManualFeedforwardTuner : LinearOpMode() {
     override fun runOpMode() {
         Constants.opMode = this
         drive = MecanumDrive(
-            TuningMecanumDriveConstants,
-            TwoWheelOdometryLocalizer(TuningOdometryConstants),
+            PracticeMecanumDriveConstants,
+            TwoWheelOdometryLocalizer(PracticeOdometryConstants),
         ) { Pose2d() }
         CommandScheduler.registerSubsystems(TelemetryController, drive)
         if (drive.constants.IS_RUN_USING_ENCODER) {
@@ -99,7 +99,7 @@ class ManualFeedforwardTuner : LinearOpMode() {
                         drive.poseVelocity,
                         "poseVelocity() must not be null. Ensure that the getWheelVelocities() method has been overridden in your localizer."
                     )!!
-                    val currentVelo = poseVelo.x
+                    val currentVelo = poseVelo.y
 
                     // update telemetry
                     TelemetryController.telemetry.addData("targetVelocity", motionState.v)
