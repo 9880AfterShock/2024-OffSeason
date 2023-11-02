@@ -19,9 +19,7 @@ package org.firstinspires.ftc.teamcode
 import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.Constants.opMode
-import org.atomicrobotics3805.cflib.GamepadEx
 import org.atomicrobotics3805.cflib.controls.Controls
-import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
@@ -59,6 +57,6 @@ object PracticeControls : Controls() {
         gamepad2.y.pressedCommand = {Trigger.Switch}
         gamepad1.leftTrigger.pressedCommand = {drive.switchSpeed()}
         gamepad2.b.pressedCommand = {PushbotPlate.Switch}
-        gamepad2.x.pressedCommand = {Trigger.Open }
+        gamepad2.x.pressedCommand = {Trigger.Down }
     }
 }

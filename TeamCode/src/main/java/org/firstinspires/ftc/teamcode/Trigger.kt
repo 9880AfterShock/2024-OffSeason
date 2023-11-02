@@ -18,7 +18,6 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.util.ElapsedTime
-import org.apache.commons.math3.analysis.function.Power
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.ServoEx
@@ -42,7 +41,7 @@ import kotlin.math.sign
 //trigger 2 is left, trigger(1) is right
 
 private var TIME = 1.0 //tbd
-var TriggerState = "Closed"
+var TriggerState = "Up"
 val triggerServo = ServoEx("Trigger")
 val triggerServo2 = ServoEx("Trigger2")
 
@@ -52,41 +51,41 @@ val triggerServo2 = ServoEx("Trigger2")
 object Trigger : Subsystem {
 
     @JvmField
-    var TriggeredPOSITION = 0.0003 //tbd, prob 90° -ish down
+    var downPosition = 0.0003 //tbd, prob 90° -ish down
     @JvmField
-    var TriggeredPOSITION2 = 1.0 // inverse of 1
+    var downPosition2 = 1.0 // inverse of 1
     @JvmField
-    var LoadedPOSITION = 0.2003 //tbd, prob 0 or 1 up
+    var upPosition = 0.2003 //tbd, prob 0 or 1 up
     @JvmField
-    var LoadedPOSITION2 = 0.8 // inverse of 1
+    var upPosition2 = 0.8 // inverse of 1
     @JvmField
     var TestingPosition = 0.5
     val Switch: Command
         get() = parallel {
-            if (TriggerState == "Closed") {
-                +Open
-                +CustomCommand(_start={TriggerState = "Open"})
+            if (TriggerState == "Up") {
+                +Down
+                +CustomCommand(_start={TriggerState = "Down"})
                 +TelemetryCommand(10.0, "Trigger is",TriggerState)
             }else{
-                +Close
-                +CustomCommand(_start={TriggerState = "Closed"})
+                +Up
+                +CustomCommand(_start={TriggerState = "Up"})
                 +TelemetryCommand(10.0, "Trigger is",TriggerState)
             }
         }
 
-    val Open: Command
+    val Down: Command
         get() = parallel {
-            +MoveServo(triggerServo, TriggeredPOSITION, TIME)
-            +MoveServo(triggerServo2, TriggeredPOSITION2, TIME)
+            +MoveServo(triggerServo, downPosition, TIME)
+            +MoveServo(triggerServo2, downPosition2, TIME)
 
 
 
         }
 
-    val Close: Command
+    val Up: Command
         get() = parallel {
-            +MoveServo(triggerServo, LoadedPOSITION, TIME)
-            +MoveServo(triggerServo2, LoadedPOSITION2, TIME)
+            +MoveServo(triggerServo, upPosition, TIME)
+            +MoveServo(triggerServo2, upPosition2, TIME)
         }
 
     val ResetServos: Command

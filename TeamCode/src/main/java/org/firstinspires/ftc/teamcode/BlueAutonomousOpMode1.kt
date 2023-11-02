@@ -16,7 +16,6 @@
 */
 package org.firstinspires.ftc.teamcode
 
-import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
@@ -34,7 +33,7 @@ class AutonomousOpModeBlue1 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
     { sequential {
-        +Trigger.Close
+        +Trigger.Up
         +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed1)
         +Trigger.Switch
         +Claw.Open
