@@ -38,7 +38,8 @@ import kotlin.math.sign
  * To use this class, copy it into the proper package and change the first eight constants (COUNTS_PER_INCH is fine as
  * is).
  */
-//THIS IS THE CLAW
+
+//trigger 2 is left, trigger(1) is right
 
 private var TIME = 1.0 //tbd
 var TriggerState = "Closed"
@@ -51,13 +52,13 @@ val triggerServo2 = ServoEx("Trigger2")
 object Trigger : Subsystem {
 
     @JvmField
-    var TriggeredPOSITION = 0.6 //tbd, prob 90° -ish down
+    var TriggeredPOSITION = 0.0003 //tbd, prob 90° -ish down
     @JvmField
-    var TriggeredPOSITION2 = 0.4 // inverse of 1
+    var TriggeredPOSITION2 = 1.0 // inverse of 1
     @JvmField
-    var LoadedPOSITION = 0.1 //tbd, prob 0 or 1 up
+    var LoadedPOSITION = 0.2003 //tbd, prob 0 or 1 up
     @JvmField
-    var LoadedPOSITION2 = 0.9 // inverse of 1
+    var LoadedPOSITION2 = 0.8 // inverse of 1
     @JvmField
     var TestingPosition = 0.5
     val Switch: Command
