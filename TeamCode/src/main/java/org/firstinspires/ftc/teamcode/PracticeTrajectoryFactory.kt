@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2022 Atomic Robotics (https://atomicrobotics3805.org)
 
-    This program is free software: you can redistribute it and/or modify
+    This program is free software: you can blueistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
@@ -17,9 +17,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
-import com.acmerobotics.roadrunner.geometry.Vector2d
 import org.atomicrobotics3805.cflib.trajectories.*
-import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
 
@@ -31,14 +29,14 @@ import org.atomicrobotics3805.cflib.trajectories.TrajectoryFactory
  */
 object PracticeTrajectoryFactory : TrajectoryFactory() {
 
-    var redPose1 = Pose2d()
-    var redSecondPose1 = Pose2d()
-    var redThirdPose1 = Pose2d()
-    var redFourthPose1 = Pose2d()
+    var Pose1 = Pose2d()
+    var SecondPose1 = Pose2d()
+    var ThirdPose1 = Pose2d()
+    var FourthPose1 = Pose2d()
 
-    var redPose2 = Pose2d()
-    var redSecondPose2 = Pose2d()
-    var redThirdPose2 = Pose2d()
+    var Pose2 = Pose2d()
+    var SecondPose2 = Pose2d()
+    var ThirdPose2 = Pose2d()
 
   //  var bluePose1 = Pose2d()
     //var blueSecondPose1 = Pose2d()
@@ -49,32 +47,28 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
      * Initializes the robot's start positions and trajectories. This is where the trajectories are
      * actually created.
      */
-    lateinit var startToMiddleRed1 : ParallelTrajectory
-    lateinit var startToMiddleRed2 : ParallelTrajectory
+    lateinit var startToMiddle1 : ParallelTrajectory
+    lateinit var startToMiddle2 : ParallelTrajectory
     //lateinit var startToMiddleBlue1 : ParallelTrajectory
     override fun initialize() {
         super.initialize()
         // start positions
-redPose1 = Pose2d(-35.0,-58.0.switchColor, 0.0)
-        redSecondPose1 = Pose2d(45.0,-60.0.switchColor,0.0.toRadians)
-      //  redThirdPose1 = Pose2d(42.0,-33.0.switchColor,0.0.toRadians)
-     // redFourthPose1 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
-redPose2 = Pose2d(10.0,-58.0.switchColor, 0.0)
-        redSecondPose2 = Pose2d(45.0,-60.0.switchColor,0.0.toRadians)
-        //redThirdPose2 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
-/*bluePose1 = Pose2d(-35.0,+58.0.switchColor, 0.0)
-        blueSecondPose1 = Pose2d(0.0,59.0.switchColor,0.0.toRadians)
-        blueThirdPose1 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
-*/
+Pose1 = Pose2d(-35.0,58.0.switchColor, 0.0)
+        SecondPose1 = Pose2d(17.0,60.0.switchColor,0.0.toRadians)
+        ThirdPose1 = Pose2d(42.0,30.0.switchColor,0.0.toRadians)
+      FourthPose1 = Pose2d(42.0,16.0.switchColor,0.0.toRadians)
+Pose2 = Pose2d(10.0,58.0.switchColor, 0.0)
+        SecondPose2 = Pose2d(45.0,60.0.switchColor,0.0.toRadians)
+        ThirdPose2 = Pose2d(42.0,33.0.switchColor,0.0.toRadians)
         // trajectories
-    startToMiddleRed1 = drive.trajectoryBuilder(redPose1, 0.0.toRadians)
-        .splineToSplineHeading(redSecondPose1, (0.0.toRadians))
-       // .splineToSplineHeading(redThirdPose1, (0.0.toRadians))
-        //.splineToSplineHeading(redFourthPose1, (0.0.toRadians))
+    startToMiddle1 = drive.trajectoryBuilder(Pose1, 0.0.toRadians)
+        .splineToSplineHeading(SecondPose1, (0.0.toRadians))
+        .splineToSplineHeading(ThirdPose1, (0.0.toRadians))
+        .splineToSplineHeading(FourthPose1, (0.0.toRadians))
         .build()
-    startToMiddleRed2 = drive.trajectoryBuilder(redPose2, 0.0.toRadians)
-        .splineToSplineHeading(redSecondPose2, (0.0.toRadians))
-       // .splineToSplineHeading(redThirdPose2, (0.0.toRadians))
+    startToMiddle2 = drive.trajectoryBuilder(Pose2, 0.0.toRadians)
+        .splineToSplineHeading(SecondPose2, (0.0.toRadians))
+       // .splineToSplineHeading(blueThirdPose2, (0.0.toRadians))
         .build()
   //  startToMiddleBlue1 = drive.trajectoryBuilder(bluePose1,0.0.toRadians)
     //    .splineToSplineHeading(blueSecondPose1,0.0.toRadians)
