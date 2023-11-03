@@ -26,10 +26,8 @@ import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.MotorEx
-import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
-import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.abs
 import kotlin.math.min
@@ -105,29 +103,30 @@ object Lift : Subsystem {
 
    val StartUp: Command
        get() =
-           PowerMotor(ArmMotor, SPEED)
+           PowerMotor(LiftMotor, SPEED)
 
     val StartDown: Command
         get() =
-            PowerMotor(ArmMotor, -SPEED)
+            PowerMotor(LiftMotor, -SPEED)
     val StopMove: Command
         get() =
-            PowerMotor(Arms.ArmMotor, 0.0)
+            PowerMotor(LiftMotor, 0.0)
 
 
 
 
 
-    val ArmMotor: MotorEx = CustomMotorExGroup(
+    val LiftMotor: MotorEx = CustomMotorExGroup(
         MotorEx(NAME_1, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 50.9, LeftArm),
         MotorEx(NAME_2, MotorEx.MotorType.GOBILDA_YELLOWJACKET, 50.9, RightArm)
     )
 
 
     override fun initialize() {
-        ArmMotor.initialize()
-        ArmMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
-        ArmMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
+        LiftMotor.initialize()
+        LiftMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        LiftMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
+        LiftMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
        // CommandScheduler.scheduleCommand(MotorToPosition(ArmMotor, SPEED))
     }
     @Suppress("MemberVisibilityCanBePrivate")
