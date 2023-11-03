@@ -51,11 +51,11 @@ val triggerServo2 = ServoEx("Trigger2")
 object Trigger : Subsystem {
 
     @JvmField
-    var downPosition = 0.0003 //tbd, prob 90° -ish down
+    var downPosition = 0.012 //tbd, prob 90° -ish down
     @JvmField
     var downPosition2 = 1.0 // inverse of 1
     @JvmField
-    var upPosition = 0.2003 //tbd, prob 0 or 1 up
+    var upPosition = 0.212 //tbd, prob 0 or 1 up
     @JvmField
     var upPosition2 = 0.8 // inverse of 1
     @JvmField
@@ -75,10 +75,8 @@ object Trigger : Subsystem {
 
     val Down: Command
         get() = parallel {
-            +MoveServo(triggerServo, downPosition, TIME)
-            +MoveServo(triggerServo2, downPosition2, TIME)
-
-
+            +MoveServo(triggerServo, downPosition, TIME, 0.05)
+            +MoveServo(triggerServo2, downPosition2, TIME, 0.05)
 
         }
 
@@ -102,11 +100,11 @@ object Trigger : Subsystem {
     class MoveServo(private val servo: ServoEx,
                     private val position: Double,
                     private val maxTime: Double,
+                    private val servoSpeed: Double = 0.3,
                     override val requirements: List<Subsystem> = arrayListOf(),
                     override val interruptible: Boolean = true) : Command() {
 
         private var curPosition = 0.0
-        private var servoSpeed = 0.5 // full rotations / sec
         private var lastTime = 0.0
         private val timer = ElapsedTime()
         override val _isDone: Boolean
