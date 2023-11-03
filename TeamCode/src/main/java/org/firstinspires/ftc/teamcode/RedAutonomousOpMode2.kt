@@ -30,11 +30,11 @@ import org.atomicrobotics3805.cflib.sequential
 
 @Autonomous(name = "9880 Autonomous OpMode red 2")
 class AutonomousOpModeRed2 : AutonomousOpMode(
-    Constants.Color.BLUE,
+    Constants.Color.RED,
     PracticeTrajectoryFactory,
     { sequential {
         +Trigger.Up
-        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddleRed2)
+        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle2)
         +Trigger.Switch
         +Claw.Open
 
@@ -43,6 +43,6 @@ class AutonomousOpModeRed2 : AutonomousOpMode(
     MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
-    ) { PracticeTrajectoryFactory.redPose2 },
+    ) { PracticeTrajectoryFactory.Pose2 },
     Claw, Trigger
 )

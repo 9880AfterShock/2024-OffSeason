@@ -17,14 +17,17 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.ServoControllerEx
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.TelemetryController
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 //import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
+import org.atomicrobotics3805.cflib.utilCommands.Delay
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 import kotlin.math.abs
 import kotlin.math.sign
@@ -60,6 +63,13 @@ object Trigger : Subsystem {
     var upPosition2 = 0.8 // inverse of 1
     @JvmField
     var TestingPosition = 0.5
+    val Depower : Command
+        get() = CustomCommand(_start={
+            val controller: ServoControllerEx = triggerServo.servo.controller as ServoControllerEx
+            val controller2: ServoControllerEx = triggerServo2.servo.controller as ServoControllerEx
+            controller.setServoPwmDisable(triggerServo.portNumber)
+            controller2.setServoPwmDisable(triggerServo2.portNumber)
+        })
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Up") {
@@ -74,10 +84,14 @@ object Trigger : Subsystem {
         }
 
     val Down: Command
-        get() = parallel {
-            +MoveServo(triggerServo, downPosition, TIME, 0.05)
-            +MoveServo(triggerServo2, downPosition2, TIME, 0.05)
 
+        get() = sequential {
+            +parallel {
+                +MoveServo(triggerServo, downPosition, TIME, 0.1)
+                +MoveServo(triggerServo2, downPosition2, TIME, 0.1)
+            }
+            +Delay(0.5)
+            +Depower
         }
 
     val Up: Command
