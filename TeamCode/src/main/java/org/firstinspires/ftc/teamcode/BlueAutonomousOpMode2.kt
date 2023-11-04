@@ -32,13 +32,7 @@ import org.atomicrobotics3805.cflib.sequential
 class AutonomousOpModeBlue2 : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
-    { sequential {
-        +Trigger.Up
-        +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle2)
-        +Trigger.Switch
-        +Claw.Open
-
-    } },
+    { sequential {+PracticeRoutines.ScoreRoutine2} },
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
