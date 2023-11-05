@@ -40,5 +40,5 @@ class AutonomousOpModeRed1 : AutonomousOpMode(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ) { PracticeTrajectoryFactory.Pose1 },
-    subsystems = arrayOf(Lift, Arms, Claw, Trigger, PushbotPlate)
+    subsystems = arrayOf(Lift, Arms, Claw, Trigger)
 )
