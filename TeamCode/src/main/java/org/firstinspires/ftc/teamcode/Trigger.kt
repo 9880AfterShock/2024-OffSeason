@@ -58,6 +58,10 @@ object Trigger : Subsystem {
     @JvmField
     var downPosition2 = 1.0 // inverse of 1
     @JvmField
+    var MostlydownPosition = 0.062 //tbd, prob 90° -ish down
+    @JvmField
+    var MostlydownPosition2 = 0.95 // inverse of 1
+    @JvmField
     var upPosition = 0.212 //tbd, prob 0 or 1 up
     @JvmField
     var upPosition2 = 0.8 // inverse of 1
@@ -87,8 +91,8 @@ object Trigger : Subsystem {
 
         get() = sequential {
             +parallel {
-                +MoveServo(triggerServo, downPosition, TIME, 0.1)
-                +MoveServo(triggerServo2, downPosition2, TIME, 0.1)
+                +MoveServo(triggerServo, downPosition, TIME, 0.05)
+                +MoveServo(triggerServo2, downPosition2, TIME, 0.05)
             }
             +Delay(0.5)
             +Depower
@@ -98,6 +102,17 @@ object Trigger : Subsystem {
         get() = parallel {
             +MoveServo(triggerServo, upPosition, TIME)
             +MoveServo(triggerServo2, upPosition2, TIME)
+        }
+    val MostlyDown: Command
+        get() = parallel {
+            +MoveServo(triggerServo, downPosition, TIME)
+            +MoveServo(triggerServo2, downPosition2, TIME)
+        }
+    val UpStart: Command
+        get() = parallel {
+            +MoveServo(triggerServo, upPosition, TIME, 0.08)
+            +MoveServo(triggerServo2, upPosition2, TIME,0.08)
+            +CustomCommand(_start={TriggerState = "Up"})
         }
 
     val ResetServos: Command
@@ -114,7 +129,7 @@ object Trigger : Subsystem {
     class MoveServo(private val servo: ServoEx,
                     private val position: Double,
                     private val maxTime: Double,
-                    private val servoSpeed: Double = 0.3,
+                    private val servoSpeed: Double = 0.5,
                     override val requirements: List<Subsystem> = arrayListOf(),
                     override val interruptible: Boolean = true) : Command() {
 

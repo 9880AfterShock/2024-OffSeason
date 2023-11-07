@@ -37,27 +37,29 @@ object PracticeControls : Controls() {
      */
     override fun registerCommands() {
         CommandScheduler.scheduleCommand(drive.driverControlled(opMode.gamepad1))
-        gamepad2.dpadUp.pressedCommand = {Arms.StartExtend}
-        gamepad2.dpadUp.releasedCommand = {Arms.Stop}
-        gamepad2.dpadDown.pressedCommand = {Arms.StartRetract}
-        gamepad2.dpadDown.releasedCommand = {Arms.Stop}
-        gamepad1.a.pressedCommand = {Claw.Switch}
+        gamepad2.dpadUp.pressedCommand = { Arms.StartExtend }
+        gamepad2.dpadUp.releasedCommand = { Arms.Stop }
+        gamepad2.dpadDown.pressedCommand = { Arms.StartRetract }
+        gamepad2.dpadDown.releasedCommand = { Arms.Stop }
+        gamepad1.a.pressedCommand = { Claw.Switch }
 
 
-        gamepad2.leftBumper.pressedCommand = {Lift.StartUp}
-        gamepad2.rightBumper.pressedCommand = {Lift.StartDown}
-        gamepad2.leftBumper.releasedCommand = {Lift.StopMove}
-        gamepad2.rightBumper.releasedCommand = {Lift.StopMove}
-   //     gamepad2.y.pressedCommand = {Lift.FarUp}
-   //     gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
-        gamepad2.a.pressedCommand = {Claw.Switch}
-       // gamepad2.b.pressedCommand = {Lift.Down}
-       // gamepad2.x.pressedCommand = {Lift.Up}
-       // gamepad2.y.pressedCommand = {Lift.FarUp}
-        gamepad2.y.pressedCommand = {Trigger.Switch}
-        gamepad1.leftTrigger.pressedCommand = {drive.switchSpeed()}
-        gamepad2.b.pressedCommand = {PushbotPlate.Switch}
-        gamepad2.x.pressedCommand = {Trigger.Down }
-        gamepad1.a.pressedCommand = {Detection.DetectCommand()}
+        gamepad2.leftBumper.pressedCommand = { Lift.StartUp }
+        gamepad2.rightBumper.pressedCommand = { Lift.StartDown }
+        gamepad2.leftBumper.releasedCommand = { Lift.StopMove }
+        gamepad2.rightBumper.releasedCommand = { Lift.StopMove }
+        //     gamepad2.y.pressedCommand = {Lift.FarUp}
+        //     gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
+        gamepad2.a.pressedCommand = { Claw.Switch }
+        // gamepad2.b.pressedCommand = {Lift.Down}
+        // gamepad2.x.pressedCommand = {Lift.Up}
+        // gamepad2.y.pressedCommand = {Lift.FarUp}
+        gamepad2.y.pressedCommand = { Trigger.Switch }
+        gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
+        //gamepad2.b.pressedCommand = {PushbotPlate.Switch}
+        gamepad2.x.pressedCommand = { Trigger.Down }
+        gamepad1.a.pressedCommand = { Detection.DetectCommand() }
+        gamepad2.dpadRight.pressedCommand = { Lift.StartDown }
+        gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
     }
 }

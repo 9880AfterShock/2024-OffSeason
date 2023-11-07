@@ -18,15 +18,53 @@ package org.firstinspires.ftc.teamcode
 
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.CommandGroup
+import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
+import org.atomicrobotics3805.cflib.utilCommands.Delay
 
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
  * commands that can be run either one at a time (sequentially) or all at once (in parallel).
  */
 object PracticeRoutines {
+    val ScoreRoutine1:Command
+        get()=sequential {
+            +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
+            +Trigger.MostlyDown
+            +Delay(1.0)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToStart1)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
+            +Trigger.Up
+            +Delay(1.0)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
+            +Claw.Open
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
+        }
+    val ScoreRoutine2:Command
+        get()=sequential {
+            +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
+            +Trigger.MostlyDown
+            +Delay(1.0)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startTostart2)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle2)
+            +Trigger.Up
+            +Delay(1.0)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
+            +Claw.Open
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
+        }
+    val ParkRoutine1:Command
+        get()= sequential {
+            +Trigger.MostlyDown
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark1)
+        }
 
-
+    val ParkRoutine2:Command
+        get()= sequential {
+            +Trigger.MostlyDown
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark2)
+        }
 }

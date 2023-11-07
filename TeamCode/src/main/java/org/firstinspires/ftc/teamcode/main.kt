@@ -34,12 +34,16 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
+                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToStart1)
+                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
+                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
 
 
             } },
-        Constants.Color.RED
+        Constants.Color.BLUE
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
 }
