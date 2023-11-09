@@ -57,9 +57,10 @@ object PracticeControls : Controls() {
         gamepad2.y.pressedCommand = { Trigger.Switch }
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
         //gamepad2.b.pressedCommand = {PushbotPlate.Switch}
-        gamepad2.x.pressedCommand = { Trigger.Down }
+        //gamepad2.x.pressedCommand = { Trigger.Down }
         //gamepad1.a.pressedCommand = { Detection.DetectCommand() }
         gamepad2.dpadRight.pressedCommand = { Lift.StartDown }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
+        gamepad2.rightTrigger.pressedCommand = { Drone.Launch }
     }
 }
