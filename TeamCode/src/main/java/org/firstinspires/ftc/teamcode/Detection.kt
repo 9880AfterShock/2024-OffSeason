@@ -9,6 +9,7 @@ import org.atomicrobotics3805.cflib.TelemetryController.telemetry
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration
+import org.firstinspires.ftc.teamcode.Detection.VarianceThreshold
 import org.firstinspires.ftc.vision.VisionPortal
 import org.firstinspires.ftc.vision.VisionProcessor
 import org.opencv.core.Core
@@ -23,6 +24,8 @@ YOINKED FROM 3805 LOL
 
 
 object Detection: Subsystem {
+    @JvmField
+    var VarianceThreshold = 3
     var visionPortal: VisionPortal? = null
 
     var selectedPosition: PropProcessor.Selected = PropProcessor.Selected.NONE
@@ -50,7 +53,7 @@ object Detection: Subsystem {
         }
 
         override fun execute() {
-            telemetry.addData("satRectLeft", propProcessor.satRectLeft)
+//            telemetry.addData("satRectLeft", propProcessor.satRectLeft)
             telemetry.addData("satRectMiddle", propProcessor.satRectMiddle)
             telemetry.addData("satRectRight", propProcessor.satRectRight)
             telemetry.addData("selection", propProcessor.selection)
@@ -64,29 +67,34 @@ object Detection: Subsystem {
 }
 
 open class PropProcessor: VisionProcessor {
-    var rectLeft = Rect(20, 210, 80, 80)
-    var rectMiddle = Rect(280, 160, 80, 80)
-    var rectRight = Rect(540, 210, 80, 80)
+//    var rectLeft = Rect(20, 210, 80, 80)
+    var rectMiddle = Rect(200, 80, 80, 80)
+    var rectRight = Rect(520, 100, 80, 80)
     var selection = Selected.NONE
     var submat = Mat()
     var hsvMat = Mat()
-    var satRectLeft: Double = 0.0
+//    var satRectLeft: Double = 0.0
     var satRectMiddle: Double = 0.0
     var satRectRight: Double = 0.0
     override fun init(width: Int, height: Int, calibration: CameraCalibration) {}
     override fun processFrame(frame: Mat, captureTimeNanos: Long): Any {
         Imgproc.cvtColor(frame, hsvMat, Imgproc.COLOR_RGB2HSV)
-        satRectLeft = getAvgSaturation(hsvMat, rectLeft)
+//        satRectLeft = getAvgSaturation(hsvMat, rectLeft)
         satRectMiddle = getAvgSaturation(hsvMat, rectMiddle)
         satRectRight = getAvgSaturation(hsvMat, rectRight)
 
-        if (satRectLeft > satRectMiddle && satRectLeft > satRectRight) {
-            return Selected.LEFT
-        } else if (satRectMiddle > satRectLeft && satRectMiddle > satRectRight) {
+//        if (satRectLeft > satRectMiddle && satRectLeft > satRectRight) {
+//            return Selected.LEFT
+//        } else if (satRectMiddle > satRectLeft && satRectMiddle > satRectRight) {
+//            return Selected.MIDDLE
+//        }
+//        return Selected.RIGHT
+        if (satRectRight / satRectMiddle > VarianceThreshold) {
+            return Selected.RIGHT
+        } else if (satRectMiddle / satRectRight > VarianceThreshold) {
             return Selected.MIDDLE
         }
-        return Selected.RIGHT
-
+        return Selected.LEFT
     }
 
     private fun getAvgSaturation(input: Mat, rect: Rect?): Double {
@@ -117,31 +125,31 @@ open class PropProcessor: VisionProcessor {
         selectedPaint.strokeWidth = scaleCanvasDensity * 4
         val nonSelectedPaint = Paint(selectedPaint)
         nonSelectedPaint.color = Color.GREEN
-        val drawRectangleLeft = makeGraphicsRect(rectLeft, scaleBmpPxToCanvasPx)
+//        val drawRectangleLeft = makeGraphicsRect(rectLeft, scaleBmpPxToCanvasPx)
         val drawRectangleMiddle = makeGraphicsRect(rectMiddle, scaleBmpPxToCanvasPx)
         val drawRectangleRight = makeGraphicsRect(rectRight, scaleBmpPxToCanvasPx)
         selection = userContext as Selected
         when (selection) {
             Selected.LEFT -> {
-                canvas.drawRect(drawRectangleLeft, selectedPaint)
+//                canvas.drawRect(drawRectangleLeft, selectedPaint)
                 canvas.drawRect(drawRectangleMiddle, nonSelectedPaint)
                 canvas.drawRect(drawRectangleRight, nonSelectedPaint)
             }
 
             Selected.MIDDLE -> {
-                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
+//                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
                 canvas.drawRect(drawRectangleMiddle, selectedPaint)
                 canvas.drawRect(drawRectangleRight, nonSelectedPaint)
             }
 
             Selected.RIGHT -> {
-                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
+//                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
                 canvas.drawRect(drawRectangleMiddle, nonSelectedPaint)
                 canvas.drawRect(drawRectangleRight, selectedPaint)
             }
 
             Selected.NONE -> {
-                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
+//                canvas.drawRect(drawRectangleLeft, nonSelectedPaint)
                 canvas.drawRect(drawRectangleMiddle, nonSelectedPaint)
                 canvas.drawRect(drawRectangleRight, nonSelectedPaint)
             }
