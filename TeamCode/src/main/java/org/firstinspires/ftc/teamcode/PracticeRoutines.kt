@@ -98,28 +98,41 @@ object PracticeRoutines {
             +Trigger.MostlyDown
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark2)
         }
-    /*val OptionRoutine: Command
-        get()= sequential {
-            +OptionCommand(Detection.selectedPosition,
-                Pair(PropProcessor.Selected.LEFT, LeftPath))
-            +OptionCommand(Detection.selectedPosition,
-                Pair(PropProcessor.Selected.RIGHT, RightPath))
-            +OptionCommand(Detection.selectedPosition,
-                Pair(PropProcessor.Selected.MIDDLE, Center2))
+    val OptionRoutine: Command
+        get()= OptionCommand(
+            "Detection Name",
+    { Detection.selectedPosition},
+            Pair(PropProcessor.Selected.LEFT, leftPath),
+            Pair(PropProcessor.Selected.MIDDLE, middleCommand),
+            Pair(PropProcessor.Selected.RIGHT, rightPath)
+        )
 
-        }
-    */
-    /*val OptionRoutine: Command
-        get() = sequential {
-            +OptionCommand(Detection.positionDetected,
-                Pair(Detection.Position.Left, leftPath))
-        }
 
-    val LeftPath: Command
-        get() = sequential {
-            +OptionCommand(Constants.color,
-                Pair(Constants.Color.BLUE, ))
-        }
 
-     */
+
+
+//OptionCommand(Detection.selectedPosition,
+//                Pair(PropProcessor.Selected.LEFT, LeftPath))
+//            OptionCommand(Detection.selectedPosition,
+//                Pair(PropProcessor.Selected.RIGHT, RightPath))
+//            OptionCommand(Detection.selectedPosition,
+//                Pair(PropProcessor.Selected.MIDDLE, Center2))
+
+    val leftPath: Command
+        get() = OptionCommand(
+                "leftCommand",
+            {Constants.color},
+                Pair(Constants.Color.BLUE, Outside2),
+                Pair(Constants.Color.RED, Inside2))
+    val middleCommand: Command
+        get() = Center2
+
+    val rightPath: Command
+        get() = OptionCommand(
+                "rightCommand",
+            {Constants.color},
+            Pair(Constants.Color.BLUE, Inside2),
+            Pair(Constants.Color.RED, Outside2))
+
+
 }

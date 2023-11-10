@@ -32,16 +32,7 @@ import org.atomicrobotics3805.cflib.sequential
 class AutonomousOpModeRed2 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
-    { if (PropProcessor.Selected.LEFT) {
-        PracticeRoutines.Inside2
-    } else {
-        if (PropProcessor.Selected.RIGHT) {
-            PracticeRoutines.Outside2
-        } else{
-            PracticeRoutines.Center2
-        }
-    }
-    },
+    {PracticeRoutines.OptionRoutine},
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
