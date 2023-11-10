@@ -17,20 +17,51 @@
 package org.firstinspires.ftc.teamcode
 
 import org.atomicrobotics3805.cflib.Command
-import org.atomicrobotics3805.cflib.CommandGroup
 import org.atomicrobotics3805.cflib.Constants
-import org.atomicrobotics3805.cflib.Constants.drive
-import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.Delay
+import org.atomicrobotics3805.cflib.utilCommands.OptionCommand
 
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
  * commands that can be run either one at a time (sequentially) or all at once (in parallel).
  */
 object PracticeRoutines {
-    val ScoreRoutine1:Command
+    val Outside2:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
+            //drop Pixel
+            //back up
+            //grab yellow pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutside2ToPark)
+        }
+    val Center2:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
+            //drop pixel
+            //back up
+            //grab yellow pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenter2ToPark)
+        }
+    val Inside2:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside2)
+            //drop pixel
+            //Back up
+            //grab yellow pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInside2ToPark)
+        }
+    val BasicScoreRoutine1:Command
         get()=sequential {
             +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
             +Trigger.MostlyDown
@@ -43,7 +74,7 @@ object PracticeRoutines {
             +Claw.Open
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
         }
-    val ScoreRoutine2:Command
+    val BasicScoreRoutine2:Command
         get()=sequential {
             +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
             +Trigger.MostlyDown
@@ -67,4 +98,28 @@ object PracticeRoutines {
             +Trigger.MostlyDown
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark2)
         }
+    /*val OptionRoutine: Command
+        get()= sequential {
+            +OptionCommand(Detection.selectedPosition,
+                Pair(PropProcessor.Selected.LEFT, LeftPath))
+            +OptionCommand(Detection.selectedPosition,
+                Pair(PropProcessor.Selected.RIGHT, RightPath))
+            +OptionCommand(Detection.selectedPosition,
+                Pair(PropProcessor.Selected.MIDDLE, Center2))
+
+        }
+    */
+    /*val OptionRoutine: Command
+        get() = sequential {
+            +OptionCommand(Detection.positionDetected,
+                Pair(Detection.Position.Left, leftPath))
+        }
+
+    val LeftPath: Command
+        get() = sequential {
+            +OptionCommand(Constants.color,
+                Pair(Constants.Color.BLUE, ))
+        }
+
+     */
 }

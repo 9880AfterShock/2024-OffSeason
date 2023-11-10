@@ -37,13 +37,17 @@ fun main() {
                 //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToStart1)
                 //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
                 //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
+                //drop Pixel
+                //back up
+                //grab yellow pixel
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
+                //drop pixel
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutside2ToPark)
 
 
             } },
-        Constants.Color.BLUE
+        Constants.Color.RED
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
 }

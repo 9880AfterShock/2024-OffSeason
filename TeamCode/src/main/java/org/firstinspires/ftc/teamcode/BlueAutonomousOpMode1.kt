@@ -21,8 +21,6 @@ import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.opmodes.AutonomousOpMode
-import org.atomicrobotics3805.cflib.sequential
-import org.atomicrobotics3805.cflib.utilCommands.Delay
 
 /**
  * This class is an example of how you can create an Autonomous OpMode. Everything is handled by
@@ -33,7 +31,7 @@ import org.atomicrobotics3805.cflib.utilCommands.Delay
 class AutonomousOpModeBlue1 : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
-    {PracticeRoutines.ScoreRoutine1},
+    {PracticeRoutines.BasicScoreRoutine1},
     null,
     MecanumDrive(
         PracticeMecanumDriveConstants,
