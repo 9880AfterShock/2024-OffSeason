@@ -159,6 +159,7 @@ open class PropProcessor: VisionProcessor {
     enum class Selected {
         NONE, LEFT, MIDDLE, RIGHT
     }
+
 //    public fun getSelection (): Selected {
 //        return selection
 //    }
