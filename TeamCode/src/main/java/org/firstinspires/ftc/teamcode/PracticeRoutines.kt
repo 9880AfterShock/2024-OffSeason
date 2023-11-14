@@ -101,7 +101,7 @@ object PracticeRoutines {
     val OptionRoutine: Command
         get()= OptionCommand(
             "Detection Name",
-    { Detection.selectedPosition},
+            { Detection.selectedPosition},
             Pair(PropProcessor.Selected.LEFT, leftPath),
             Pair(PropProcessor.Selected.MIDDLE, middleCommand),
             Pair(PropProcessor.Selected.RIGHT, rightPath)
