@@ -104,16 +104,16 @@ object Lift : Subsystem {
            // )
 
 
-//   val StartUp: Command
-//       get() =
-//           PowerMotor(LiftMotor, SPEED)
-//
-//    val StartDown: Command
-//        get() =
-//            PowerMotor(LiftMotor, -SPEED)
-//    val StopMove: Command
-//        get() =
-//            PowerMotor(LiftMotor, 0.0)
+   val StartUp: Command
+       get() =
+           PowerMotor(LiftMotor, SPEED)
+
+    val StartDown: Command
+        get() =
+            PowerMotor(LiftMotor, -SPEED)
+    val StopMove: Command
+        get() =
+            PowerMotor(LiftMotor, 0.0)
 
 
 
