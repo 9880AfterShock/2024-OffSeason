@@ -33,7 +33,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    initRoutine = { Detection.DetectCommand() },
+//    initRoutine = { Detection.DetectCommand() },
 //    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
 //    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
 
