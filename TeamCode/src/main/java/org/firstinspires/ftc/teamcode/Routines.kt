@@ -39,7 +39,7 @@ object PracticeRoutines {
             //grab yellow pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
             //drop pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutside2ToPark)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
         }
     val Center2:Command
         get()= sequential {
@@ -50,7 +50,7 @@ object PracticeRoutines {
             //Claw.close
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
             //drop pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenter2ToPark)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
         }
     val Inside2:Command
         get()= sequential {
@@ -61,7 +61,7 @@ object PracticeRoutines {
             //grab yellow pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
             //drop pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInside2ToPark)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
         }
     val BasicScoreRoutine1:Command
         get()=sequential {

@@ -17,6 +17,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.Servo
 import com.qualcomm.robotcore.hardware.ServoControllerEx
 import com.qualcomm.robotcore.util.ElapsedTime
 import org.atomicrobotics3805.cflib.Command
@@ -124,7 +125,7 @@ object Trigger : Subsystem {
     override fun initialize() {
         triggerServo.initialize()
         triggerServo2.initialize()
-        triggerServo2.direction = 
+        triggerServo2.direction = Servo.Direction.REVERSE
     }
 
     class MoveServo(private val servo: ServoEx,

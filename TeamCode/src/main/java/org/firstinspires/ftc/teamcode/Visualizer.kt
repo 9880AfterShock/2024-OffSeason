@@ -22,6 +22,7 @@ import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.utilCommands.Delay
 import org.atomicrobotics3805.cflib.visualization.MeepMeepRobot
 import org.atomicrobotics3805.cflib.visualization.MeepMeepVisualizer
 
@@ -34,20 +35,22 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToStart1)
-                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle1)
-                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
-                //drop Pixel
-                //back up
-                //grab yellow pixel
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
-                //drop pixel
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutside2ToPark)
-
+             //   +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
+              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
+             //   +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+             //   +Delay(1.0)
+              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
+              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
+              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
+              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
+              //  +Delay(1.0)
+                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
+                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
+                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
+                 +Delay(1.0)
 
             } },
-        Constants.Color.RED
+        Constants.Color.BLUE
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
 }
