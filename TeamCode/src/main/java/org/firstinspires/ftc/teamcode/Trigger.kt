@@ -126,6 +126,7 @@ object Trigger : Subsystem {
         triggerServo.initialize()
         triggerServo2.initialize()
         triggerServo2.direction = Servo.Direction.REVERSE
+
     }
 
     class MoveServo(private val servo: ServoEx,
