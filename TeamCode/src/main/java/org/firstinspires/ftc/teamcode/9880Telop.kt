@@ -32,13 +32,9 @@ import org.atomicrobotics3805.cflib.opmodes.TeleOpMode
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/9880Telop.kt
-//    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) }, //test!!!
-=======
 //    initRoutine = { Detection.DetectCommand() },
 //    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
 //    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
->>>>>>> 84f864c8e534ffd80fd97ffd652897191c80a89a:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/PracticeTeleOpMode.kt
 
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,

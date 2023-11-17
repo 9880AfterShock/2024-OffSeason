@@ -124,7 +124,7 @@ object Trigger : Subsystem {
     override fun initialize() {
         triggerServo.initialize()
         triggerServo2.initialize()
-        triggerServo2.direction = 
+//        triggerServo2.direction =
     }
 
     class MoveServo(private val servo: ServoEx,
