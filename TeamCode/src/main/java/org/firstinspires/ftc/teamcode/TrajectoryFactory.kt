@@ -76,6 +76,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     lateinit var outside2ToScore : ParallelTrajectory
     lateinit var scoreOutside2ToPark : ParallelTrajectory
     lateinit var startToCenter2 : ParallelTrajectory
+    lateinit var centerToBackup2 : ParallelTrajectory
     lateinit var center2ToScore : ParallelTrajectory
     lateinit var scoreCenter2ToPark : ParallelTrajectory
     lateinit var startToInside2 : ParallelTrajectory

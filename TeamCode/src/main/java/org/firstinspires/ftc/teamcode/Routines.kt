@@ -18,10 +18,12 @@ package org.firstinspires.ftc.teamcode
 
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.Delay
 import org.atomicrobotics3805.cflib.utilCommands.OptionCommand
+import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class is an example of how to create routines. Routines are essentially just groups of
@@ -43,9 +45,9 @@ object PracticeRoutines {
         get()= sequential {
             //make claw touch ground
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
-            //drop pixel
+            //Claw.open
             //back up
-            //grab yellow pixel
+            //Claw.close
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
             //drop pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenter2ToPark)
@@ -99,13 +101,16 @@ object PracticeRoutines {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark2)
         }
     val OptionRoutine: Command
-        get()= OptionCommand(
-            "Detection Name",
-            { Detection.selectedPosition},
-            Pair(PropProcessor.Selected.LEFT, leftPath),
-            Pair(PropProcessor.Selected.MIDDLE, middleCommand),
-            Pair(PropProcessor.Selected.RIGHT, rightPath)
-        )
+        get()= parallel {
+            +OptionCommand(
+                "Detection Name",
+                { Detection.selectedPosition},
+                Pair(PropProcessor.Selected.LEFT, leftPath),
+                Pair(PropProcessor.Selected.MIDDLE, middleCommand),
+                Pair(PropProcessor.Selected.RIGHT, rightPath)
+            )
+            +TelemetryCommand(100.0, Detection.selectedPosition.toString())
+        }
 
 
 
@@ -119,20 +124,28 @@ object PracticeRoutines {
 //                Pair(PropProcessor.Selected.MIDDLE, Center2))
 
     val leftPath: Command
-        get() = OptionCommand(
+        get() = parallel{
+            if (Constants.color == Constants.Color.BLUE) +Outside2
+            else +Inside2
+        }
+      /*  get() = OptionCommand(
                 "leftCommand",
             {Constants.color},
                 Pair(Constants.Color.BLUE, Outside2),
-                Pair(Constants.Color.RED, Inside2))
+                Pair(Constants.Color.RED, Inside2)) */
     val middleCommand: Command
         get() = Center2
 
     val rightPath: Command
-        get() = OptionCommand(
-                "rightCommand",
-            {Constants.color},
-            Pair(Constants.Color.BLUE, Inside2),
-            Pair(Constants.Color.RED, Outside2))
+        get() = parallel {
+            if (Constants.color == Constants.Color.BLUE) +Inside2
+            else +Outside2
+          /*  +OptionCommand(
+                { Constants.color },
+                Pair(Constants.Color.BLUE) { CommandScheduler.scheduleCommand(Inside2) }, // does not run
+                Pair(Constants.Color.RED) { CommandScheduler.scheduleCommand(Outside2) }  // does not run
+            )
+            +TelemetryCommand(100.0, Constants.color.toString())*/
 
-
+        }
 }

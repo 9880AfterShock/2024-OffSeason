@@ -118,12 +118,13 @@ object Trigger : Subsystem {
     val ResetServos: Command
         get() = parallel {
             +MoveServo(triggerServo, TestingPosition, TIME)
-            +MoveServo(triggerServo, TestingPosition, TIME)
+            +MoveServo(triggerServo2, TestingPosition, TIME)
         }
 
     override fun initialize() {
         triggerServo.initialize()
         triggerServo2.initialize()
+        triggerServo2.direction = 
     }
 
     class MoveServo(private val servo: ServoEx,

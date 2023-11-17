@@ -32,11 +32,14 @@ import org.atomicrobotics3805.cflib.sequential
 class AutonomousOpModeRed2 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
-    {PracticeRoutines.OptionRoutine},
-    null,
+    { sequential {
+        +PracticeRoutines.OptionRoutine
+    } },
+
+    { Detection.DetectCommand() },
     MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
-    ) { PracticeTrajectoryFactory.Pose2 },
+    ) { PracticeTrajectoryFactory.RandStartPose2 },
     Claw, Trigger, Detection
 )

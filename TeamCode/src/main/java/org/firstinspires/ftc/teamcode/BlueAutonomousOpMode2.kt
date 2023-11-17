@@ -42,6 +42,6 @@ class AutonomousOpModeBlue2 : AutonomousOpMode(
     MecanumDrive(
         PracticeMecanumDriveConstants,
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
-    ) { PracticeTrajectoryFactory.Pose2 },
+    ) { PracticeTrajectoryFactory.RandStartPose2 },
     Claw, Trigger, Detection
 )

@@ -21,7 +21,6 @@ import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.opmodes.TeleOpMode
-import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
  * This class is an example of how you can create an TeleOp OpMode. Everything is handled by the
@@ -33,9 +32,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 class PracticeTeleOpMode : TeleOpMode(
     PracticeControls,
     Constants.Color.UNKNOWN,
-    initRoutine = { Detection.DetectCommand() },
-//    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
-//    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
+//    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) }, //test!!!
 
     drive = MecanumDrive(
         PracticeMecanumDriveConstants,
