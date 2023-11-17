@@ -62,7 +62,5 @@ object PracticeControls : Controls() {
         //gamepad2.dpadRight.pressedCommand = { Lift.StartDown }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
         gamepad2.rightTrigger.pressedCommand = { Drone.Launch }
-        gamepad1.leftBumper.pressedCommand = {Claw.Open}
-        gamepad1.rightBumper.pressedCommand = {Claw.Close}
     }
 }
