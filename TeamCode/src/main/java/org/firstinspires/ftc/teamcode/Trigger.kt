@@ -55,26 +55,26 @@ val triggerServo2 = ServoEx("Trigger2")
 object Trigger : Subsystem {
 
     @JvmField
-    var downPosition = 0.012 //tbd, prob 90° -ish down
+    var downPosition = 0.0 //was 0.012
     @JvmField
-    var downPosition2 = 1.0 // inverse of 1
+    var downPosition2 = 0.0 //was 1.0
     @JvmField
-    var MostlydownPosition = 0.062 //tbd, prob 90° -ish down
+    var MostlydownPosition = 0.062 //was 0.062
     @JvmField
-    var MostlydownPosition2 = 0.95 // inverse of 1
+    var MostlydownPosition2 = 0.95 //was 0.95
     @JvmField
-    var upPosition = 0.212 //tbd, prob 0 or 1 up
+    var upPosition = 1.0 //was 0.212
     @JvmField
-    var upPosition2 = 0.8 // inverse of 1
+    var upPosition2 = 1.0 //was 0.8
     @JvmField
     var TestingPosition = 0.5
-    val Depower : Command
-        get() = CustomCommand(_start={
-            val controller: ServoControllerEx = triggerServo.servo.controller as ServoControllerEx
-            val controller2: ServoControllerEx = triggerServo2.servo.controller as ServoControllerEx
-            controller.setServoPwmDisable(triggerServo.portNumber)
-            controller2.setServoPwmDisable(triggerServo2.portNumber)
-        })
+//    val Depower : Command
+//        get() = CustomCommand(_start={
+//            val controller: ServoControllerEx = triggerServo.servo.controller as ServoControllerEx
+//            val controller2: ServoControllerEx = triggerServo2.servo.controller as ServoControllerEx
+//            controller.setServoPwmDisable(triggerServo.portNumber)
+//            controller2.setServoPwmDisable(triggerServo2.portNumber)
+//        })
     val Switch: Command
         get() = parallel {
             if (TriggerState == "Up") {
@@ -96,13 +96,13 @@ object Trigger : Subsystem {
                 +MoveServo(triggerServo2, downPosition2, TIME, 0.05)
             }
             +Delay(0.5)
-            +Depower
+            //+Depower
         }
 
     val Up: Command
         get() = parallel {
-            +MoveServo(triggerServo, upPosition, TIME)
-            +MoveServo(triggerServo2, upPosition2, TIME)
+            +MoveServo(triggerServo, upPosition, TIME, 0.05)
+            +MoveServo(triggerServo2, upPosition2, TIME, 0.05)
         }
     val MostlyDown: Command
         get() = parallel {
