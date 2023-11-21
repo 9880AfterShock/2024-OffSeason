@@ -90,6 +90,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     lateinit var scoreCenterToPark : ParallelTrajectory
     lateinit var startToInside2 : ParallelTrajectory
     lateinit var inside2ToScore : ParallelTrajectory
+    lateinit var insideToBackup2 : ParallelTrajectory
     lateinit var scoreInsideToPark : ParallelTrajectory
     //Randomization 1 V
     lateinit var startToOutside1 : ParallelTrajectory
@@ -98,6 +99,7 @@ object PracticeTrajectoryFactory : TrajectoryFactory() {
     lateinit var centerToBackup1 : ParallelTrajectory
     lateinit var center1ToScore : ParallelTrajectory
     lateinit var startToInside1 : ParallelTrajectory
+    lateinit var insideToBackup1 : ParallelTrajectory
     lateinit var inside1ToScore : ParallelTrajectory
 
     //lateinit var startToMiddleBlue1 : ParallelTrajectory
@@ -110,7 +112,7 @@ RandStartPose2 = Pose2d(10.0,63.0.switchColor, -90.0.switchAngle.toRadians)
     CenterRandPose2 = Pose2d(11.0, 30.0.switchColor, 270.0.switchAngle.toRadians)
     CentRandToScore = Pose2d(38.0, 36.0.switchColor, 0.0.switchAngle.toRadians)
     CenterReverse2 = Pose2d(11.0, 33.5.switchColor, 0.0.switchAngle.toRadians)
-    InsideRandPose2 = Pose2d(10.0, 44.0.switchColor, 270.0.switchAngle.toRadians)
+    InsideRandPose2 = Pose2d(10.0, 34.0.switchColor, 270.0.switchAngle.toRadians)
     InsRandToScore = Pose2d(38.0, 38.0.switchColor, 0.0.switchAngle.toRadians)
     ParkPos = Pose2d(52.0, 11.0.switchColor, 0.0.toRadians)
 RandStartPose1 = Pose2d(-34.0,63.0.switchColor, -90.0.switchAngle.toRadians)
@@ -118,7 +120,7 @@ RandStartPose1 = Pose2d(-34.0,63.0.switchColor, -90.0.switchAngle.toRadians)
         OutsideRandPose1_1 = Pose2d(-34.0, 35.0.switchColor, 0.0.toRadians)
         CenterRandPose1 = Pose2d(-34.0,30.0.switchColor,270.0.switchAngle.toRadians)
         CenterReverse1 = Pose2d(-34.0,33.5.switchColor, 0.0.switchAngle.toRadians)
-        InsideRandPose1 = Pose2d(-24.0,44.0.switchAngle.toRadians)
+        InsideRandPose1 = Pose2d(-30.0,30.0,330.0.switchAngle.toRadians)
 Pose1 = Pose2d(-35.0,64.0.switchColor, 0.0)
         Pose1_1 = Pose2d(-35.0,58.0.switchColor, 0.0.switchAngle.toRadians)
         SecondPose1 = Pose2d(17.0,60.0.switchColor,0.0.switchAngle.toRadians)
@@ -158,31 +160,37 @@ Pose2 = Pose2d(10.0,63.5.switchColor, 0.0)
     centerToBackup2 = drive.trajectoryBuilder(CenterRandPose2, 270.0.toRadians)
         .back(5.5)
         .build()
-    centerToBackup1 = drive.trajectoryBuilder(CenterRandPose1, 270.0.toRadians)
+    centerToBackup1 = drive.trajectoryBuilder(CenterRandPose1, 0.0.toRadians)
         .back(5.5)
         .build()
-    center2ToScore = drive.trajectoryBuilder(centerToBackup2.end(), 0.0.toRadians)
+    center2ToScore = drive.trajectoryBuilder(Pose2d(centerToBackup2.end().vec(), 0.0.toRadians),0.0.toRadians)
         .splineToSplineHeading(CentRandToScore, 0.0.switchAngle.toRadians)
         .build()
-    center1ToScore = drive.trajectoryBuilder(centerToBackup1.end(), 0.0.toRadians)
+    center1ToScore = drive.trajectoryBuilder(Pose2d(centerToBackup1.end().vec(), 0.0.toRadians),0.0.toRadians)
         .splineToSplineHeading(CentRandToScore, 0.0.toRadians)
         .build()
     scoreCenterToPark = drive.trajectoryBuilder(CentRandToScore, 270.0.switchAngle.toRadians)
         .splineToSplineHeading(ParkPos, 0.0.switchAngle.toRadians)
         .build()
     startToInside2 = drive.trajectoryBuilder(RandStartPose2, 270.0.switchAngle.toRadians)
-        .splineToSplineHeading(InsideRandPose2, 270.0.switchAngle.toRadians)
+        .splineToSplineHeading(InsideRandPose2, 0.0.switchAngle.toRadians)
         .build()
     startToInside1 = drive.trajectoryBuilder(RandStartPose1, 270.0.switchAngle.toRadians)
-        .splineToSplineHeading(InsideRandPose1, 270.0.switchAngle.toRadians)
+        .splineToSplineHeading(InsideRandPose1, 0.0.switchAngle.toRadians)
         .build()
-    inside2ToScore = drive.trajectoryBuilder(InsideRandPose2, 270.0.switchAngle.toRadians)
+    insideToBackup2 = drive.trajectoryBuilder(InsideRandPose2, 0.0.toRadians)
+        .back(12.0)
+        .build()
+    insideToBackup1 = drive.trajectoryBuilder(InsideRandPose1, 0.0.toRadians)
+        .back(12.0)
+        .build()
+    inside2ToScore = drive.trajectoryBuilder(Pose2d(insideToBackup2.end().vec(), 0.0), 0.0.switchAngle.toRadians)
         .splineToSplineHeading(InsRandToScore, 0.0.toRadians)
         .build()
-    inside1ToScore = drive.trajectoryBuilder(InsideRandPose1, 270.0.switchAngle.toRadians)
+    inside1ToScore = drive.trajectoryBuilder(Pose2d(insideToBackup1.end().vec(), 0.0), 0.0.switchAngle.toRadians)
         .splineToSplineHeading(InsRandToScore, 0.0.toRadians)
         .build()
-    scoreInsideToPark = drive.trajectoryBuilder(InsRandToScore)
+    scoreInsideToPark = drive.trajectoryBuilder(InsRandToScore, 270.0.switchAngle.toRadians)
         .splineToSplineHeading(ParkPos, 0.0.toRadians)
         .build()
         //Non Rand

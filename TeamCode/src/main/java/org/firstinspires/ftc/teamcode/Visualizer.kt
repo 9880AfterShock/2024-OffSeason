@@ -35,19 +35,19 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-             //   +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
-              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
-             //   +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
-             //   +Delay(1.0)
-              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
-              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
-              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
-              //  +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
-              //  +Delay(1.0)
-                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
-                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
-                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
-                 +Delay(1.0)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+                +Delay(1.0)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
+                +Delay(1.0)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
+                +Delay(1.0)
 
             } },
         Constants.Color.BLUE

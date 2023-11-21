@@ -92,8 +92,8 @@ object Trigger : Subsystem {
 
         get() = sequential {
             +parallel {
-                +MoveServo(triggerServo, downPosition, TIME, 0.05)
-                +MoveServo(triggerServo2, downPosition2, TIME, 0.05)
+                +MoveServo(triggerServo, downPosition, TIME)
+                +MoveServo(triggerServo2, downPosition2, TIME)
             }
             +Delay(0.5)
             //+Depower
@@ -101,8 +101,8 @@ object Trigger : Subsystem {
 
     val Up: Command
         get() = parallel {
-            +MoveServo(triggerServo, upPosition, TIME, 0.05)
-            +MoveServo(triggerServo2, upPosition2, TIME, 0.05)
+            +MoveServo(triggerServo, upPosition, TIME)
+            +MoveServo(triggerServo2, upPosition2, TIME)
         }
     val MostlyDown: Command
         get() = parallel {
