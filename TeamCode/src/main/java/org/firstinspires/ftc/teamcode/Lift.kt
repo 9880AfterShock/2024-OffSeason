@@ -76,9 +76,14 @@ object Lift : Subsystem {
 
     var targetPosition = 0 //unused but needed for clarity in code =]
 
+
     val Up: Command
-        get() =
-            CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
+        get() = sequential {
+            +TelemetryCommand(1.0) { "up" }
+            +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
+            +TelemetryCommand(1.0){"up2"}
+        }
+           // CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
             //MotorToPosition(
             //    ArmMotor,
             //    (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt(),
@@ -86,6 +91,7 @@ object Lift : Subsystem {
             //)
     val Down: Command
         get() = sequential {
+            +TelemetryCommand(10.0) { "Down" }
             +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt()})
           //  +MotorToPosition(
           //      ArmMotor,

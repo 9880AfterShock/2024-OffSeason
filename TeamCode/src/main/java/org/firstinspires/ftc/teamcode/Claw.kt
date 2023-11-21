@@ -50,9 +50,9 @@ object Claw : Subsystem {
 
     val clawServo = ServoEx("Claw")
     @JvmField
-    var CLOSE_POSITION = 0.0 // old 0.75
+    var CLOSE_POSITION = 0.5// old 0.75 0 is open
     @JvmField
-    var OPEN_POSITION = 0.5 // old 0.5t
+    var OPEN_POSITION = 0.4 // old 0.5t
     val Switch: Command
         get() = parallel {
             if (ClawState == "Closed") {
