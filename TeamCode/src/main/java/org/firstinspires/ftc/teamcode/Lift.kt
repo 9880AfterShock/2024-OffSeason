@@ -79,9 +79,7 @@ object Lift : Subsystem {
 
     val Up: Command
         get() = sequential {
-            +TelemetryCommand(1.0) { "up" }
             +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
-            +TelemetryCommand(1.0){"up2"}
         }
            // CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * UP * GearRatioArm / 360.0).toInt()})
             //MotorToPosition(
@@ -91,7 +89,6 @@ object Lift : Subsystem {
             //)
     val Down: Command
         get() = sequential {
-            +TelemetryCommand(10.0) { "Down" }
             +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * DOWN * GearRatioArm / 360.0).toInt()})
           //  +MotorToPosition(
           //      ArmMotor,
@@ -132,6 +129,7 @@ object Lift : Subsystem {
 
 
     override fun initialize() {
+        targetPosition = 0
         LiftMotor.initialize()
         LiftMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
         LiftMotor.mode= DcMotor.RunMode.RUN_USING_ENCODER
@@ -176,12 +174,14 @@ object Lift : Subsystem {
          */
         override fun execute() {
             //targetPosition += ChangeAmount.toInt()
-            error = targetPosition + motor.currentPosition
+            error = targetPosition - motor.currentPosition
             direction = sign(error.toDouble())
             var power = kP * abs(error) * speed * direction
             if (targetPosition == 0 && abs(error) < minError) power = 0.0
             motor.power = Range.clip(power, -min(speed, 1.0), min(speed, 1.0))
             TelemetryController.telemetry.addData("error:", error)
+            TelemetryController.telemetry.addData("mot pos", motor.currentPosition)
+            TelemetryController.telemetry.addData("targ mot pos", targetPosition)
             cancelIfStalled()
             if(logData) {
                 val data = "Power: " + Range.clip(power, -min(speed, 1.0), min(speed, 1.0)) + ", direction: " + direction + ", error: " + error

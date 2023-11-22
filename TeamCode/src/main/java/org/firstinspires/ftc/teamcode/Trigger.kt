@@ -63,7 +63,7 @@ object Trigger : Subsystem {
     @JvmField
     var MostlydownPosition2 = 0.95 //was 0.95
     @JvmField
-    var upPosition = 1.0 //was 0.212
+    var upPosition = 0.98 //was 0.212
     @JvmField
     var upPosition2 = 1.0 //was 0.8
     @JvmField
