@@ -57,7 +57,10 @@ object PracticeControls : Controls() {
              }
              } }}
          gamepad2.x.pressedCommand = {Lift.Up}
-        gamepad2.y.pressedCommand = { Trigger.Switch }
+        gamepad2.y.pressedCommand = { sequential {
+            +Lift.Up
+            +Delay(0.5)
+            +Trigger.Switch}}
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
         gamepad2.rightTrigger.pressedCommand = { Drone.Launch }

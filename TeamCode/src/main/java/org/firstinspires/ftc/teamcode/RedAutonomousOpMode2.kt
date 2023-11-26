@@ -33,7 +33,7 @@ class AutonomousOpModeRed2 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
     { sequential {
-        +PracticeRoutines.OptionRoutine
+        +PracticeRoutines.OptionRoutine2
     } },
 
     { Detection.DetectCommand() },

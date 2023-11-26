@@ -41,6 +41,17 @@ object PracticeRoutines {
             //drop pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
         }
+    val Outside1:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
+            //drop Pixel
+            //back up
+            //grab yellow pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+        }
     val Center2:Command
         get()= sequential {
             //make claw touch ground
@@ -52,6 +63,17 @@ object PracticeRoutines {
             //drop pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
         }
+    val Center1:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter1)
+            //Claw.open
+            //back up
+            //Claw.close
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
+        }
     val Inside2:Command
         get()= sequential {
             //make claw touch ground
@@ -60,6 +82,17 @@ object PracticeRoutines {
             //Back up
             //grab yellow pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
+            //drop pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
+        }
+    val Inside1:Command
+        get()= sequential {
+            //make claw touch ground
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
+            //drop pixel
+            //Back up
+            //grab yellow pixel
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
             //drop pixel
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
         }
@@ -100,52 +133,54 @@ object PracticeRoutines {
             +Trigger.MostlyDown
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToPark2)
         }
-    val OptionRoutine: Command
+    val OptionRoutine2: Command
         get()= parallel {
             +OptionCommand(
-                "Detection Name",
+                "Detection Name2",
                 { Detection.selectedPosition},
-                Pair(PropProcessor.Selected.LEFT, leftPath),
-                Pair(PropProcessor.Selected.MIDDLE, middleCommand),
-                Pair(PropProcessor.Selected.RIGHT, rightPath)
+                Pair(PropProcessor.Selected.LEFT, leftPath2),
+                Pair(PropProcessor.Selected.MIDDLE, middleCommand2),
+                Pair(PropProcessor.Selected.RIGHT, rightPath2)
+            )
+            +TelemetryCommand(100.0, Detection.selectedPosition.toString())
+        }
+    val OptionRoutine1: Command
+        get()= parallel {
+            +OptionCommand(
+                "Detection Name1",
+                { Detection.selectedPosition},
+                Pair(PropProcessor.Selected.LEFT, leftPath1),
+                Pair(PropProcessor.Selected.MIDDLE, middleCommand1),
+                Pair(PropProcessor.Selected.RIGHT, rightPath1)
             )
             +TelemetryCommand(100.0, Detection.selectedPosition.toString())
         }
 
 
 
-
-
-//OptionCommand(Detection.selectedPosition,
-//                Pair(PropProcessor.Selected.LEFT, LeftPath))
-//            OptionCommand(Detection.selectedPosition,
-//                Pair(PropProcessor.Selected.RIGHT, RightPath))
-//            OptionCommand(Detection.selectedPosition,
-//                Pair(PropProcessor.Selected.MIDDLE, Center2))
-
-    val leftPath: Command
+    val leftPath2: Command
         get() = parallel{
             if (Constants.color == Constants.Color.BLUE) +Outside2
             else +Inside2
         }
-      /*  get() = OptionCommand(
-                "leftCommand",
-            {Constants.color},
-                Pair(Constants.Color.BLUE, Outside2),
-                Pair(Constants.Color.RED, Inside2)) */
-    val middleCommand: Command
+    val leftPath1: Command
+        get() = parallel{
+            if (Constants.color == Constants.Color.BLUE) +Outside1
+            else +Inside1
+        }
+    val middleCommand2: Command
         get() = Center2
+    val middleCommand1: Command
+        get() = Center1
 
-    val rightPath: Command
+    val rightPath2: Command
         get() = parallel {
             if (Constants.color == Constants.Color.BLUE) +Inside2
             else +Outside2
-          /*  +OptionCommand(
-                { Constants.color },
-                Pair(Constants.Color.BLUE) { CommandScheduler.scheduleCommand(Inside2) }, // does not run
-                Pair(Constants.Color.RED) { CommandScheduler.scheduleCommand(Outside2) }  // does not run
-            )
-            +TelemetryCommand(100.0, Constants.color.toString())*/
-
+        }
+    val rightPath1: Command
+        get() = parallel {
+            if (Constants.color == Constants.Color.BLUE) +Inside1
+            else +Outside1
         }
 }
