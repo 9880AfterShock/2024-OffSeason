@@ -71,6 +71,7 @@ object Arms : Subsystem {
 
     override fun initialize() {
         ArmMotor.initialize()
+        ArmMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
     }
 
 //copy of power motor for slides cap
