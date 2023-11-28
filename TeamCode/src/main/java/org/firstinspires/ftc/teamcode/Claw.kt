@@ -19,9 +19,11 @@ package org.firstinspires.ftc.teamcode
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import org.atomicrobotics3805.cflib.Command
+import org.atomicrobotics3805.cflib.SequentialCommandGroup
 import org.atomicrobotics3805.cflib.hardware.MotorEx
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MotorToPosition
 import org.atomicrobotics3805.cflib.subsystems.MoveServo
@@ -39,7 +41,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  */
 //THIS IS THE CLAW
 
-private var TIME = 1.0 //tbd
+private var TIME = 0.38 //tbd
 var ClawState = "Open"
 
 
@@ -50,26 +52,26 @@ object Claw : Subsystem {
 
     val clawServo = ServoEx("Claw")
     @JvmField
-    var CLOSE_POSITION = 0.3 // old 0.0
+
+    var CLOSE_POSITION = 0.46 // old 0.0
     @JvmField
-    var OPEN_POSITION = 0.46 // old 0.5
+    var OPEN_POSITION = 0.3 // old 0.5
     val Switch: Command
         get() = parallel {
             if (ClawState == "Closed") {
                 +Open
-                +CustomCommand(_start={ClawState = "Open"})
-                +TelemetryCommand(10.0) { ClawState }
             }else{
                 +Close
-                +CustomCommand(_start={ClawState = "Closed"})
-                +TelemetryCommand(10.0) { ClawState }
             }
         }
 
     val Open: Command
-        get() = MoveServo(clawServo, OPEN_POSITION, TIME)
+        get() = sequential { +MoveServo(clawServo, OPEN_POSITION, TIME)
+            +CustomCommand(_start={ClawState = "Open"}) }
+
     val Close: Command
-        get() = MoveServo(clawServo, CLOSE_POSITION, TIME)
+        get() = sequential {+MoveServo(clawServo, CLOSE_POSITION, TIME)
+        +CustomCommand(_start={ClawState = "Closed"}) }
 
     override fun initialize() {
         clawServo.initialize()

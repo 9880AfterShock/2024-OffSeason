@@ -20,6 +20,9 @@ import org.atomicrobotics3805.cflib.CommandScheduler
 import org.atomicrobotics3805.cflib.Constants.drive
 import org.atomicrobotics3805.cflib.Constants.opMode
 import org.atomicrobotics3805.cflib.controls.Controls
+import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
+import org.atomicrobotics3805.cflib.utilCommands.Delay
 
 /**
  * This class manages the controls for TeleOp OpModes. If you want to register a command, type a
@@ -43,9 +46,21 @@ object PracticeControls : Controls() {
         gamepad2.dpadDown.releasedCommand = { Arms.Stop }
         gamepad1.a.pressedCommand = { Claw.Switch }
         gamepad2.a.pressedCommand = { Claw.Switch }
-         gamepad2.b.pressedCommand = {Lift.Down}
+         gamepad2.b.pressedCommand = { sequential {
+             +Claw.Close
+             +Trigger.Down
+             +parallel{
+                    +Lift.Down
+                    +sequential {
+                        +Delay(0.375)
+                        +Claw.Open
+             }
+             } }}
          gamepad2.x.pressedCommand = {Lift.Up}
-        gamepad2.y.pressedCommand = { Trigger.Switch }
+        gamepad2.y.pressedCommand = { sequential {
+            +Lift.Up
+            +Delay(0.5)
+            +Trigger.Switch}}
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
         gamepad2.rightTrigger.pressedCommand = { Drone.Launch }
