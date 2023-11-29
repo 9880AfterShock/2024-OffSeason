@@ -60,7 +60,7 @@ object Lift : Subsystem {
     var LeftArm = DcMotorSimple.Direction.FORWARD
     var RightArm = DcMotorSimple.Direction.REVERSE
     @JvmField
-    var SPEED = 0.35
+    var SPEED = 0.45
     var UP = 60.0
     var FARUP = 120.0
     var DOWN = 0.0
