@@ -42,6 +42,6 @@ class PracticeTeleOpMode : TeleOpMode(
         TwoWheelOdometryLocalizer(PracticeOdometryConstants)
     ),
 
-    subsystems = arrayOf(Lift, Arms, Claw, Trigger, Detection)
+    subsystems = arrayOf(Lift, Arms, Claw, Trigger, Detection, Drone)
 
 )
