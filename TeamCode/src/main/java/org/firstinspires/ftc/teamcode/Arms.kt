@@ -48,7 +48,7 @@ object Arms : Subsystem {
     var NAME_2 = "RightSlide"
     var LeftSlide = DcMotorSimple.Direction.FORWARD
     var RightSlide = DcMotorSimple.Direction.REVERSE
-    var SPEED = 1.0
+    var SPEED = 0.5
     val StartExtend: Command
         get() =
             //ControlledPowerMotor(ArmMotor, SPEED, (28 * 19.2 * max).toInt())
