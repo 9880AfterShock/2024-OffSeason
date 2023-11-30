@@ -114,7 +114,7 @@ object PracticeRoutines {
             +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
             +Trigger.MostlyDown
             +Delay(1.0)
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startTostart2)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToStart2)
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToMiddle2)
             +Trigger.Up
             +Delay(1.0)
