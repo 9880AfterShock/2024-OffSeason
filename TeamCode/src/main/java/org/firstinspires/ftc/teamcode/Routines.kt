@@ -57,7 +57,7 @@ object PracticeRoutines {
             //make claw touch ground
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
             //Claw.open
-            //back up
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
             //Claw.close
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
             //drop pixel
@@ -68,7 +68,7 @@ object PracticeRoutines {
             //make claw touch ground
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter1)
             //Claw.open
-            //back up
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
             //Claw.close
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
             //drop pixel

@@ -73,6 +73,7 @@ object Claw : Subsystem {
         get() = sequential {+MoveServo(clawServo, CLOSE_POSITION, TIME)
         +CustomCommand(_start={ClawState = "Closed"}) }
 
+
     override fun initialize() {
         clawServo.initialize()
     }

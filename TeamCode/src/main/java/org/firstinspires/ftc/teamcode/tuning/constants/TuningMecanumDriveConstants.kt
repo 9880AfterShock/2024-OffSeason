@@ -76,7 +76,7 @@ object TuningMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _kV = 1.0 / (_MAX_RPM * _GEAR_RATIO * 2 * Math.PI * _WHEEL_RADIUS / 60.0)
     @JvmField
-    var _kA = 0.0
+    var _kA = 0.03
     @JvmField
     var _kStatic = 0.0
 
@@ -92,7 +92,7 @@ object TuningMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _MAX_VEL = 30.0
     @JvmField
-    var _MAX_ACCEL = 30.0
+    var _MAX_ACCEL = 48.0
     @JvmField
     var _MAX_ANG_VEL = 30.0.toRadians
     @JvmField

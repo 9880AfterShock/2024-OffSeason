@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
+import com.acmerobotics.dashboard.config.Config
 import com.acmerobotics.roadrunner.control.PIDCoefficients
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.PIDFCoefficients
@@ -18,6 +19,7 @@ import org.atomicrobotics3805.cflib.trajectories.toRadians
  * during the 2021-22 Freight Frenzy season.
  */
 @Suppress("ObjectPropertyName")
+@Config
 object PracticeMecanumDriveConstants : MecanumDriveConstants {
 
     // These are motor constants that should be listed online for your motors.
@@ -47,7 +49,7 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _kV = 0.0175
     @JvmField
-    var _kA = 0.002
+    var _kA = 0.004
     @JvmField
     var _kStatic = 0.0
 
@@ -72,11 +74,11 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * angular values are in radians.
      */
     @JvmField
-    var _MAX_VEL = 55.0
+    var _MAX_VEL = 15.0
     @JvmField
-    var _MAX_ACCEL = 55.0 // expirement to find
+    var _MAX_ACCEL = 30.0 // expirement to find
     @JvmField
-    var _MAX_ANG_VEL = 30.0.toRadians //max vel over track width
+    var _MAX_ANG_VEL = 15.0.toRadians //max vel over track width
     @JvmField
     var _MAX_ANG_ACCEL = 30.0.toRadians
 
