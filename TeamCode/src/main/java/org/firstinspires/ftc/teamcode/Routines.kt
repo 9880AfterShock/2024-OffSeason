@@ -31,73 +31,204 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  */
 object PracticeRoutines {
     val Outside2:Command
-        get()= sequential {
-            //make claw touch ground
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
-            //drop Pixel
-            //back up
-            //grab yellow pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
-            //drop pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential {
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
+                    +sequential {
+                       // +Delay(0.05)
+                        +Claw.Close
+                    }
+                }
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+        }
         }
     val Outside1:Command
-        get()= sequential {
-            //make claw touch ground
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
-            //drop Pixel
-            //back up
-            //grab yellow pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
-            //drop pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
-        }
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup1)
+                    +Claw.Close
+                }
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+        }}
     val Center2:Command
-        get()= sequential {
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             //make claw touch ground
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
-            //Claw.open
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
-            //Claw.close
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
-            //drop pixel
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
+                    +Claw.Close
+                }
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
-        }
+        }}
     val Center1:Command
-        get()= sequential {
-            //make claw touch ground
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter1)
-            //Claw.open
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
-            //Claw.close
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
-            //drop pixel
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
+                    +Claw.Close
+                }
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
-        }
+        }}
     val Inside2:Command
-        get()= sequential {
-            //make claw touch ground
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside2)
-            //drop pixel
-            //Back up
-            //grab yellow pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
-            //drop pixel
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup2)
+                    +sequential {
+                        +Delay(0.015)
+                        +Claw.Close
+                    }
+                }
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
-        }
+        }}
     val Inside1:Command
-        get()= sequential {
-            //make claw touch ground
+        get()= parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
-            //drop pixel
-            //Back up
-            //grab yellow pixel
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
-            //drop pixel
+                +Claw.Open
+                +parallel{
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1_1)
+                    +Claw.Close
+                }
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
+                +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
+                +Lift.Up
+                +Trigger.Down
+                +Trigger.Up
+                +Delay(1.2)
+                +Claw.Open
+                +Delay(1.5)
+                +sequential {
+                    +Claw.Close
+                    +Trigger.Down
+                    +parallel{
+                        +Lift.Down
+                        +sequential {
+                            +Delay(0.375)
+                            +Claw.Open
+                        }
+                    } }
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
-        }
+        }}
     val BasicScoreRoutine1:Command
-        get()=sequential {
+        get() = parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
             +Trigger.MostlyDown
             +Delay(1.0)
@@ -108,9 +239,11 @@ object PracticeRoutines {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
             +Claw.Open
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
-        }
+        }}
     val BasicScoreRoutine2:Command
-        get()=sequential {
+        get() = parallel{
+            +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
+            +sequential  {
             +CustomCommand(_start = {Claw.clawServo.servo.position = Claw.CLOSE_POSITION})
             +Trigger.MostlyDown
             +Delay(1.0)
@@ -121,7 +254,7 @@ object PracticeRoutines {
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToScore)
             +Claw.Open
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.middleToEnd1)
-        }
+        }}
     val ParkRoutine1:Command
         get()= sequential {
             +Trigger.MostlyDown

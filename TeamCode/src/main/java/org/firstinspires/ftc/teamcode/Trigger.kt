@@ -44,7 +44,7 @@ import kotlin.math.sign
 
 //trigger 2 is left, trigger(1) is right
 
-private var TIME = 1.0 //tbd
+private var TIME = 0.8 //tbd
 var TriggerState = "Down"
 val triggerServo = ServoEx("Trigger")
 val triggerServo2 = ServoEx("Trigger2")
@@ -80,26 +80,25 @@ object Trigger : Subsystem {
             if (TriggerState == "Up") {
                 +Down
                 +CustomCommand(_start={TriggerState = "Down"})
-                +TelemetryCommand(10.0, "Trigger is",TriggerState)
+                +TelemetryCommand(0.01, "Trigger is",TriggerState)
             }else{
                 +Up
                 +CustomCommand(_start={TriggerState = "Up"})
-                +TelemetryCommand(10.0, "Trigger is",TriggerState)
+                +TelemetryCommand(0.01, "Trigger is",TriggerState)
             }
         }
 
-    val Down: Command
+    val Down: Command //score pos
 
         get() = sequential {
             +parallel {
                 +MoveServo(triggerServo, downPosition, TIME)
                 +MoveServo(triggerServo2, downPosition2, TIME)
             }
-            +Delay(0.5)
             //+Depower
         }
 
-    val Up: Command
+    val Up: Command //in the robot
         get() = parallel {
             +MoveServo(triggerServo, upPosition, TIME)
             +MoveServo(triggerServo2, upPosition2, TIME)

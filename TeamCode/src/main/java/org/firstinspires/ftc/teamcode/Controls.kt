@@ -49,6 +49,7 @@ object PracticeControls : Controls() {
          gamepad2.b.pressedCommand = { sequential {
              +Claw.Close
              +Trigger.Down
+             +Delay(0.7)
              +parallel{
                     +Lift.Down
                     +sequential {
@@ -57,15 +58,19 @@ object PracticeControls : Controls() {
              }
              } }}
          gamepad2.x.pressedCommand = {Lift.Up}
-        gamepad2.y.pressedCommand = { sequential {
+        gamepad2.y.pressedCommand = { parallel {
             +Lift.Up
             +Claw.Close
-            +Delay(0.5)
-            +Trigger.Switch}}
+            +sequential {
+                +Delay(0.3)
+                +Trigger.Switch
+                +Trigger.Switch
+            }
+            }}
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
-        gamepad2.dpadLeft.pressedCommand = { Arms.StartRetract }
+        gamepad2.dpadLeft.pressedCommand = { Arms.StartRetractAuto }
         gamepad2.rightTrigger.pressedCommand = { Drone.Switch }
-        gamepad1.y.pressedCommand= {Trigger.ResetServos}
+        //gamepad1.y.pressedCommand= {Trigger.ResetServos}
         //gamepad2.y.pressedCommand = {Lift.FarUp}
         //        gamepad2.leftBumper.pressedCommand = { Lift.StartUp }
 //        gamepad2.rightBumper.pressedCommand = { Lift.StartDown }

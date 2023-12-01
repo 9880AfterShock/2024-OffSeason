@@ -74,7 +74,7 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * angular values are in radians.
      */
     @JvmField
-    var _MAX_VEL = 15.0
+    var _MAX_VEL = 20.0
     @JvmField
     var _MAX_ACCEL = 30.0 // expirement to find
     @JvmField
