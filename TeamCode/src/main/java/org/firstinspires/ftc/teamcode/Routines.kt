@@ -44,24 +44,32 @@ object PracticeRoutines {
                     }
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
+                    +sequential {
+                        +Lift.Up
+                        +Trigger.Down
+                        +Trigger.Up
+                    }
+                }
+
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
         }
         }
@@ -76,24 +84,33 @@ object PracticeRoutines {
                     +Claw.Close
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
+                    +sequential {
+                        +Delay(1.4)
+                        +Lift.Up
+                        +Trigger.Down //for reset
+                        +Trigger.Up //score
+                    }
+                }
+
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
         }}
     val Center2:Command
@@ -108,24 +125,32 @@ object PracticeRoutines {
                     +Claw.Close
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
+                    +sequential {
+                        +Lift.Up
+                        +Trigger.Down
+                        +Trigger.Up
+                    }
+                }
+
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
         }}
     val Center1:Command
@@ -139,24 +164,33 @@ object PracticeRoutines {
                     +Claw.Close
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
+                    +sequential {
+                        +Delay(1.4)
+                        +Lift.Up
+                        +Trigger.Down
+                        +Trigger.Up
+                    }
+                }
+
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
         }}
     val Inside2:Command
@@ -173,24 +207,31 @@ object PracticeRoutines {
                     }
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside2ToScore)
+                    +sequential {
+                        +Lift.Up
+                        +Trigger.Down
+                        +Trigger.Up
+                    }
+                }
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
         }}
     val Inside1:Command
@@ -205,24 +246,32 @@ object PracticeRoutines {
                 }
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
-                +Lift.Up
-                +Trigger.Down
-                +Trigger.Up
-                +Delay(1.2)
+                +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
+                    +sequential {
+                        +Delay(1.4)
+                        +Lift.Up
+                        +Trigger.Down
+                        +Trigger.Up
+                    }
+                }
+                +Delay(0.2) //should be for safety
                 +Claw.Open
                 +Delay(1.5)
-                +sequential {
-                    +Claw.Close
-                    +Trigger.Down
-                    +parallel{
-                        +Lift.Down
-                        +sequential {
-                            +Delay(0.375)
-                            +Claw.Open
-                        }
-                    } }
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                +parallel {// start backing up while I lower the arm.
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                    +sequential {
+                        +Claw.Close
+                        +Trigger.Down
+                        +Delay(0.7)
+                        +parallel{
+                            +Lift.Down
+                            +sequential {
+                                +Delay(0.375)
+                                +Claw.Open
+                            }
+                        } }
+                }
             +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
         }}
     val BasicScoreRoutine1:Command
