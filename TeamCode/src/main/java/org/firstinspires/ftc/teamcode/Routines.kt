@@ -39,7 +39,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
                     +sequential {
-                       // +Delay(0.05)
+                        +Delay(0.05)
                         +Claw.Close
                     }
                 }
@@ -81,7 +81,11 @@ object PracticeRoutines {
                 +Claw.Open
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup1)
-                    +Claw.Close
+                    +sequential {
+                        +Delay(0.05)
+                        +Claw.Close
+                    }
+
                 }
                 +Delay(0.2)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
@@ -122,7 +126,10 @@ object PracticeRoutines {
                 +Claw.Open
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
-                    +Claw.Close
+                    +sequential {
+                        +Delay(0.05)
+                        +Claw.Close
+                    }
                 }
                 +Delay(0.2)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
@@ -161,7 +168,9 @@ object PracticeRoutines {
                 +Claw.Open
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
-                    +Claw.Close
+                    +sequential {
+                        +Delay(0.05)
+                        +Claw.Close }
                 }
                 +Delay(0.2)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
@@ -202,7 +211,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup2)
                     +sequential {
-                        +Delay(0.015)
+                        +Delay(0.05)
                         +Claw.Close
                     }
                 }
@@ -219,7 +228,7 @@ object PracticeRoutines {
                 +Claw.Open
                 +Delay(1.5)
                 +parallel {// start backing up while I lower the arm.
-                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                    +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup2)
                     +sequential {
                         +Claw.Close
                         +Trigger.Down
@@ -232,7 +241,7 @@ object PracticeRoutines {
                             }
                         } }
                 }
-            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
+            +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark2)
         }}
     val Inside1:Command
         get()= parallel{
@@ -242,7 +251,10 @@ object PracticeRoutines {
                 +Claw.Open
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1_1)
-                    +Claw.Close
+                    +sequential {
+                        +Delay(0.05)
+                        +Claw.Close
+                    }
                 }
                 +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
                 +Delay(0.2)
@@ -340,29 +352,29 @@ object PracticeRoutines {
 
 
 
-    val leftPath2: Command
+    val leftPath2: Command //fixed
         get() = parallel{
             if (Constants.color == Constants.Color.BLUE) +Outside2
             else +Inside2
         }
-    val leftPath1: Command
+    val leftPath1: Command //fixed
         get() = parallel{
-            if (Constants.color == Constants.Color.BLUE) +Outside1
-            else +Inside1
+            if (Constants.color == Constants.Color.BLUE) +Inside1
+            else +Outside1
         }
     val middleCommand2: Command
         get() = Center2
     val middleCommand1: Command
         get() = Center1
 
-    val rightPath2: Command
+    val rightPath2: Command //fixed
         get() = parallel {
             if (Constants.color == Constants.Color.BLUE) +Inside2
             else +Outside2
         }
     val rightPath1: Command
         get() = parallel {
-            if (Constants.color == Constants.Color.BLUE) +Inside1
-            else +Outside1
+            if (Constants.color == Constants.Color.BLUE) +Outside1
+            else +Inside1
         }
 }
