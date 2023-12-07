@@ -34,7 +34,7 @@ class PracticeTeleOpMode : TeleOpMode(
     Constants.Color.UNKNOWN,
 
 //    initRoutine = { Detection.DetectCommand() },
-    mainRoutine = { Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED) },
+////    mainRoutine = { Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED) },
 //    mainRoutine = { Lift.MotorToPosition(Lift.ArmMotor, Lift.SPEED) },
 
     drive = MecanumDrive(
