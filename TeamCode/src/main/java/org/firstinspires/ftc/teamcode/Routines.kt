@@ -39,7 +39,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close
                     }
                 }
@@ -82,7 +82,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup1)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close
                     }
 
@@ -127,7 +127,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close
                     }
                 }
@@ -169,7 +169,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close }
                 }
                 +Delay(0.2)
@@ -211,7 +211,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup2)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close
                     }
                 }
@@ -252,7 +252,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1_1)
                     +sequential {
-                        +Delay(0.05)
+                        +Delay(0.04)
                         +Claw.Close
                     }
                 }
