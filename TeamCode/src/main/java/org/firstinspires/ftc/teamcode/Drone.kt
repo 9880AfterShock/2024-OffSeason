@@ -20,9 +20,11 @@ import com.acmerobotics.dashboard.config.Config
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.hardware.ServoEx
 import org.atomicrobotics3805.cflib.parallel
+import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.subsystems.MoveServo
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
+import org.atomicrobotics3805.cflib.utilCommands.Delay
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
 
 /**
@@ -46,19 +48,25 @@ object Drone : Subsystem {
 
     val droneServo = ServoEx("Drone")
     @JvmField
-    var LOADED_POSITION = 0.75 //tbd
+    var LOADED_POSITION = 1.0 //tbd
     @JvmField
-    var LAUNCHED_POSITION = 0.5 //tbd
+    var LAUNCHED_POSITION = 0.3 //tbd
     val Switch: Command
         get() = parallel {
             if (Launched == "Not Launched") {
-                +Launch
+                +sequential {
+                    +Delay(0.5)
+                    +Lift.DroneUp
+                    +Launch
+                }
                 +CustomCommand(_start={Launched = "Launched"})
                 +TelemetryCommand(10.0) { Launched }
             }else{
                 +Land
+                +Lift.Down
                 +CustomCommand(_start={Launched = "Not Launched"})
                 +TelemetryCommand(10.0) { Launched }
+                +TelemetryCommand(3.0, "Compose yourself! Do not lose inspire because of a snide comment.")
             }
         }
 

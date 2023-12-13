@@ -35,15 +35,15 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1_1)
-                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToCenter2)
+                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1_1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center2ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreCenterToPark)
                 // also need to back up after the score on back board.
             } },
-        Constants.Color.BLUE
+        Constants.Color.RED
     ))
     MeepMeepVisualizer.run(PracticeTrajectoryFactory, background = MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
 }

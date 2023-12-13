@@ -62,6 +62,8 @@ object Lift : Subsystem {
     @JvmField
     var SPEED = 0.55
     var UP = 60.0
+    @JvmField
+    var DroneAngle = 45.0
     var FARUP = 120.0
     var DOWN = 0.0
     var GearRatioMotor = 50.9
@@ -105,7 +107,10 @@ object Lift : Subsystem {
               //  (encoderTicks * GearRatioMotor * FARUP * GearRatioArm / 360.0).toInt(),
               //  SPEED
            // )
-
+           val DroneUp: Command
+               get() = sequential {
+                   +CustomCommand(_start={targetPosition = (encoderTicks * GearRatioMotor * DroneAngle * GearRatioArm / 360.0).toInt()})
+               }
 
    val StartUp: Command
        get() =

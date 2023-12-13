@@ -37,6 +37,6 @@ class TurnTest : LinearOpMode() {
 
     companion object {
         @JvmField
-        var ANGLE = 90.0 // deg
+        var ANGLE = 180.0 // deg
     }
 }

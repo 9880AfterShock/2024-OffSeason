@@ -47,11 +47,11 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * feedback, which adjusts motor movements mid-trajectory)
      */
     @JvmField
-    var _kV = 0.0175
+    var _kV = 0.02035
     @JvmField
     var _kA = 0.004
     @JvmField
-    var _kStatic = 0.0
+    var _kStatic = 0.006
 
     /*
      * These constants are tied to your robot's hardware. You should be able to find them just by
@@ -62,7 +62,7 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
     @JvmField
     var _GEAR_RATIO = 1.0 // output (wheel) speed / input (motor) speed
     @JvmField
-    var _TRACK_WIDTH = 14.0 // in, the distance between center of left and right drive wheels
+    var _TRACK_WIDTH = 13.7 // in, the distance between center of left and right drive wheels
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -74,13 +74,13 @@ object PracticeMecanumDriveConstants : MecanumDriveConstants {
      * angular values are in radians.
      */
     @JvmField
-    var _MAX_VEL = 20.0
+    var _MAX_VEL = 18.0
     @JvmField
-    var _MAX_ACCEL = 30.0 // expirement to find
+    var _MAX_ACCEL = 25.0 // expirement to find
     @JvmField
     var _MAX_ANG_VEL = 15.0.toRadians //max vel over track width
     @JvmField
-    var _MAX_ANG_ACCEL = 30.0.toRadians
+    var _MAX_ANG_ACCEL = 23.0.toRadians
 
     /*
      * These values are used solely with Mecanum Drives to adjust the kinematics functions that
