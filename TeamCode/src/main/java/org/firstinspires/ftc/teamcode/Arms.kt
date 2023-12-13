@@ -44,6 +44,7 @@ var max = 8.7
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
 object Arms : Subsystem {
 
+    var AfterAuto = false
     var NAME_1 = "LeftSlide"
     var NAME_2 = "RightSlide"
     var LeftSlide = DcMotorSimple.Direction.FORWARD
