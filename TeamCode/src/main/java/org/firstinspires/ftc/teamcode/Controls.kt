@@ -45,7 +45,7 @@ object PracticeControls : Controls() {
         gamepad2.dpadDown.pressedCommand = { Arms.StartRetract }
         gamepad2.dpadDown.releasedCommand = { Arms.Stop }
         gamepad1.a.pressedCommand = { Claw.Switch }
-        gamepad2.a.pressedCommand = { Claw.Switch }
+        //gamepad2.a.pressedCommand = { Claw.Switch }
         gamepad2.b.pressedCommand = { sequential {
             +Claw.Close
             +Trigger.Down
