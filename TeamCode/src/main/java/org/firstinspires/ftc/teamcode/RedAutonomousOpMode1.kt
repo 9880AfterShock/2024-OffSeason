@@ -21,6 +21,7 @@ import org.atomicrobotics3805.cflib.Constants
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.opmodes.AutonomousOpMode
+import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.sequential
 
 /**
@@ -32,9 +33,11 @@ import org.atomicrobotics3805.cflib.sequential
 class AutonomousOpModeRed1 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
-    { sequential {
+    { parallel {
+        +Lift.GetPos
         +PracticeRoutines.OptionRoutine1
-    } },
+    }
+    },
 
     { Detection.DetectCommand() },
     MecanumDrive(

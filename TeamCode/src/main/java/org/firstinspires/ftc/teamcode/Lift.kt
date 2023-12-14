@@ -63,7 +63,7 @@ object Lift : Subsystem {
     var SPEED = 0.55
     var UP = 60.0
     @JvmField
-    var DroneAngle = 45.0
+    var DroneAngle = 25.0
     var FARUP = 120.0
     var DOWN = 0.0
     var GearRatioMotor = 50.9
@@ -77,6 +77,7 @@ object Lift : Subsystem {
 //    var DownAmount = -0.1
 
     var targetPosition = 0 //unused but needed for clarity in code =]
+    var liftAngle = 0 //IN ENCODER TICKS
 
 
     val Up: Command
@@ -122,6 +123,13 @@ object Lift : Subsystem {
     val StopMove: Command
         get() =
             PowerMotor(LiftMotor, 0.0)
+
+
+
+    val GetPos: Command
+        get() =
+            CustomCommand(_start={ liftAngle = LiftMotor.currentPosition})
+
 
 
 
@@ -179,7 +187,7 @@ object Lift : Subsystem {
          */
         override fun execute() {
             //targetPosition += ChangeAmount.toInt()
-            error = targetPosition - motor.currentPosition
+            error = targetPosition - motor.currentPosition - liftAngle
             direction = sign(error.toDouble())
             var power = kP * abs(error) * speed * direction
             if (targetPosition == 0 && abs(error) < minError) power = 0.0
