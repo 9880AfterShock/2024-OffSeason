@@ -34,7 +34,7 @@ class AutonomousOpModeBlue1 : AutonomousOpMode(
     Constants.Color.BLUE,
     PracticeTrajectoryFactory,
     { parallel {
-        +Lift.GetPos
+        //+Lift.GetPos
         +PracticeRoutines.OptionRoutine1
     }
      },
