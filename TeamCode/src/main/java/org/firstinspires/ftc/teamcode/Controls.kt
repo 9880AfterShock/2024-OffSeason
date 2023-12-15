@@ -45,19 +45,19 @@ object PracticeControls : Controls() {
         gamepad2.dpadDown.pressedCommand = { Arms.StartRetract }
         gamepad2.dpadDown.releasedCommand = { Arms.Stop }
         gamepad1.a.pressedCommand = { Claw.Switch }
-        //gamepad2.a.pressedCommand = { Claw.Switch }
-        gamepad2.b.pressedCommand = { sequential {
-            +Claw.Close
-            +Trigger.Down
-            +Delay(0.7)
-            +parallel{
-                +Lift.Down
-                +sequential {
-                    +Delay(0.375)
-                    +Claw.Open
-                }
-            } }}
-        gamepad2.x.pressedCommand = {Lift.Up}
+        gamepad2.a.pressedCommand = { Claw.Switch }
+         gamepad2.b.pressedCommand = { sequential {
+             +Claw.Close
+             +Trigger.Down
+             +Delay(0.7)
+             +parallel{
+                    +Lift.Down
+                    +sequential {
+                        +Delay(0.375)
+                        +Claw.Open
+             }
+             } }}
+         gamepad2.x.pressedCommand = {Lift.Up}
         gamepad2.y.pressedCommand = { parallel {
             +Lift.Up
             +Claw.Close
@@ -66,7 +66,7 @@ object PracticeControls : Controls() {
                 +Trigger.Switch
                 +Trigger.Switch
             }
-        }}
+            }}
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetractAuto }
         gamepad2.rightTrigger.pressedCommand = {Drone.Switch}
@@ -74,8 +74,8 @@ object PracticeControls : Controls() {
         //gamepad2.y.pressedCommand = {Lift.FarUp}
         gamepad2.leftBumper.pressedCommand = { Lift.StartUp }
         gamepad2.rightBumper.pressedCommand = { Lift.StartDown }
-    //        gamepad2.leftBumper.releasedCommand = { Lift.StopMove }
-    //        gamepad2.rightBumper.releasedCommand = { Lift.StopMove }
+        gamepad2.leftBumper.releasedCommand = { Lift.StopMove }
+        gamepad2.rightBumper.releasedCommand = { Lift.StopMove }
         //     gamepad2.y.pressedCommand = {Lift.FarUp}
         //     gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
         //gamepad2.b.pressedCommand = {PushbotPlate.Switch}
