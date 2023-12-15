@@ -33,11 +33,7 @@ import org.atomicrobotics3805.cflib.sequential
 class AutonomousOpModeRed2 : AutonomousOpMode(
     Constants.Color.RED,
     PracticeTrajectoryFactory,
-    { parallel {
-       // +Lift.GetPos
-        +PracticeRoutines.OptionRoutine1
-    }
-    },
+    { PracticeRoutines.middleCommand2 },
 
     { Detection.DetectCommand() },
     MecanumDrive(

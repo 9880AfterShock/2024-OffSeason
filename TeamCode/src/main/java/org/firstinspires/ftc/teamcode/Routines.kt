@@ -121,6 +121,7 @@ object PracticeRoutines {
         }}
     val Center2:Command
         get()= parallel{
+            +TelemetryCommand(1.0, "should move")
             +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
             +sequential  {
             //make claw touch ground
@@ -368,7 +369,9 @@ object PracticeRoutines {
             else +Outside1
         }
     val middleCommand2: Command
-        get() = Center2
+        get() = parallel{
+        +Center2
+        +TelemetryCommand(1.0, "should move")}
     val middleCommand1: Command
         get() = Center1
 

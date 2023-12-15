@@ -63,7 +63,7 @@ object Lift : Subsystem {
     var SPEED = 0.55
     var UP = 60.0
     @JvmField
-    var DroneAngle = 25.0
+    var DroneAngle = 30.0
     var FARUP = 120.0
     var DOWN = 0.0
     var GearRatioMotor = 50.9
