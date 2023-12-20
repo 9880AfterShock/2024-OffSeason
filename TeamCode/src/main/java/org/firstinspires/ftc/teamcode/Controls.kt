@@ -58,15 +58,19 @@ object PracticeControls : Controls() {
                 }
             } }}
         gamepad2.x.pressedCommand = {Lift.Up}
-        gamepad2.y.pressedCommand = { parallel {
+        gamepad2.y.pressedCommand = { if(Lift.lifterror >23){Trigger.Switch} //error greater than 23 arm is up
+            else(
+            parallel {
             +Lift.Up
             +Claw.Close
             +sequential {
                 +Delay(0.3)
                 +Trigger.Switch
                 +Trigger.Switch
+                +Trigger.Switch
+                +Trigger.Switch
             }
-        }}
+        })}
         gamepad1.leftTrigger.pressedCommand = { drive.switchSpeed() }
         gamepad2.dpadLeft.pressedCommand = { Arms.StartRetractAuto }
         gamepad2.rightTrigger.pressedCommand = {Drone.Switch}

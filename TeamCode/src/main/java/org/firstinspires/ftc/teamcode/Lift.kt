@@ -65,6 +65,7 @@ object Lift : Subsystem {
     @JvmField
     var DroneAngle = 45.0
     var FARUP = 120.0
+    var lifterror: Int = 0 // made it not private so that I can use it in controls
     var DOWN = 0.0
     var GearRatioMotor = 50.9
     var GearRatioArm = 5
@@ -157,7 +158,7 @@ object Lift : Subsystem {
         protected val savesPerSecond = 10.0
         protected var saveTimes: MutableList<Double> = mutableListOf()
         protected val minimumChangeForStall = 20.0
-        protected var error: Int = 0
+
         protected var direction: Double = 0.0
         override val _isDone: Boolean
             get() = false //abs(error) < minError
@@ -170,8 +171,8 @@ object Lift : Subsystem {
          */
         override fun start() {
             motor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-            error = targetPosition + motor.currentPosition
-            direction = sign(error.toDouble())
+            lifterror = targetPosition + motor.currentPosition
+            direction = sign(lifterror.toDouble())
         }
 
         /**
@@ -179,17 +180,17 @@ object Lift : Subsystem {
          */
         override fun execute() {
             //targetPosition += ChangeAmount.toInt()
-            error = targetPosition - motor.currentPosition
-            direction = sign(error.toDouble())
-            var power = kP * abs(error) * speed * direction
-            if (targetPosition == 0 && abs(error) < minError) power = 0.0
+            lifterror = targetPosition - motor.currentPosition
+            direction = sign(lifterror.toDouble())
+            var power = kP * abs(lifterror) * speed * direction
+            if (targetPosition == 0 && abs(lifterror) < minError) power = 0.0
             motor.power = Range.clip(power, -min(speed, 1.0), min(speed, 1.0))
-            TelemetryController.telemetry.addData("error:", error)
+            TelemetryController.telemetry.addData("error:", lifterror)
             TelemetryController.telemetry.addData("mot pos", motor.currentPosition)
             TelemetryController.telemetry.addData("targ mot pos", targetPosition)
             cancelIfStalled()
             if(logData) {
-                val data = "Power: " + Range.clip(power, -min(speed, 1.0), min(speed, 1.0)) + ", direction: " + direction + ", error: " + error
+                val data = "Power: " + Range.clip(power, -min(speed, 1.0), min(speed, 1.0)) + ", direction: " + direction + ", error: " + lifterror
                 RobotLog.i("MotorToPosition %s", data)
             }
         }

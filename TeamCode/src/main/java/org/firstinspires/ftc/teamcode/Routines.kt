@@ -59,7 +59,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup2)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
@@ -105,7 +105,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
@@ -149,7 +149,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
@@ -192,7 +192,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerScoreToBackup)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
@@ -234,7 +234,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup2)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
@@ -277,7 +277,7 @@ object PracticeRoutines {
                 +parallel {// start backing up while I lower the arm.
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
                     +sequential {
-                        +Delay(0.3)
+                        +Delay(1.0)
                         +Claw.Close
                         +Trigger.Down
                         +Delay(0.7)
