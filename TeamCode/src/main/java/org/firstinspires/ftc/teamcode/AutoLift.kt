@@ -128,7 +128,7 @@ object AutoLift : Subsystem {
 
     val GetPos: Command
         get() =
-            CustomCommand(_start={ liftAngle = LiftMotor.currentPosition})
+            CustomCommand(_start={ while(true){liftAngle = LiftMotor.currentPosition} })
 
 
 
