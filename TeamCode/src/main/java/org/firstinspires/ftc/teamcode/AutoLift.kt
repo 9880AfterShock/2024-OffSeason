@@ -31,7 +31,6 @@ import org.atomicrobotics3805.cflib.subsystems.PowerMotor
 import org.atomicrobotics3805.cflib.subsystems.Subsystem
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
-import org.firstinspires.ftc.teamcode.AutoLift.liftAngle
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -54,7 +53,7 @@ import kotlin.math.sign
 //THIS IS THE 2 ARMED THING THAT LIFTS UP THE CLAW
 @Config
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
-object Lift : Subsystem {
+object AutoLift : Subsystem {
 
     var NAME_1 = "LeftArm"
     var NAME_2 = "RightArm"
@@ -79,6 +78,7 @@ object Lift : Subsystem {
 //    var DownAmount = -0.1
 
     var targetPosition = 0 //unused but needed for clarity in code =]
+    var liftAngle = 0 //IN ENCODER TICKS
 
 
     val Up: Command
@@ -124,6 +124,14 @@ object Lift : Subsystem {
     val StopMove: Command
         get() =
             PowerMotor(LiftMotor, 0.0)
+
+
+    val GetPos: Command
+        get() =
+            CustomCommand(_start={ liftAngle = LiftMotor.currentPosition})
+
+
+
 
 
 
@@ -181,7 +189,7 @@ object Lift : Subsystem {
          */
         override fun execute() {
             //targetPosition += ChangeAmount.toInt()
-            lifterror = targetPosition - motor.currentPosition - liftAngle
+            lifterror = targetPosition - motor.currentPosition
             direction = sign(lifterror.toDouble())
             var power = kP * abs(lifterror) * speed * direction
             if (targetPosition == 0 && abs(lifterror) < minError) power = 0.0
