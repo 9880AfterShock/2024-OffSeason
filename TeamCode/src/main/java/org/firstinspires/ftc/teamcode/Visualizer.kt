@@ -35,11 +35,11 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToInside1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideScoreToBackup)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreInsideToPark)
                 // also need to back up after the score on back board.
             } },
         Constants.Color.BLUE
