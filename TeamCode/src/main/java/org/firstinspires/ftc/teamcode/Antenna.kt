@@ -33,7 +33,7 @@ import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
  * To use this class, copy it into the proper package and change the first eight constants (COUNTS_PER_INCH is fine as
  * is).
  */
-//THIS IS THE CLAW
+//THIS IS THE STICK
 
 private var TIME = 0.38 //tbd
 var AntennaState = "Open"
@@ -46,7 +46,6 @@ object Antenna : Subsystem {
 
     val AntennaServo = ServoEx("Antenna")
     @JvmField
-
     var DOWN_POSITION = 0.45 //
     @JvmField
     var UP_POSITION = 0.3 //

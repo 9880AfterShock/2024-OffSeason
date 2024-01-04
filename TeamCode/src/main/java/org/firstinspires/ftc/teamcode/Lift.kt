@@ -64,7 +64,7 @@ object Lift : Subsystem {
     var SPEED = 0.55
     var UP = 60.0
     @JvmField
-    var DroneAngle = 45.0
+    var DroneAngle = 30.0
     var FARUP = 120.0
     var lifterror: Int = 0 // made it not private so that I can use it in controls
     var DOWN = 0.0
@@ -125,6 +125,10 @@ object Lift : Subsystem {
         get() =
             PowerMotor(LiftMotor, 0.0)
 
+   // val Reset0: Command
+     //   get() =
+            //LiftMotor.mode= DcMotor.RunMode.STOP_AND_RESET_ENCODER
+
 
 
 
@@ -181,7 +185,7 @@ object Lift : Subsystem {
          */
         override fun execute() {
             //targetPosition += ChangeAmount.toInt()
-            lifterror = targetPosition - motor.currentPosition - liftAngle
+            lifterror = targetPosition - motor.currentPosition// - liftAngle
             direction = sign(lifterror.toDouble())
             var power = kP * abs(lifterror) * speed * direction
             if (targetPosition == 0 && abs(lifterror) < minError) power = 0.0

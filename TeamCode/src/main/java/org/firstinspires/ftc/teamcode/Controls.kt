@@ -78,8 +78,10 @@ object PracticeControls : Controls() {
         //gamepad2.y.pressedCommand = {Lift.FarUp}
         gamepad2.leftBumper.pressedCommand = { Lift.StartUp }
         gamepad2.rightBumper.pressedCommand = { Lift.StartDown }
-    //        gamepad2.leftBumper.releasedCommand = { Lift.StopMove }
-    //        gamepad2.rightBumper.releasedCommand = { Lift.StopMove }
+        gamepad2.leftBumper.releasedCommand = { Lift.StopMove }
+        gamepad2.rightBumper.releasedCommand = { Lift.StopMove }
+        gamepad1.rightTrigger.pressedCommand = { Antenna.Switch }
+
         //     gamepad2.y.pressedCommand = {Lift.FarUp}
         //     gamepad2.leftBumper.pressedCommand = {Trigger.Switch}
         //gamepad2.b.pressedCommand = {PushbotPlate.Switch}
