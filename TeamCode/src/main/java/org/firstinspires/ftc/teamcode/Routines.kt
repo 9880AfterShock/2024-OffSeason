@@ -92,7 +92,7 @@ object PracticeRoutines {
 
                 }
                 +Delay(0.2)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsidetoforeward1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToForeward1)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
                     +sequential {
