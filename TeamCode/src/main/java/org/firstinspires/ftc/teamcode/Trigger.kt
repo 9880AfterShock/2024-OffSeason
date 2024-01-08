@@ -44,7 +44,7 @@ import kotlin.math.sign
 
 //trigger 2 is left, trigger(1) is right
 
-private var TIME = 0.8 //tbd
+private var TIME = 2.5 //tbd
 var TriggerState = "Down"
 val triggerServo = ServoEx("Trigger")
 val triggerServo2 = ServoEx("Trigger2")

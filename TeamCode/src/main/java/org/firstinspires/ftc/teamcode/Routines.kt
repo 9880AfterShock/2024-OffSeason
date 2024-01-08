@@ -29,7 +29,10 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  * This class is an example of how to create routines. Routines are essentially just groups of
  * commands that can be run either one at a time (sequentially) or all at once (in parallel).
  */
+
 object PracticeRoutines {
+    var clawclosepurp = 0.2
+    var clawopenorange = 1.0
     val Outside2:Command
         get()= parallel{
             +Lift.MotorToPosition(Lift.LiftMotor, Lift.SPEED)
@@ -39,7 +42,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
                     +sequential {
-                        //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close
                     }
                 }
@@ -83,12 +86,13 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup1)
                     +sequential {
-                        //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close
                     }
 
                 }
                 +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsidetoforeward1)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
                     +sequential {
@@ -129,7 +133,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup2)
                     +sequential {
-                        //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close
                     }
                 }
@@ -172,7 +176,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToBackup1)
                     +sequential {
-                        //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close }
                 }
                 +Delay(0.2)
@@ -215,7 +219,7 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup2)
                     +sequential {
-                       //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close
                     }
                 }
@@ -257,11 +261,12 @@ object PracticeRoutines {
                 +parallel{
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToBackup1)
                     +sequential {
-                        //+Delay(0.02)
+                        +Delay(clawclosepurp)
                         +Claw.Close
                     }
                 }
                 +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.insideToForward1)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.inside1ToScore)
                     +sequential {
