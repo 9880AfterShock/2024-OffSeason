@@ -46,12 +46,12 @@ object Antenna : Subsystem {
 
     val AntennaServo = ServoEx("Antenna")
     @JvmField
-    var DOWN_POSITION = 0.45 //
+    var DOWN_POSITION = 0.65 //
     @JvmField
-    var UP_POSITION = 0.3 //
+    var UP_POSITION = 0.1 //
     val Switch: Command
         get() = parallel {
-            if (AntennaState == "Closed") {
+            if (AntennaState == "Antenna Down") {
                 +Open
             }else{
                 +Close

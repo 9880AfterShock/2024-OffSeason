@@ -20,9 +20,9 @@ object PracticeOdometryConstants : TwoWheelOdometryConstants {
     @JvmField
     var _PARALLEL_X = -6.25 // in; forward offset of the parallel wheel
     @JvmField
-    var _PARALLEL_Y = -1.625 // in; left offset of the parallel wheel
+    var _PARALLEL_Y = -1.85 // in; left offset of the parallel wheel
     @JvmField
-    var _PERPENDICULAR_X = -3.1 // in; forward offset of the perpendicular wheel
+    var _PERPENDICULAR_X = -3.62 // in; forward offset of the perpendicular wheel
     @JvmField
     var _PERPENDICULAR_Y = 1.225 // in; left offset of the perpendicular wheel
     /*
