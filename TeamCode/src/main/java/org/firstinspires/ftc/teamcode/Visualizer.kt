@@ -18,7 +18,9 @@ package org.firstinspires.ftc.teamcode
 
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.noahbres.meepmeep.MeepMeep
+import com.noahbres.meepmeep.core.toRadians
 import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.driving.Turn
 import org.atomicrobotics3805.cflib.driving.drivers.MecanumDrive
 import org.atomicrobotics3805.cflib.driving.localizers.TwoWheelOdometryLocalizer
 import org.atomicrobotics3805.cflib.sequential
@@ -35,12 +37,12 @@ fun main() {
         15.0, 17.033333333,
         {
             sequential {
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToForeward1)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside1ToScore)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup)
-                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.startToOutside2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideToBackup2)
+                //+Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToForward1)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outside2ToScore)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.outsideScoreToBackup2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.scoreOutsideToPark2)
             } },
         Constants.Color.BLUE
     ))

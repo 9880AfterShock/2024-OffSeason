@@ -16,8 +16,10 @@
 */
 package org.firstinspires.ftc.teamcode
 
+import com.noahbres.meepmeep.core.toRadians
 import org.atomicrobotics3805.cflib.Command
 import org.atomicrobotics3805.cflib.Constants
+import org.atomicrobotics3805.cflib.driving.Turn
 import org.atomicrobotics3805.cflib.parallel
 import org.atomicrobotics3805.cflib.sequential
 import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
@@ -31,7 +33,7 @@ import org.atomicrobotics3805.cflib.utilCommands.TelemetryCommand
  */
 
 object PracticeRoutines {
-    var clawclosepurp = 0.2
+    var clawclosepurp = 0.1
     var clawopenorange = 1.0
     val Outside2:Command
         get()= parallel{
@@ -180,6 +182,7 @@ object PracticeRoutines {
                         +Claw.Close }
                 }
                 +Delay(0.2)
+                +Constants.drive.followTrajectory(PracticeTrajectoryFactory.centerToForward1)
                 +parallel {// this parallel should end after the robot reaches the backboard, then the claw can open
                     +Constants.drive.followTrajectory(PracticeTrajectoryFactory.center1ToScore)
                     +sequential {
