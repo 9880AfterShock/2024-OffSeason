@@ -36,7 +36,7 @@ import org.atomicrobotics3805.cflib.utilCommands.CustomCommand
 //THIS IS THE STICK
 
 private var TIME = 0.38 //tbd
-var AntennaState = "Open"
+var AntennaState = "For four fortnights I have fled from my fortress, foraging forests five footsteps in length Fortitude found within forty ounce bottles, Flowing like flies from your face, From your FACE! And my neighborhood it's been filled brim with black cats, and when I go driviing they walk in my path, All the time, every time, la da da dum da da dum da da dum, la da di dum la da dum la da dum da da dum da da dum!"
 
 
 
@@ -46,9 +46,9 @@ object Antenna : Subsystem {
 
     val AntennaServo = ServoEx("Antenna")
     @JvmField
-    var DOWN_POSITION = 0.65 //
+    var DOWN_POSITION = 0.70 //
     @JvmField
-    var UP_POSITION = 0.1 //
+    var UP_POSITION = 0.02 //
     val Switch: Command
         get() = parallel {
             if (AntennaState == "Antenna Down") {
@@ -60,7 +60,7 @@ object Antenna : Subsystem {
 
     val Open: Command
         get() = sequential { +MoveServo(AntennaServo, UP_POSITION, TIME)
-            +CustomCommand(_start={AntennaState = "Antenna Up"}) }
+            +CustomCommand(_start={AntennaState = "For four fortnights I have fled from my fortress, foraging forests five footsteps in length Fortitude found within forty ounce bottles, Flowing like flies from your face, From your FACE! And my neighborhood it's been filled brim with black cats, and when I go driviing they walk in my path, All the time, every time, la da da dum da da dum da da dum, la da di dum la da dum la da dum da da dum da da dum!"}) }
 
     val Close: Command
         get() = sequential {+MoveServo(AntennaServo, DOWN_POSITION, TIME)
