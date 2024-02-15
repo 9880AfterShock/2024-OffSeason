@@ -1,5 +1,8 @@
-package org.firstinspires.ftc.teamcode.primary.drive.opmode;
-
+package org.firstinspires.ftc.teamcode.primary;
+//this is sam on oscars computer uwu
+//hahah wheeeee
+// this is funi
+// my goodness sam, no need to hit the space bar after you make a comment.
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -12,7 +15,7 @@ import org.firstinspires.ftc.teamcode.primary.drive.SampleMecanumDrive;
  * This is an example of a more complex path to really test the tuning.
  */
 @Autonomous(group = "drive")
-public class SplineTest extends LinearOpMode {
+public class OffSeason9880_2024_Auto_Op extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
