@@ -22,6 +22,7 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
         if (isStopRequested) return
         val traj = drive.trajectoryBuilder(Pose2d())
                 .splineTo(Vector2d(30.0, 30.0), 0.0)
+                .back(1.0)
                 .build()
         drive.followTrajectory(traj)
         sleep(2000)
