@@ -28,7 +28,7 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
         sleep(2000)
         drive.followTrajectory(
                 drive.trajectoryBuilder(traj.end(), true)
-                        .splineTo(Vector2d(0.0, 0.0), Math.toRadians(180.0))
+                        .splineTo(Vector2d(0.0, .0), Math.toRadians(180.0))
                         .build()
         )
     }
