@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.primary.drive.SampleMecanumDrive
 
-//this is sam on oscars computer uwu
-//hahah wheeeee
+// this is sam on oscars computer uwu
+// hahah wheeeee
 // this is funi
 // my goodness sam, no need to hit the space bar after you make a comment.
 /*
@@ -31,5 +31,11 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
                         .splineTo(Vector2d(0.0, .0), Math.toRadians(180.0))
                         .build()
         )
+    }
+    fun camelCase() {
+    /*    if (pos == left) { run left thingy }
+        else if (magic) run right
+                else run middle
+            */
     }
 }
