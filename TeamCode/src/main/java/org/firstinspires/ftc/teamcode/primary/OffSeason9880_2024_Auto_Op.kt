@@ -18,6 +18,7 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
     @Throws(InterruptedException::class)
     override fun runOpMode() {
         val drive = SampleMecanumDrive(hardwareMap)
+        TrajectoryFactory.initTrajectories(drive)
         waitForStart()
         if (isStopRequested) return
         val traj = drive.trajectoryBuilder(Pose2d())
