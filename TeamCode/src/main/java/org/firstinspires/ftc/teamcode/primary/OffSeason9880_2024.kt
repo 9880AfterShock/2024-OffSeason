@@ -25,10 +25,10 @@ class OffSeason9880_2024 : LinearOpMode() {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDriveBack = hardwareMap.get(DcMotor::class.java, "left_drive_back")
-        leftDriveFront = hardwareMap.get(DcMotor::class.java,"left_drive_front")
-        rightDriveBack = hardwareMap.get(DcMotor::class.java, "right_drive_back")
-        rightDriveFront = hardwareMap.get(DcMotor::class.java, "right_drive_front")
+        leftDriveBack = hardwareMap.get(DcMotor::class.java, "LB")
+        leftDriveFront = hardwareMap.get(DcMotor::class.java,"LF")
+        rightDriveBack = hardwareMap.get(DcMotor::class.java, "RB")
+        rightDriveFront = hardwareMap.get(DcMotor::class.java, "RF")
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
