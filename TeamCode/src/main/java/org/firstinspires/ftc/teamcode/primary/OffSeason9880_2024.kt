@@ -13,11 +13,11 @@ import com.qualcomm.robotcore.util.Range
 class OffSeason9880_2024 : LinearOpMode() {
     // Declare OpMode members.
     private val runtime = ElapsedTime()
-    private lateinit var leftDriveBack: DcMotor
-    private lateinit var leftDriveFront: DcMotor
-    private lateinit var rightDriveBack: DcMotor
-    private lateinit var rightDriveFront: DcMotor
-
+    private lateinit var leftRear: DcMotor
+    private lateinit var leftFront: DcMotor
+    private lateinit var rightRear: DcMotor
+    private lateinit var rightFront: DcMotor
+// anything you write here will not ruin my code
     override fun runOpMode() {
         telemetry.addData("Status", "Initialized")
         telemetry.update()
@@ -25,18 +25,18 @@ class OffSeason9880_2024 : LinearOpMode() {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDriveBack = hardwareMap.get(DcMotor::class.java, "LB")
-        leftDriveFront = hardwareMap.get(DcMotor::class.java,"LF")
-        rightDriveBack = hardwareMap.get(DcMotor::class.java, "RB")
-        rightDriveFront = hardwareMap.get(DcMotor::class.java, "RF")
+        leftRear = hardwareMap.get(DcMotor::class.java, "leftRear")
+        leftFront = hardwareMap.get(DcMotor::class.java,"leftFront")
+        rightRear = hardwareMap.get(DcMotor::class.java, "rightRear")
+        rightFront = hardwareMap.get(DcMotor::class.java, "rightFront")
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDriveBack.direction = DcMotorSimple.Direction.REVERSE
-        leftDriveFront.direction = DcMotorSimple.Direction.REVERSE
-        rightDriveBack.direction = (DcMotorSimple.Direction.FORWARD)
-        rightDriveFront.direction = (DcMotorSimple.Direction.FORWARD)
+        leftRear.direction = DcMotorSimple.Direction.REVERSE
+        leftFront.direction = DcMotorSimple.Direction.REVERSE
+        rightRear.direction = (DcMotorSimple.Direction.FORWARD)
+        rightFront.direction = (DcMotorSimple.Direction.FORWARD)
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart()
@@ -71,10 +71,10 @@ class OffSeason9880_2024 : LinearOpMode() {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            leftDriveBack.power = leftBackPower
-            leftDriveFront.power = leftFrontPower
-            rightDriveBack.power = rightBackPower
-            rightDriveFront.power = rightFrontPower
+            leftRear.power = leftBackPower
+            leftFront.power = leftFrontPower
+            rightRear.power = rightBackPower
+            rightFront.power = rightFrontPower
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: $runtime")

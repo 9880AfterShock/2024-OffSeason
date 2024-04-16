@@ -39,7 +39,7 @@ fun main() {
     TrajectoryFactory.initTrajectories(SampleMecanumDrive(null))
     meepMeep.addEntity(botBuilder.followTrajectorySequence(
         TrajectorySequence(
-            listOf(TrajectorySegment( TrajectoryFactory.centerToBackDropSide), TrajectorySegment(TrajectoryFactory.centerBackToScore), TrajectorySegment(TrajectoryFactory.scoreCenterToBackup), TrajectorySegment(TrajectoryFactory.centerBackupToPark))
+            listOf(TrajectorySegment( TrajectoryFactory.startToCenterDropSide), TrajectorySegment (TrajectoryFactory.centerToBackDropSide), TrajectorySegment(TrajectoryFactory.centerBackToScore), TrajectorySegment(TrajectoryFactory.scoreCenterToBackup), TrajectorySegment(TrajectoryFactory.centerBackupToPark))
         )
     ))
 
