@@ -27,7 +27,6 @@ object TrajectoryFactory {
 
         //put trajectories here
         startToCenterDropSide = drive.trajectoryBuilder(startDropSide)
-            .back(10.0)
             .splineToSplineHeading(scoreCenterDropSide, -PI/2)
             .build()
 

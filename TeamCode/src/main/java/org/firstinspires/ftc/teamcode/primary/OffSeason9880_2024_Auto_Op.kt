@@ -7,7 +7,11 @@ import com.noahbres.meepmeep.roadrunner.trajectorysequence.TrajectorySequence
 import com.noahbres.meepmeep.roadrunner.trajectorysequence.sequencesegment.TrajectorySegment
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import org.firstinspires.ftc.teamcode.primary.TrajectoryFactory.centerBackToScore
+import org.firstinspires.ftc.teamcode.primary.TrajectoryFactory.centerBackupToPark
 import org.firstinspires.ftc.teamcode.primary.TrajectoryFactory.centerToBackDropSide
+import org.firstinspires.ftc.teamcode.primary.TrajectoryFactory.scoreCenterToBackup
+import org.firstinspires.ftc.teamcode.primary.TrajectoryFactory.startToCenterDropSide
 import org.firstinspires.ftc.teamcode.primary.drive.SampleMecanumDrive
 @Autonomous(group = "drive")
 class OffSeason9880_2024_Auto_Op : LinearOpMode() {
@@ -17,7 +21,15 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
         TrajectoryFactory.initTrajectories(drive)
         waitForStart()
         if (isStopRequested) return
-       drive.followTrajectory(centerToBackDropSide)
+        drive.followTrajectory(startToCenterDropSide) // Deadwheel added. Need to correct localization using localization tuning. also check out the heading during the tests.
+        sleep(250)
+        drive.followTrajectory(centerToBackDropSide)
+        sleep(250)
+        drive.followTrajectory(centerBackToScore)
+        sleep(250)
+        drive.followTrajectory(scoreCenterToBackup)
+        sleep(250)
+        drive.followTrajectory(centerBackupToPark)
        /* val traj = drive.trajectoryBuilder(Pose2d())
                 .splineTo(Vector2d(30.0, 30.0), 0.0)
                 //.back(1.0)

@@ -21,6 +21,7 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
@@ -28,6 +29,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.drive.TwoWheelTrackingLocalizer;
 import org.firstinspires.ftc.teamcode.primary.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.primary.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.primary.trajectorysequence.TrajectorySequenceRunner;
@@ -123,12 +125,15 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE); // add if needed
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE); // add if needed
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
         List<Integer> lastTrackingEncVels = new ArrayList<>();
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap, lastTrackingEncPositions, lastTrackingEncVels));
+        setLocalizer(new TwoWheelTrackingLocalizer(hardwareMap, this));
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(
                 follower, HEADING_PID, batteryVoltageSensor,
