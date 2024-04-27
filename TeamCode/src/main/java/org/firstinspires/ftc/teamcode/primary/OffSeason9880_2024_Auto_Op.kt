@@ -21,7 +21,7 @@ class OffSeason9880_2024_Auto_Op : LinearOpMode() {
         TrajectoryFactory.initTrajectories(drive)
         waitForStart()
         if (isStopRequested) return
-        drive.followTrajectory(startToCenterDropSide) // Deadwheel added. Need to correct localization using localization tuning. also check out the heading during the tests.
+        drive.followTrajectory(startToCenterDropSide) // the PID or similar for the heading and giro sensor is not set right. use the turn test program and see the heading and error. also tune dead-wheels with the localization test. use the robot auto drive by gyro file.
         sleep(250)
         drive.followTrajectory(centerToBackDropSide)
         sleep(250)

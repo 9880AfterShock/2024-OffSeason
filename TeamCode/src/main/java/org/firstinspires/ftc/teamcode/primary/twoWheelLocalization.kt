@@ -65,8 +65,8 @@ class TwoWheelTrackingLocalizer(hardwareMap: HardwareMap, drive: SampleMecanumDr
 
     override fun getWheelPositions(): List<Double> {
         return Arrays.asList(
-            encoderTicksToInches(parallelEncoder.currentPosition.toDouble()),
-            encoderTicksToInches(perpendicularEncoder.currentPosition.toDouble())
+            encoderTicksToInches(parallelEncoder.currentPosition.toDouble()) * X_MULTIPLIER,
+            encoderTicksToInches(perpendicularEncoder.currentPosition.toDouble()) * Y_MULTIPLIER
         )
     }
 
@@ -75,8 +75,8 @@ class TwoWheelTrackingLocalizer(hardwareMap: HardwareMap, drive: SampleMecanumDr
         //  competing magnetic encoders), change Encoder.getRawVelocity() to Encoder.getCorrectedVelocity() to enable a
         //  compensation method
         return Arrays.asList(
-            encoderTicksToInches(parallelEncoder.getRawVelocity()),
-            encoderTicksToInches(perpendicularEncoder.getRawVelocity())
+            encoderTicksToInches(parallelEncoder.getRawVelocity()) * X_MULTIPLIER,
+            encoderTicksToInches(perpendicularEncoder.getRawVelocity()) * Y_MULTIPLIER
         )
     }
 
