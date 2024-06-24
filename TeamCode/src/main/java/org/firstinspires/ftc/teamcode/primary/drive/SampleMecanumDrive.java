@@ -51,13 +51,16 @@ import static org.firstinspires.ftc.teamcode.primary.drive.DriveConstants.kA;
 import static org.firstinspires.ftc.teamcode.primary.drive.DriveConstants.kStatic;
 import static org.firstinspires.ftc.teamcode.primary.drive.DriveConstants.kV;
 
+import kotlin.jvm.JvmField;
+
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    @JvmField
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.0, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 1;
 
@@ -300,7 +303,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public Double getExternalHeadingVelocity() {
-        return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).zRotationRate;
+        return (double) imu.getRobotAngularVelocity(AngleUnit.RADIANS).xRotationRate;
     }
 
     public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {

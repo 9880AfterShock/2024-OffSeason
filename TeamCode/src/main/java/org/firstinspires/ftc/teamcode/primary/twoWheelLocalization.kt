@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive
 
+import com.acmerobotics.dashboard.config.Config
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.acmerobotics.roadrunner.localization.TwoTrackingWheelLocalizer
 import com.qualcomm.robotcore.hardware.DcMotorEx
@@ -29,6 +30,7 @@ import java.util.Arrays
 *    \--------------/
 *
 */
+@Config
 class TwoWheelTrackingLocalizer(hardwareMap: HardwareMap, drive: SampleMecanumDrive) :
     TwoTrackingWheelLocalizer(
         listOf<Pose2d>(
@@ -42,9 +44,10 @@ class TwoWheelTrackingLocalizer(hardwareMap: HardwareMap, drive: SampleMecanumDr
     private val parallelEncoder: Encoder
     private val perpendicularEncoder: Encoder
     private val drive: SampleMecanumDrive
-    var X_MULTIPLIER = 1.016949153 // Multiplier in the X direction
-
-    var Y_MULTIPLIER = 1.020408163 // Multiplier in the Y direction
+    @JvmField
+    var X_MULTIPLIER = 1.0372 // Multiplier in the X direction tuned (05/28/24)
+    @JvmField
+    var Y_MULTIPLIER = 3.0 // Multiplier in the Y direction
 
     init {
         this.drive = drive
@@ -75,8 +78,8 @@ class TwoWheelTrackingLocalizer(hardwareMap: HardwareMap, drive: SampleMecanumDr
         //  competing magnetic encoders), change Encoder.getRawVelocity() to Encoder.getCorrectedVelocity() to enable a
         //  compensation method
         return Arrays.asList(
-            encoderTicksToInches(parallelEncoder.getRawVelocity()) * X_MULTIPLIER,
-            encoderTicksToInches(perpendicularEncoder.getRawVelocity()) * Y_MULTIPLIER
+            encoderTicksToInches(parallelEncoder.getCorrectedVelocity()) * X_MULTIPLIER,
+            encoderTicksToInches(perpendicularEncoder.getCorrectedVelocity()) * Y_MULTIPLIER
         )
     }
 
