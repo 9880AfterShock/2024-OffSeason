@@ -11,8 +11,8 @@ object PositionMotorTemplate { //Prefix for commands
     private lateinit var motor: DcMotor //Init Motor Var
     var pos = 0.0 //starting Position
     @JvmField
-    var positions = doubleArrayOf(0.1, 0.2, 0.3) //change your own
-    var currentPos = 1 //position in array. you can change the starting one
+    var positions = doubleArrayOf(0.1, 0.2, 0.3, 0.4) //change your own //only first 2 ([0][1]) work rn
+    var currentPos = 0 //position in array. you can change the starting one
     val encoderTicks = 384.5 //calculate your own ratio
     private var leftBumperCurrentlyPressed = false
     private var leftBumperPreviouslyPressed = false
@@ -35,13 +35,13 @@ object PositionMotorTemplate { //Prefix for commands
         if (!(leftBumperCurrentlyPressed && rightBumperCurrentlyPressed)) {
             if (leftBumperCurrentlyPressed && !leftBumperPreviouslyPressed) {
                 currentPos =- 1
-                if (currentPos<1) {
-                    currentPos = 1
+                if (currentPos < 0) {
+                    currentPos = 0
                 }
             } else {
                 if (rightBumperCurrentlyPressed && !rightBumperPreviouslyPressed) {
                     currentPos =+ 1
-                    if (currentPos< positions.size) {
+                    if (currentPos > positions.size) {
                         currentPos = positions.size
                     }
                 }
