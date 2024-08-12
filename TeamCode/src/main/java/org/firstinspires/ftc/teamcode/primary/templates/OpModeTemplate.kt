@@ -22,6 +22,7 @@ class OpmodeTemplate : LinearOpMode() {
 
         //Call Init Functions (make sure to add "this")
     //    LiftTemplate.initLift(this)
+    //    ClawTemplate.initClaw(this)
         PositionMotorTemplate.initMotor(this)
 
         //Wait for start
@@ -31,6 +32,7 @@ class OpmodeTemplate : LinearOpMode() {
         //Running Loop
         while (opModeIsActive()) {
     //        LiftTemplate.updateLift()
+    //        ClawTemplate.update()
             PositionMotorTemplate.updateMotor()
             // Show the elapsed time (and other telemetry) on driver station
             telemetry.addData("Status", "Run Time: $runtime")
