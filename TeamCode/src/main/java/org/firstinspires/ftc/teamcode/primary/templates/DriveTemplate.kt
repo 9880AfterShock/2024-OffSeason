@@ -4,6 +4,11 @@ package org.firstinspires.ftc.teamcode
 import com.acmerobotics.dashboard.config.Config
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotorSimple
+import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1
+import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap
+import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry
+import com.qualcomm.robotcore.util.Range
 
 @Config
 object DriveTemplate { //Prefix for commands
@@ -11,16 +16,6 @@ object DriveTemplate { //Prefix for commands
     private lateinit var leftFront: DcMotor
     private lateinit var rightRear: DcMotor
     private lateinit var rightFront: DcMotor
-  
-    var pos = 0.0 //starting Position
-    var currentSpeed = 0.0 //Starting speed, WHY ARE YOU MAKING A FALLING LIFT???
-    @JvmField
-    var speed = 0.01 //update speed
-    val encoderTicks = 384.5 //calculate your own ratio
-    @JvmField
-    var minPos = 0.0 //bottom position
-    @JvmField
-    var maxPos = 2.0 //top position
     lateinit var opmode: OpMode //opmode var innit
     var motorMode: DcMotor.RunMode = DcMotor.RunMode.RUN_TO_POSITION //set motor mode
     fun initLift(opmode: OpMode){ //init motors

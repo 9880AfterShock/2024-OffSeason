@@ -11,7 +11,7 @@ object PositionMotorTemplate { //Prefix for commands
     private lateinit var motor: DcMotor //Init Motor Var
     var pos = 0.0 //starting Position
     @JvmField
-    var positions = doubleArrayOf(0.1, 0.2, 0.3, 0.4) //change your own //only first 2 ([0][1]) work rn
+    var positions = doubleArrayOf(0.1, 0.2, 0.3, 0.4, 0.5, 0.6) //change your own //only first 2 ([0][1]) work rn
     var currentPos = 0 //position in array. you can change the starting one
     val encoderTicks = 384.5 //calculate your own ratio
     private var leftBumperCurrentlyPressed = false
@@ -41,8 +41,8 @@ object PositionMotorTemplate { //Prefix for commands
             } else {
                 if (rightBumperCurrentlyPressed && !rightBumperPreviouslyPressed) {
                     currentPos =+ 1
-                    if (currentPos > positions.size) {
-                        currentPos = positions.size
+                    if (currentPos > positions.size + 1) {
+                        currentPos = positions.size + 1
                     }
                 }
             }
@@ -57,6 +57,10 @@ object PositionMotorTemplate { //Prefix for commands
         motor.targetPosition = (pos*encoderTicks).toInt()
         opmode.telemetry.addData("Motor list position", currentPos) //Set telemetry
         opmode.telemetry.addData("Motor target position", pos) //Set telemetry
+        opmode.telemetry.addData("left currently press", leftBumperCurrentlyPressed) //Set telemetry
+        opmode.telemetry.addData("left past press", leftBumperPreviouslyPressed) //Set telemetry
+        opmode.telemetry.addData("right currently press", rightBumperCurrentlyPressed) //Set telemetry
+        opmode.telemetry.addData("right past press", rightBumperPreviouslyPressed) //Set telemetry
     }
 
 }
