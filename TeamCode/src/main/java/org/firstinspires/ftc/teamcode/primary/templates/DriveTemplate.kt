@@ -17,12 +17,11 @@ object DriveTemplate { //Prefix for commands
     private lateinit var rightRear: DcMotor
     private lateinit var rightFront: DcMotor
     lateinit var opmode: OpMode //opmode var innit
-    var motorMode: DcMotor.RunMode = DcMotor.RunMode.RUN_TO_POSITION //set motor mode
     fun initDrive(opmode: OpMode){ //init motors
-      leftRear = hardwareMap.get(DcMotor::class.java, "leftRear") //motor config names
-      leftFront = hardwareMap.get(DcMotor::class.java,"leftFront")
-      rightRear = hardwareMap.get(DcMotor::class.java, "rightRear")
-      rightFront = hardwareMap.get(DcMotor::class.java, "rightFront")
+      leftRear = opmode.hardwareMap.get(DcMotor::class.java, "leftRear") //motor config names
+      leftFront = opmode.hardwareMap.get(DcMotor::class.java,"leftFront")
+      rightRear = opmode.hardwareMap.get(DcMotor::class.java, "rightRear")
+      rightFront = opmode.hardwareMap.get(DcMotor::class.java, "rightFront")
 
       leftRear.direction = DcMotorSimple.Direction.REVERSE //motor directions
       leftFront.direction = DcMotorSimple.Direction.REVERSE
@@ -37,9 +36,9 @@ object DriveTemplate { //Prefix for commands
             var rightBackPower: Double
             var rightFrontPower: Double
 
-            val strafe = gamepad1.left_stick_x.toDouble() //can change controls
-            val drive = -gamepad1.left_stick_y.toDouble()
-            val turn = gamepad1.right_stick_x.toDouble()
+            val strafe = opmode.gamepad1.left_stick_x.toDouble() //can change controls
+            val drive = -opmode.gamepad1.left_stick_y.toDouble()
+            val turn = opmode.gamepad1.right_stick_x.toDouble()
             leftBackPower = Range.clip(drive + turn - strafe, -1.0, 1.0)
             leftFrontPower = Range.clip(drive + turn + strafe, -1.0, 1.0)
             rightBackPower = Range.clip(drive - turn + strafe, -1.0, 1.0)
@@ -51,7 +50,7 @@ object DriveTemplate { //Prefix for commands
             rightRear.power = rightBackPower
             rightFront.power = rightFrontPower
 
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftBackPower, rightBackPower)
+            opmode.telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftBackPower, rightBackPower)
     }
 
 }
