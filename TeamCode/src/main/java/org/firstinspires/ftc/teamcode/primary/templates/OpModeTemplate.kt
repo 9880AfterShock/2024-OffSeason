@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.util.ElapsedTime
+import org.firstinspires.ftc.teamcode.DriveTemplate
 import org.firstinspires.ftc.teamcode.LiftTemplate
 import org.firstinspires.ftc.teamcode.PositionMotorTemplate
 
@@ -23,6 +24,7 @@ class OpmodeTemplate : LinearOpMode() {
         //Call Init Functions (make sure to add "this")
     //    LiftTemplate.initLift(this)
     //    ClawTemplate.initClaw(this)
+        DriveTemplate.initDrive(this)
         PositionMotorTemplate.initMotor(this)
 
         //Wait for start
@@ -33,6 +35,7 @@ class OpmodeTemplate : LinearOpMode() {
         while (opModeIsActive()) {
     //        LiftTemplate.updateLift()
     //        ClawTemplate.update()
+            DriveTemplate.updateDrive()
             PositionMotorTemplate.updateMotor()
             // Show the elapsed time (and other telemetry) on driver station
             telemetry.addData("Status", "Run Time: $runtime")

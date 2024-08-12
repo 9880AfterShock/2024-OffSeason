@@ -18,7 +18,7 @@ object DriveTemplate { //Prefix for commands
     private lateinit var rightFront: DcMotor
     lateinit var opmode: OpMode //opmode var innit
     var motorMode: DcMotor.RunMode = DcMotor.RunMode.RUN_TO_POSITION //set motor mode
-    fun initLift(opmode: OpMode){ //init motors
+    fun initDrive(opmode: OpMode){ //init motors
       leftRear = hardwareMap.get(DcMotor::class.java, "leftRear") //motor config names
       leftFront = hardwareMap.get(DcMotor::class.java,"leftFront")
       rightRear = hardwareMap.get(DcMotor::class.java, "rightRear")
@@ -31,7 +31,7 @@ object DriveTemplate { //Prefix for commands
       
       this.opmode = opmode
     }
-    fun updateLift(){
+    fun updateDrive(){
             var leftBackPower: Double
             var leftFrontPower: Double
             var rightBackPower: Double
